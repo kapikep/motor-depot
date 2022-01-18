@@ -1,12 +1,18 @@
 package by.epam.jwd.entity;
 
-public class CarModel {
-    private int id;
+import java.io.Serializable;
+
+public class CarModel implements Serializable{
+ 
+	private static final long serialVersionUID = 1L;
+	private int id;
     private String ModelName;
     private String type;
     private int loadCapacity;
     private int passengerCapacity;
     private String wheelDriveType;
+    
+    public CarModel() {}
 
     public CarModel(int id, String modelName, String type, int loadCapacity, int passengerCapacity, String wheelDriveType) {
         this.id = id;

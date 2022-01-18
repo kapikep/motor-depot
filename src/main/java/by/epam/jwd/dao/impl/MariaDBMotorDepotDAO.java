@@ -1,16 +1,16 @@
 package by.epam.jwd.dao.impl;
 
-import by.epam.jwd.dao.connection_pool.MySqlConnectionPool;
+import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
 
-public class MySqlMotorDepotDAO implements MotorDepotDAO {
+public class MariaDBMotorDepotDAO implements MotorDepotDAO {
 
-    private static final MySqlMotorDepotDAO INSTANCE = new MySqlMotorDepotDAO();
+    private static final MariaDBMotorDepotDAO INSTANCE = new MariaDBMotorDepotDAO();
     private static CarDAO carDAO = null;
-    private final MySqlConnectionPool connectionPool = MySqlConnectionPool.getPooledConnection();
+    private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
 
-    private MySqlMotorDepotDAO(){}
+    private MariaDBMotorDepotDAO(){}
 
     public static MotorDepotDAO getMySqlMotorDeportDao(){
         return INSTANCE;
@@ -19,7 +19,7 @@ public class MySqlMotorDepotDAO implements MotorDepotDAO {
     @Override
     public CarDAO getCarDao() {
         if (carDAO == null) {
-            carDAO = new MySqlCarDAO();
+            carDAO = new MariaDBCarDAO();
         }
         return carDAO;
     }

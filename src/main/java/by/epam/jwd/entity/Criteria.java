@@ -1,22 +1,22 @@
 package by.epam.jwd.entity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Criteria for finding an appliance
  */
-public class Criteria {
+public class Criteria implements Serializable{
 
-    private Map<String, String> paramsMap = new HashMap<>();
+	private static final long serialVersionUID = 1L;
+	private Map<String, String> paramsMap = new HashMap<>();
 
     public Criteria(String param, String value) {
         paramsMap.put(param, value);
     }
 
-    public Criteria() {
-
-    }
+    public Criteria() {}
 
     /**
      * @param param desired parameter of appliance

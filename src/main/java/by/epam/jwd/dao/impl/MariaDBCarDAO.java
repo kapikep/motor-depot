@@ -1,7 +1,7 @@
 package by.epam.jwd.dao.impl;
 
-import by.epam.jwd.dao.connection_pool.ConnectionPoolException;
-import by.epam.jwd.dao.connection_pool.MySqlConnectionPool;
+import by.epam.jwd.dao.DAOException;
+import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.CarModel;
@@ -14,16 +14,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySqlCarDAO implements CarDAO {
+public class MariaDBCarDAO implements CarDAO {
 
-    private final MySqlConnectionPool connectionPool = MySqlConnectionPool.getPooledConnection();
+    private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
 
     @Override
     public void createCar(String licencePlate, String color, CarModel carModel) {
     }
 
     @Override
-    public List<Car> readAllCar() {
+    public List<Car> readAllCar() throws DAOException {
         List<Car> cars = new ArrayList<>();
         try {
             Connection connection = connectionPool.takeConnection();
@@ -36,15 +36,12 @@ public class MySqlCarDAO implements CarDAO {
                 cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"), resultSet.getString("color"),
                         resultSet.getInt("car_model_id"), resultSet.getString("model_name"), resultSet.getString("type"),
                         resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"), resultSet.getString("wheel_drive_type")));
-
-//                System.out.println(resultSet.getString("id") + " | "+ resultSet.getString("licence_plate")
-//                        + " | "+ resultSet.getString("color")+ " | "+ resultSet.getString("model_name") + " | "+ resultSet.getString("type"));
             }
 
             connectionPool.returnConnection(connection, statement, resultSet);
 
-        } catch (ConnectionPoolException | SQLException e) {
-            e.printStackTrace();
+		} catch (SQLException e) {
+            throw new DAOException(e);
         }
         return cars;
     }

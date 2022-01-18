@@ -1,5 +1,6 @@
 package by.epam.jwd.dao.interf;
 
+import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.CarModel;
 import by.epam.jwd.entity.Criteria;
@@ -10,7 +11,7 @@ public interface CarDAO {
 
     void createCar (String licencePlate, String color, CarModel carModel);
 
-    List<Car> readAllCar();
+    List<Car> readAllCar() throws DAOException;
 
     List<Car> findCars (Criteria criteria);
 
