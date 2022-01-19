@@ -16,48 +16,51 @@ import java.util.List;
 
 public class MariaDBCarDAO implements CarDAO {
 
-    private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
+	private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
 
-    @Override
-    public void createCar(String licencePlate, String color, CarModel carModel) {
-    }
+	@Override
+	public void createCar(String licencePlate, String color, CarModel carModel) {
+	}
 
-    @Override
-    public List<Car> readAllCar() throws DAOException {
-        List<Car> cars = new ArrayList<>();
-        try {
-            Connection connection = connectionPool.takeConnection();
-            Statement statement = connection.createStatement();
+	@Override
+	public List<Car> readAllCar() throws DAOException {
+		List<Car> cars = new ArrayList<>();
+		try {
+			Connection connection = connectionPool.takeConnection();
+			Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id");
+			ResultSet resultSet = statement
+					.executeQuery("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id");
 
-            while (resultSet.next()){
+			while (resultSet.next()) {
 
-                cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"), resultSet.getString("color"),
-                        resultSet.getInt("car_model_id"), resultSet.getString("model_name"), resultSet.getString("type"),
-                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"), resultSet.getString("wheel_drive_type")));
-            }
+				cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
+						resultSet.getString("color"), resultSet.getInt("car_model_id"),
+						resultSet.getString("model_name"), resultSet.getString("type"),
+						resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+						resultSet.getString("wheel_drive_type")));
+			}
 
-            connectionPool.returnConnection(connection, statement, resultSet);
+			connectionPool.returnConnection(connection, statement, resultSet);
 
 		} catch (SQLException e) {
-            throw new DAOException(e);
-        }
-        return cars;
-    }
+			throw new DAOException(e);
+		}
+		return cars;
+	}
 
-    @Override
-    public List<Car> findCars(Criteria criteria) {
-        return null;
-    }
+	@Override
+	public List<Car> findCars(Criteria criteria) {
+		return null;
+	}
 
-    @Override
-    public void updateCat(int id, String licencePlate, String color, CarModel carModel) {
+	@Override
+	public void updateCat(int id, String licencePlate, String color, CarModel carModel) {
 
-    }
+	}
 
-    @Override
-    public void deleteCar(String licencePlate) {
+	@Override
+	public void deleteCar(String licencePlate) {
 
-    }
+	}
 }

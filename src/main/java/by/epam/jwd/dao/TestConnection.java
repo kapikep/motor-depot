@@ -1,9 +1,9 @@
-package by.epam.jwd.dao.impl;
+package by.epam.jwd.dao;
 
 import java.io.IOException;
 import java.sql.*;
 
-import by.epam.jwd.dao.DAOException;
+import by.epam.jwd.dao.impl.MariaDBMotorDepotDAO;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
 

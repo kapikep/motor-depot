@@ -1,4 +1,4 @@
-package by.epam.jwd.controller;
+package by.epam.jwd.controller.command;
 
 import java.io.IOException;
 
