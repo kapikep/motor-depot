@@ -1,4 +1,4 @@
-package by.epam.jwd.controller.impl;
+package by.epam.jwd.controller.command.impl;
 
 import java.io.IOException;
 
@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.jwd.controller.command.Command;
 
-public class GoToPresentationPage implements Command {
+public class GoToSignIn implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/WEB-INF/jsp/presentationPage.jsp").forward(request, response);
+		request.getRequestDispatcher(INDEX_PAGE).forward(request, response);
 
 	}
 

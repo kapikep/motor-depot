@@ -1,19 +1,21 @@
-package by.epam.jwd.controller.impl;
+package by.epam.jwd.controller.command.impl;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.command.PagePath;
 
-public class GoToSignIn implements Command {
+public class GoToPresentationPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("/WEB-INF/jsp/signIn.jsp").forward(request, response);
+
+		request.getRequestDispatcher(PagePath.PRESENTATION_PAGE).forward(request, response);
 
 	}
 

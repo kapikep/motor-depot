@@ -10,7 +10,7 @@
 <body>
 <h2>Sign in</h2>
 <form action="Controller" method="get">
-    <input type="hidden" name="command" value="GoToSignIn"> Login: <input
+    <input type="hidden" name="command" value="GoToAdminPage"> Login: <input
         type="text" name="login" value=""/> <br> Password: <input
         type="password" name="password" value=""/> <input type="submit"
                                                           value="Press me"/>

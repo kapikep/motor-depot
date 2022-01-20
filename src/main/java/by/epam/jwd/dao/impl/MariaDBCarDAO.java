@@ -18,6 +18,7 @@ public class MariaDBCarDAO implements CarDAO {
 
 	private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
 
+
 	@Override
 	public void createCar(String licencePlate, String color, CarModel carModel) {
 	}
@@ -25,6 +26,7 @@ public class MariaDBCarDAO implements CarDAO {
 	@Override
 	public List<Car> readAllCar() throws DAOException {
 		List<Car> cars = new ArrayList<>();
+
 		try {
 			Connection connection = connectionPool.takeConnection();
 			Statement statement = connection.createStatement();

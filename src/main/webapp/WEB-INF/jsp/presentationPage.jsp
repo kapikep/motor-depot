@@ -9,5 +9,19 @@
 </head>
 <body>
 Our Cars
+<ul>
+    <c:forEach var="cookies" items="${cookie}">
+        <li>
+            <br>
+            <c:out value="${cookies.key}" />:
+            <br>
+            Object=
+            <c:out value="${cookies.value}" />,
+            <br>
+            value=
+            <c:out value="${cookies.value.value}" />
+        </li>
+    </c:forEach>
+</ul>
 </body>
 </html>

@@ -29,6 +29,12 @@
         </init-param>
     </filter>
 
+    <dependency>
+        <groupId>org.mindrot</groupId>
+        <artifactId>jbcrypt</artifactId>
+        <version>0.4</version>
+    </dependency>
+
     <filter-mapping>
         <filter-name>Charset filter</filter-name>
         <url-pattern>/*</url-pattern>

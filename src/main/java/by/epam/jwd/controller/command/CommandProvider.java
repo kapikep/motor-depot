@@ -3,19 +3,18 @@ package by.epam.jwd.controller.command;
 import java.util.HashMap;
 import java.util.Map;
 
-import by.epam.jwd.controller.impl.GoToPresentationPage;
-import by.epam.jwd.controller.impl.GoToSignIn;
+import by.epam.jwd.controller.command.impl.GoToAdminPage;
+import by.epam.jwd.controller.command.impl.GoToPresentationPage;
+import by.epam.jwd.controller.command.impl.GoToSignIn;
 
 public final class CommandProvider {
-	
-	public final String GO_TO_SIGN_IN = "GoToSignIn";
-	public final String GO_TO_PRESENTATION_PAGE = "GoToPresentationPage";
 
 	private final Map<String, Command> commands = new HashMap<>();
 
 	public CommandProvider() {
-		commands.put(GO_TO_SIGN_IN, new GoToSignIn());
-		commands.put(GO_TO_PRESENTATION_PAGE, new GoToPresentationPage());
+		commands.put(Command.GO_TO_SIGN_IN, new GoToSignIn());
+		commands.put(Command.GO_TO_PRESENTATION_PAGE, new GoToPresentationPage());
+		commands.put(Command.GO_TO_ADMIN_PAGE, new GoToAdminPage());
 	}
 	
 	public final Command getCommand(String commandName) {
