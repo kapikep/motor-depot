@@ -3,12 +3,14 @@ package by.epam.jwd.dao.impl;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
+import by.epam.jwd.dao.interf.UserDao;
 
 public class MariaDBMotorDepotDAO implements MotorDepotDAO {
 
     private static final MariaDBMotorDepotDAO INSTANCE = new MariaDBMotorDepotDAO();
-    private static CarDAO carDAO = null;
     private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
+    private static CarDAO carDAO = null;
+    private static UserDao userDao = null;
 
     private MariaDBMotorDepotDAO(){}
 
@@ -22,6 +24,14 @@ public class MariaDBMotorDepotDAO implements MotorDepotDAO {
             carDAO = new MariaDBCarDAO();
         }
         return carDAO;
+    }
+
+    @Override
+    public UserDao getUserDao() {
+        if (userDao == null) {
+            userDao = new MariaDBUserDAO();
+        }
+        return userDao;
     }
 
     @Override

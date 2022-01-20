@@ -4,5 +4,7 @@ public interface MotorDepotDAO {
 
     CarDAO getCarDao();
 
+    UserDao getUserDao();
+
     void closeAllConnections();
 }

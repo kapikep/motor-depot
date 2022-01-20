@@ -5,6 +5,8 @@ import java.sql.*;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.UserDao;
+import by.epam.jwd.entity.Role;
+import by.epam.jwd.entity.Status;
 import by.epam.jwd.entity.User;
 
 public class MariaDBUserDAO implements UserDao{
@@ -15,29 +17,33 @@ public class MariaDBUserDAO implements UserDao{
 	@Override
 	public User authorization(String login, String password) throws DAOException {
 
-		User user;
+		User user = null;
 
 		try {
-			ResultSet resultSet;
+			ResultSet rs;
 			Connection connection = connectionPool.takeConnection();
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE login=? AND password=?");
 			ps.setString(1, login);
 			ps.setString(2, password);
 
-			resultSet = ps.executeQuery();
+			rs = ps.executeQuery();
 
-			//if (resultSet.next() && BCrypt.checkpw(password, resultSet.getString(PASSWORD))) {
+			if (rs.next()) {
+				user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("surname"), rs.getString("login"),
+						rs.getString("password"), rs.getDouble("phone_number"), rs.getString("photo"), Status.valueOf(rs.getString("status")),
+						rs.getString("e-mail"), Role.getRole(rs.getInt("roles_id")));
+			}
 				//userID = resultSet.getInt(ID);
 		
 			//return userID;
-	
-			
-			connectionPool.returnConnection(connection, statement, resultSet);
+
+
+			connectionPool.returnConnection(connection, ps, rs);
 
 	} catch (SQLException e) {
 		throw new DAOException(e);
 	}
-	return User;
+	return user;
 }
 
 	@Override
