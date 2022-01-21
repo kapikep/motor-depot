@@ -1,4 +1,7 @@
-package by.epam.jwd.controller.command;
+package by.epam.jwd.controller;
+
+import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.command.CommandProvider;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Controller
  */
 @WebServlet("/welcome")
-public class Welcome extends HttpServlet {
+public class WelcomeController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final CommandProvider provider = new CommandProvider();
@@ -19,7 +22,7 @@ public class Welcome extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Welcome() {
+    public WelcomeController() {
         super();
         // TODO Auto-generated constructor stub
     }
