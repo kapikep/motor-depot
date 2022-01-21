@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>Sign in</h2>
-<form action="Controller" method="post">
+<form action="welcome" method="post">
     <input type="hidden" name="command" value="SignIn">
     Login: <input type="text" name="login" value=""/> <br>
     Password: <input type="password" name="password" value=""/> <br>

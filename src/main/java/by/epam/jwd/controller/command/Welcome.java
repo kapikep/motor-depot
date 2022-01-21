@@ -2,6 +2,7 @@ package by.epam.jwd.controller.command;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Controller
  */
-public class Controller extends HttpServlet {
+@WebServlet("/welcome")
+public class Welcome extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final CommandProvider provider = new CommandProvider();
@@ -17,7 +19,7 @@ public class Controller extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Controller() {
+    public Welcome() {
         super();
         // TODO Auto-generated constructor stub
     }
