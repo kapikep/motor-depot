@@ -1,5 +1,6 @@
 package by.epam.jwd.dao.implementation;
 
+import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
@@ -35,7 +36,7 @@ public class MariaDBMotorDepotDAO implements MotorDepotDAO {
     }
 
     @Override
-    public void closeAllConnections() {
-        connectionPool.clearConnectionQueue();
+    public void closeAllConnections() throws DAOException {
+        connectionPool.closeConnectionQueue();
     }
 }

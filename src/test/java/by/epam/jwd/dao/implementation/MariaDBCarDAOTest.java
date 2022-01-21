@@ -1,6 +1,7 @@
 package by.epam.jwd.dao.implementation;
 
 import by.epam.jwd.dao.DAOException;
+import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
 import org.junit.Test;
@@ -11,14 +12,17 @@ public class MariaDBCarDAOTest {
 
     @Test
     public void readAllCar() throws DAOException, SQLException {
-        MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
-        CarDAO carDAO = motorDepotDAO.getCarDao();
 
         try {
+            MariaDBConnectionPool.initPool();
+            MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
+            CarDAO carDAO = motorDepotDAO.getCarDao();
             System.out.println(carDAO.readAllCar());
+            MariaDBConnectionPool.closeConnectionQueue();
         } catch (DAOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 }

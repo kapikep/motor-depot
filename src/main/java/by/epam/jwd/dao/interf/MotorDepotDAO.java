@@ -1,10 +1,12 @@
 package by.epam.jwd.dao.interf;
 
+import by.epam.jwd.dao.DAOException;
+
 public interface MotorDepotDAO {
 
     CarDAO getCarDao();
 
     UserDao getUserDao();
 
-    void closeAllConnections();
+    void closeAllConnections() throws DAOException;
 }
