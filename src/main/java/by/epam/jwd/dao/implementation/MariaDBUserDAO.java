@@ -1,4 +1,4 @@
-package by.epam.jwd.dao.impl;
+package by.epam.jwd.dao.implementation;
 
 import java.sql.*;
 
@@ -16,7 +16,6 @@ public class MariaDBUserDAO implements UserDao{
 
 	@Override
 	public User authorization(String login, String password) throws DAOException {
-
 		User user = null;
 
 		try {
@@ -33,10 +32,6 @@ public class MariaDBUserDAO implements UserDao{
 						rs.getString("password"), rs.getDouble("phone_number"), rs.getString("photo"), Status.valueOf(rs.getString("status")),
 						rs.getString("e-mail"), Role.getRole(rs.getInt("roles_id")));
 			}
-				//userID = resultSet.getInt(ID);
-		
-			//return userID;
-
 
 			connectionPool.returnConnection(connection, ps, rs);
 

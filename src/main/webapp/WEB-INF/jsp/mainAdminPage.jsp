@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Hello Admin
+Hello Admin ${userName}
 </body>
 </html>

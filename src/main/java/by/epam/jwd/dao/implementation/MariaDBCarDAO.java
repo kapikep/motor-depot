@@ -1,4 +1,4 @@
-package by.epam.jwd.dao.impl;
+package by.epam.jwd.dao.implementation;
 
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;

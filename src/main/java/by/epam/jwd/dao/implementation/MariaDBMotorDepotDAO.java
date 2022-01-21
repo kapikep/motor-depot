@@ -1,4 +1,4 @@
-package by.epam.jwd.dao.impl;
+package by.epam.jwd.dao.implementation;
 
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;

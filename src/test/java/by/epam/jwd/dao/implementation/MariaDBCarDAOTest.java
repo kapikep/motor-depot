@@ -1,22 +1,21 @@
-package by.epam.jwd.dao.impl;
+package by.epam.jwd.dao.implementation;
 
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
-import by.epam.jwd.dao.interf.UserDao;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.sql.SQLException;
 
-public class MariaDBUserDAOTest {
+public class MariaDBCarDAOTest {
 
     @Test
-    public void authorization() {
+    public void readAllCar() throws DAOException, SQLException {
         MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
-        UserDao userDao = motorDepotDAO.getUserDao();
+        CarDAO carDAO = motorDepotDAO.getCarDao();
 
         try {
-            System.out.println(userDao.authorization("Boris", "driver"));
+            System.out.println(carDAO.readAllCar());
         } catch (DAOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -13,7 +13,7 @@ public class GoToSignIn implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher(INDEX_PAGE).forward(request, response);
+		request.getRequestDispatcher(SIGN_IN_PAGE).forward(request, response);
 
 	}
 

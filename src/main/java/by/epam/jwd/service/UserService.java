@@ -1,10 +1,10 @@
 package by.epam.jwd.service;
 
-import by.epam.jwd.dao.DAOException;
+import by.epam.jwd.entity.User;
 
 public interface UserService {
 	
-	String authorization(String login, String password) throws ServiceException; //return role
+	User authorization(String login, String password) throws ServiceException; //return role
 	
 	boolean registration (String login, String password) throws ServiceException;
 	
