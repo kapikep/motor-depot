@@ -10,10 +10,11 @@
 <body>
 <h2>Sign in</h2>
 <form action="Controller" method="get">
-    <input type="hidden" name="command" value="GoToAdminPage"> Login: <input
-        type="text" name="login" value=""/> <br> Password: <input
-        type="password" name="password" value=""/> <input type="submit"
-                                                          value="Press me"/>
+    <input type="hidden" name="command" value="GoToAdminPage">
+    Login: <input type="text" name="login" value=""/> <br>
+    Password: <input type="password" name="password" value=""/> <br>
+    <input type="checkbox" name="remember"><label>Remember Me</label> <br>
+    <input type="submit" value="Sign in"/>
 </form>
 </body>
 </html>

@@ -3,9 +3,9 @@ package by.epam.jwd.controller.command;
 import java.util.HashMap;
 import java.util.Map;
 
-import by.epam.jwd.controller.command.impl.SignIn;
-import by.epam.jwd.controller.command.impl.GoToPresentationPage;
-import by.epam.jwd.controller.command.impl.GoToSignIn;
+import by.epam.jwd.controller.command.implementation.SignIn;
+import by.epam.jwd.controller.command.implementation.GoToPresentationPage;
+import by.epam.jwd.controller.command.implementation.GoToSignIn;
 
 public final class CommandProvider {
 
