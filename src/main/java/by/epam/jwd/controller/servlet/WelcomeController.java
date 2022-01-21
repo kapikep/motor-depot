@@ -1,4 +1,4 @@
-package by.epam.jwd.controller;
+package by.epam.jwd.controller.servlet;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
@@ -19,35 +19,16 @@ public class WelcomeController extends HttpServlet {
 
     private final CommandProvider provider = new CommandProvider();
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public WelcomeController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        //response.getWriter().append("Served at: ").append(request.getContextPath());
         process(request, response);
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        //doGet(request, response);
         process(request, response);
 
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String commandName = request.getParameter("command");
 
         if (commandName != null) {

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Hello Admin ${userName} ${sessionScope.get("role")}
+Hello Admin ${sessionScope.get("role")}
 </body>
 </html>

@@ -18,13 +18,11 @@ public interface Command {
     String INDEX_PAGE = "index.jsp";
     String PRESENTATION_PAGE = "/WEB-INF/jsp/presentationPage.jsp";
     String SIGN_IN_PAGE = "/WEB-INF/jsp/signInPage.jsp";
-    String MAIN_ADMIN_PAGE = "/WEB-INF/jsp/mainAdminPage.jsp";
+    String MAIN_ADMIN_PAGE = DEFAULT_PATH + "mainAdminPage.jsp";
     String ACCESS_DENIED_PAGE = DEFAULT_PATH + "accessDeniedPage.jsp";
     String MAIN_DRIVER_PAGE = DEFAULT_PATH + "mainDriverPage.jsp";
     String MAIN_CUSTOMER_PAGE = DEFAULT_PATH + "mainCustomerPage.jsp";
-    String ERROR_PAGE = "/WEB-INF/jsp/errorPage.jsp";
 
-    
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 }

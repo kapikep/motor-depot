@@ -45,13 +45,13 @@ public class SignIn implements Command {
 
             switch (user.getRole()) {
                 case ADMIN:
-                    request.getRequestDispatcher(MAIN_ADMIN_PAGE).forward(request, response);
+                    response.sendRedirect("admin");
                     break;
                 case CUSTOMER:
-					request.getRequestDispatcher(MAIN_CUSTOMER_PAGE).forward(request, response);
+                    response.sendRedirect("customer");
                     break;
                 case DRIVER:
-					request.getRequestDispatcher(MAIN_DRIVER_PAGE).forward(request, response);
+                    response.sendRedirect("driver");
                     break;
             }
 
