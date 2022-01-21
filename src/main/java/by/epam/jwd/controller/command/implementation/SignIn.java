@@ -35,8 +35,9 @@ public class SignIn implements Command {
 
         if (user != null && user.getStatus() == Status.ACTIVE) {
 
-            if(remember == null){
+            if(remember != null){
                 session.setAttribute("role", user.getRole());
+                session.setAttribute("userId", user.getId());
             }
 
 

@@ -44,12 +44,10 @@ public final class MariaDBConnectionPool extends ConnectionPool{
 				PooledConnection pooledConnection = new PooledConnection(connection);
 				connectionQueue.add(pooledConnection);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} // TODO Auto-generated catch block
+
 	}
 
 	public static MariaDBConnectionPool getConnectionPool() {
