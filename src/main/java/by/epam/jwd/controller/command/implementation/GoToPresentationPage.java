@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.PagePath;
+import by.epam.jwd.entity.Role;
 
 public class GoToPresentationPage implements Command {
 

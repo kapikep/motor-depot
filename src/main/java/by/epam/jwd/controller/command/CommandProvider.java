@@ -14,7 +14,7 @@ public final class CommandProvider {
 	public CommandProvider() {
 		commands.put(Command.GO_TO_SIGN_IN, new GoToSignIn());
 		commands.put(Command.GO_TO_PRESENTATION_PAGE, new GoToPresentationPage());
-		commands.put(Command.GO_TO_ADMIN_PAGE, new SignIn());
+		commands.put(Command.SIGN_IN, new SignIn());
 	}
 	
 	public final Command getCommand(String commandName) {

@@ -12,7 +12,7 @@ public interface Command {
 	String CONTROLLER = "Controller";
 	String GO_TO_SIGN_IN = "GoToSignIn";
 	String GO_TO_PRESENTATION_PAGE = "GoToPresentationPage";
-	String GO_TO_ADMIN_PAGE = "GoToAdminPage";
+	String SIGN_IN = "SignIn";
 
     String DEFAULT_PATH = "/WEB-INF/jsp/";
     String INDEX_PAGE = "index.jsp";
