@@ -1,2 +1,2 @@
 # motor-depot
-slowpoke work, please be patient
+slowpoke working, please be patient
