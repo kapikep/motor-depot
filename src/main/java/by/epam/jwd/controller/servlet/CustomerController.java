@@ -9,9 +9,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/admin")
-public class AdminServlet extends HttpServlet {
-    private final CommandProvider provider = new CommandProvider();
+@WebServlet("/customer")
+public class CustomerController extends HttpServlet {
+    private final CommandProvider provider = CommandProvider.getCommandProvider();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
@@ -26,17 +26,16 @@ public class AdminServlet extends HttpServlet {
 
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession(true);
-        System.out.println(session.getAttribute("role"));
 
-        if(session.getAttribute("role") == Role.ADMIN) {
+        if(session.getAttribute("role") == Role.CUSTOMER) {
             if (commandName != null) {
                 Command command = provider.getCommand(commandName);
                 command.execute(request, response);
             } else {
-                request.getRequestDispatcher(Command.MAIN_ADMIN_PAGE).forward(request, response);
+                request.getRequestDispatcher(Command.MAIN_CUSTOMER_PAGE).forward(request, response);
             }
         }else {
-            throw new IOException("Access denied");
+            response.sendRedirect("signIn");
         }
     }
 }

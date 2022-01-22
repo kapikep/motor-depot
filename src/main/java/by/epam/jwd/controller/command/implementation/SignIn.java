@@ -22,7 +22,7 @@ public class SignIn implements Command {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         User user = null;
 
         try {
@@ -38,6 +38,8 @@ public class SignIn implements Command {
             if(remember != null){
                 session.setAttribute("role", user.getRole());
                 session.setAttribute("userId", user.getId());
+            }else {
+                session.invalidate();
             }
 
 

@@ -13,7 +13,7 @@
     <input type="hidden" name="command" value="SignIn">
     Login: <input type="text" name="login" value=""/> <br>
     Password: <input type="password" name="password" value=""/> <br>
-    <input type="checkbox" name="remember"><label>Remember Me</label> <br>
+    <input type="checkbox" name="remember" checked><label>Remember role</label> <br>
     <input type="submit" value="Sign in"/>
 </form>
 </body>

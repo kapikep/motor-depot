@@ -22,9 +22,10 @@ public class CharsetFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
-		servletRequest.setCharacterEncoding(encoding);
-		filterChain.doFilter(servletRequest, servletResponse);
+		request.setCharacterEncoding(encoding);
+		filterChain.doFilter(request, response);
+
 	}
 }

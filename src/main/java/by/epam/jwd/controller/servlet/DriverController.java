@@ -10,9 +10,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 @WebServlet("/driver")
-public class DriverServlet extends HttpServlet {
+public class DriverController extends HttpServlet {
 
-    private final CommandProvider provider = new CommandProvider();
+    private final CommandProvider provider = CommandProvider.getCommandProvider();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
@@ -37,7 +37,7 @@ public class DriverServlet extends HttpServlet {
                 request.getRequestDispatcher(Command.MAIN_DRIVER_PAGE).forward(request, response);
             }
         }else {
-            throw new IOException("Access denied");
+            response.sendRedirect("signIn");
         }
     }
 }
