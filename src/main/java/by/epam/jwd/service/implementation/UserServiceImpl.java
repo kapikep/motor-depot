@@ -6,7 +6,7 @@ import by.epam.jwd.dao.interf.MotorDepotDAO;
 import by.epam.jwd.dao.interf.UserDao;
 import by.epam.jwd.entity.User;
 import by.epam.jwd.service.ServiceException;
-import by.epam.jwd.service.UserService;
+import by.epam.jwd.service.interf.UserService;
 import by.epam.jwd.service.validator.UserValidator;
 
 public class UserServiceImpl implements UserService {

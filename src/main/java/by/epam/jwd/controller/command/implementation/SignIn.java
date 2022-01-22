@@ -11,7 +11,7 @@ import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.entity.Status;
 import by.epam.jwd.entity.User;
 import by.epam.jwd.service.ServiceException;
-import by.epam.jwd.service.UserService;
+import by.epam.jwd.service.interf.UserService;
 import by.epam.jwd.service.implementation.UserServiceImpl;
 
 public class SignIn implements Command {
@@ -37,13 +37,11 @@ public class SignIn implements Command {
 
             if(remember != null){
                 session.setAttribute("role", user.getRole());
+                session.setAttribute("name", user.getName() + " " + user.getSurname());
                 session.setAttribute("userId", user.getId());
             }else {
                 session.invalidate();
             }
-
-
-            request.setAttribute("userName", user.getName());
 
             switch (user.getRole()) {
                 case ADMIN:
@@ -58,8 +56,8 @@ public class SignIn implements Command {
             }
 
         } else {
-            request.setAttribute("userName", login);
-            request.getRequestDispatcher(ACCESS_DENIED_PAGE).forward(request, response);
+            session.setAttribute("access", "Account block");
+            response.sendRedirect("signIn");
         }
     }
 }

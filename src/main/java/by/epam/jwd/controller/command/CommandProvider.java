@@ -3,10 +3,7 @@ package by.epam.jwd.controller.command;
 import java.util.HashMap;
 import java.util.Map;
 
-import by.epam.jwd.controller.command.implementation.GoToManageCars;
-import by.epam.jwd.controller.command.implementation.GoToSignIn;
-import by.epam.jwd.controller.command.implementation.LogOut;
-import by.epam.jwd.controller.command.implementation.SignIn;
+import by.epam.jwd.controller.command.implementation.*;
 
 public final class CommandProvider {
 
@@ -14,11 +11,13 @@ public final class CommandProvider {
 	private static final CommandProvider INSTANCE = new CommandProvider();
 
 	private CommandProvider() {
-		COMMANDS.put(Command.SIGN_IN_PAGE, new SignIn());
+		COMMANDS.put(Command.SIGN_IN, new SignIn());
 		COMMANDS.put(Command.LOG_OUT, new LogOut());
 		COMMANDS.put(Command.GO_TO_SIGN_IN, new GoToSignIn());
-		COMMANDS.put(Command.SIGN_IN, new SignIn());
-		COMMANDS.put(Command.GO_TO_MANAGE_CARS, new GoToManageCars());
+		COMMANDS.put(Command.GO_TO_ADMIN_CARS_PAGE, new GoToManageCars());
+		COMMANDS.put(Command.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
+		COMMANDS.put(Command.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrders());
+		COMMANDS.put(Command.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToEmployees());
 	}
 
 	public static CommandProvider getCommandProvider() {

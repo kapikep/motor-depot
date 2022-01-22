@@ -1,6 +1,7 @@
 package by.epam.jwd.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class CarModel implements Serializable{
  
@@ -21,6 +22,67 @@ public class CarModel implements Serializable{
         this.loadCapacity = loadCapacity;
         this.passengerCapacity = passengerCapacity;
         this.wheelDriveType = wheelDriveType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getModelName() {
+        return ModelName;
+    }
+
+    public void setModelName(String modelName) {
+        ModelName = modelName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(int loadCapacity) {
+        this.loadCapacity = loadCapacity;
+    }
+
+    public int getPassengerCapacity() {
+        return passengerCapacity;
+    }
+
+    public void setPassengerCapacity(int passengerCapacity) {
+        this.passengerCapacity = passengerCapacity;
+    }
+
+    public String getWheelDriveType() {
+        return wheelDriveType;
+    }
+
+    public void setWheelDriveType(String wheelDriveType) {
+        this.wheelDriveType = wheelDriveType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarModel carModel = (CarModel) o;
+        return id == carModel.id && loadCapacity == carModel.loadCapacity && passengerCapacity == carModel.passengerCapacity && Objects.equals(ModelName, carModel.ModelName) && Objects.equals(type, carModel.type) && Objects.equals(wheelDriveType, carModel.wheelDriveType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ModelName, type, loadCapacity, passengerCapacity, wheelDriveType);
     }
 
     @Override

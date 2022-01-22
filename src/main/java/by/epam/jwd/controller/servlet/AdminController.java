@@ -26,7 +26,8 @@ public class AdminController extends HttpServlet {
 
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession();
-        //session.setAttribute("role", Role.ADMIN);
+        session.setAttribute("role", Role.ADMIN);
+        session.setAttribute("name", "Boris");
 
         if(session.getAttribute("role") == Role.ADMIN) {
             if (commandName != null) {

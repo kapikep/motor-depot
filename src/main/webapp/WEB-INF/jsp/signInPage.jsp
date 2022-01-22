@@ -15,6 +15,9 @@
     Password: <input type="password" name="password" value=""/> <br>
     <input type="checkbox" name="remember" checked><label>Remember role</label> <br>
     <input type="submit" value="Sign in"/>
+    <br>
+    <c:out value="${sessionScope.access}" />
+
 </form>
 </body>
 </html>

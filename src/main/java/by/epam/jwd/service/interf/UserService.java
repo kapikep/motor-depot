@@ -1,6 +1,7 @@
-package by.epam.jwd.service;
+package by.epam.jwd.service.interf;
 
 import by.epam.jwd.entity.User;
+import by.epam.jwd.service.ServiceException;
 
 public interface UserService {
 	

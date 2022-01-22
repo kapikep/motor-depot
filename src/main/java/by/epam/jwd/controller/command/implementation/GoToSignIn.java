@@ -14,7 +14,7 @@ public class GoToSignIn implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Role role = (Role)request.getSession().getAttribute("role");
         if(role == null){
-            response.sendRedirect(SIGN_IN_PAGE);
+            response.sendRedirect(SIGN_IN);
         }else{
             switch (role) {
                 case ADMIN:

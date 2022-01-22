@@ -8,11 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-Hello Admin
-Manage orders
-Manage employees
-Manage customers
-<p> <a href="?command=GoToManageCars"> Manage cars </a> </p>
-<p> <a href="welcome?command=LogOut"> Log out </a> </p>
+
+<jsp:include page="_header.jsp"></jsp:include>
+
 </body>
 </html>
