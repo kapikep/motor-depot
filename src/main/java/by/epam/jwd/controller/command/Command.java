@@ -12,6 +12,7 @@ public interface Command {
     String CONTROLLER = "Controller";
     String DEFAULT_PATH = "/WEB-INF/jsp/";
     String INDEX_PAGE = "index.jsp";
+    String SIGN_IN_PAGE = "signIn";
     String SIGN_IN = "SignIn";
     String LOG_OUT = "LogOut";
     String GO_TO_SIGN_IN = "GoToSignIn";
@@ -30,6 +31,6 @@ public interface Command {
     String ADMIN_CUSTOMERS_PAGE = DEFAULT_PATH + "admin/customersPage.jsp";
     String GO_TO_ADMIN_CUSTOMERS_PAGE = "GoToCustomersPage";
 
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 }
