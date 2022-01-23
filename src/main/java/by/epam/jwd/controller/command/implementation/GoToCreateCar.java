@@ -10,6 +10,6 @@ import java.io.IOException;
 public class GoToCreateCar implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher(ADMIN_CREATE_CAR_PAGE).forward(request, response);
     }
 }

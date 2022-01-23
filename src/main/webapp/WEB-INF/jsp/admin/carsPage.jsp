@@ -50,7 +50,7 @@
     </c:forEach>
 </table>
 <br>
-<a href="createProduct" style="padding: 5px;">Add Car</a>
+<a href="?command=GoToCreateCar" style="padding: 5px;">Add Car</a>
 
 </body>
 </html>

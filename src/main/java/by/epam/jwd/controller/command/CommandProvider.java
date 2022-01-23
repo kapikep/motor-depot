@@ -18,6 +18,8 @@ public final class CommandProvider {
 		COMMANDS.put(Command.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
 		COMMANDS.put(Command.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrders());
 		COMMANDS.put(Command.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToEmployees());
+		COMMANDS.put(Command.GO_TO_ADMIN_CREATE_CAR, new GoToCreateCar());
+		COMMANDS.put(Command.ADMIN_CREATE_CAR, new CreateCar());
 	}
 
 	public static CommandProvider getCommandProvider() {
