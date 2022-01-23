@@ -16,8 +16,11 @@ public class CarServiceImpl implements CarService {
     private final CarDAO CAR_DAO = MOTOR_DEPORT_DAO.getCarDao();
 
     @Override
-    public boolean createMadel(CarModel carModel) throws ServiceException {
+    public boolean createMadel(String modelName, String type, String loadCapacityStr, String passengerCapacityStr, String wheelDriveType) throws ServiceException {
         boolean result;
+        int loadCapacity = Integer.parseInt(loadCapacityStr);
+        int passengerCapacity = Integer.parseInt(passengerCapacityStr);
+        CarModel carModel = new CarModel(modelName, type, loadCapacity, passengerCapacity, wheelDriveType);
         try {
             //TODO validate
             result = CAR_DAO.createMadel(carModel);
@@ -28,8 +31,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public boolean createCar(Car car) throws ServiceException {
+    public boolean createCar(String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException {
         boolean result;
+        //TODO validation
+        int odometr = Integer.parseInt(odometrStr);
+        int carModelId = Integer.parseInt(carModelIdStr);
+
+        Car car = new Car(licencePlate, color, photo, odometr, status, carModelId);
         try {
             //TODO validate
             result = CAR_DAO.createCar(car);

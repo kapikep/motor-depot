@@ -13,8 +13,8 @@
 <body>
 Our Cars
 <br>
- value="${Role.ADMIN}" />
-<c:out value="${MariaDBCarDAO:CREATE_CAR}" />
+<%-- value="${Role.ADMIN}"--%>
+<%--${MariaDBCarDAO.CREATE_CAR}--%>
 
 <ul>
     <c:forEach var="cookies" items="${cookie}">

@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface CarService {
 
+    boolean createMadel(String modelName, String type, String loadCapacityStr, String passengerCapacityStr, String wheelDriveType) throws ServiceException;
+
+    boolean createCar(String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException;
+
     List<Car> readAllCar() throws ServiceException;
-    boolean createMadel(CarModel carModel) throws ServiceException;
-    boolean createCar(Car car) throws ServiceException;
 
     List<CarModel> readAllCarModel() throws ServiceException;
 }

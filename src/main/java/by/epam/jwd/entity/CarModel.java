@@ -24,6 +24,14 @@ public class CarModel implements Serializable{
         this.wheelDriveType = wheelDriveType;
     }
 
+    public CarModel(String modelName, String type, int loadCapacity, int passengerCapacity, String wheelDriveType) {
+        this.modelName = modelName;
+        this.type = type;
+        this.loadCapacity = loadCapacity;
+        this.passengerCapacity = passengerCapacity;
+        this.wheelDriveType = wheelDriveType;
+    }
+
     public int getId() {
         return id;
     }

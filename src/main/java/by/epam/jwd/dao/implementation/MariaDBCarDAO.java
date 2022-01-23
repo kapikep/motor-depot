@@ -12,7 +12,7 @@ import java.util.List;
 public class MariaDBCarDAO implements CarDAO {
 
     private final MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
-    public static final String CREATE_CAR = "INSERT INTO cars (licence_plate, color, car_photo, odometr, status, car_model_id)" +
+    private final String CREATE_CAR = "INSERT INTO cars (licence_plate, color, car_photo, odometr, status, car_model_id)" +
             "VALUES(?, ?, ?, ?, ?, ?)";
     private final String CREATE_MODEL = "INSERT INTO car_model (model_name, `type`, load_capacity, passenger_capacity, wheel_drive_type) " +
             "VALUES(?, ?, ?, ?, ?)";
