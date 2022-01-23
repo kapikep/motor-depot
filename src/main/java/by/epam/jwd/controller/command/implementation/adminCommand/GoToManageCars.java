@@ -1,4 +1,4 @@
-package by.epam.jwd.controller.command.implementation;
+package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.entity.Car;

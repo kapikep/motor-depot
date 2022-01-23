@@ -5,11 +5,16 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<p> <a href="welcome?command=GoToSignIn"> Sign In </a> </p>
+	<a href="welcome?command=GoToSignIn"> Sign In </a>
+
 	<c:if test="${sessionScope.role != null}">
-		<p> <a href="welcome?command=LogOut"> Log Out </a> </p>
+		<a href="welcome?command=LogOut"> Log Out </a>
 	</c:if>
+
+	<br>
+
 	Role ${sessionScope.role}
+
 	<h2>Minsk Motor depot</h2>
 	<p> <a href="presentation"> Our cars </a> </p>
 

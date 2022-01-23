@@ -17,6 +17,7 @@
     <input type="submit" value="Sign in"/>
     <br>
     <c:out value="${sessionScope.access}" />
+    <p> <a href="/motor-depot" > Go to main page </a> </p>
 
 </form>
 </body>

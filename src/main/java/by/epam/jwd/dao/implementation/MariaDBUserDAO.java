@@ -9,52 +9,52 @@ import by.epam.jwd.entity.Role;
 import by.epam.jwd.entity.Status;
 import by.epam.jwd.entity.User;
 
-public class MariaDBUserDAO implements UserDao{
-	
-	private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
-	private static final String AUTHORIZATION = "SELECT * FROM users WHERE login=? AND";
+public class MariaDBUserDAO implements UserDao {
 
-	@Override
-	public User authorization(String login, String password) throws DAOException {
-		User user = null;
+    private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
+    private static final String AUTHORIZATION = "SELECT * FROM users WHERE login=? AND";
 
-		try {
-			ResultSet rs;
-			Connection connection = connectionPool.takeConnection();
-			PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE login=? AND password=?");
-			ps.setString(1, login);
-			ps.setString(2, password);
+    @Override
+    public User authorization(String login, String password) throws DAOException {
+        User user = null;
 
-			rs = ps.executeQuery();
+        try {
+            ResultSet rs;
+            Connection connection = connectionPool.takeConnection();
+            PreparedStatement ps = connection.prepareStatement(AUTHORIZATION);
+            ps.setString(1, login);
+            ps.setString(2, password);
 
-			if (rs.next()) {
-				user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("surname"), rs.getString("login"),
-						rs.getString("password"), rs.getDouble("phone_number"), rs.getString("photo"), Status.valueOf(rs.getString("status")),
-						rs.getString("e-mail"), Role.getRole(rs.getInt("roles_id")));
-			}
+            rs = ps.executeQuery();
 
-			connectionPool.returnConnection(connection, ps, rs);
+            if (rs.next()) {
+                user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("surname"), rs.getString("login"),
+                        rs.getString("password"), rs.getDouble("phone_number"), rs.getString("photo"), Status.valueOf(rs.getString("status")),
+                        rs.getString("e-mail"), Role.getRole(rs.getInt("roles_id")));
+            }
 
-	} catch (SQLException e) {
-		throw new DAOException(e);
-	}
-	return user;
-}
+            connectionPool.returnConnection(connection, ps, rs);
 
-	@Override
-	public boolean createUser(User user) throws DAOException {
-		
-		return false;
-	}
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return user;
+    }
 
-	@Override
-	public User findUser(String login) throws DAOException {
-		return null;
-	}
+    @Override
+    public boolean createUser(User user) throws DAOException {
 
-	@Override
-	public void updateUser(User user) throws DAOException {
+        return false;
+    }
 
-	}
+    @Override
+    public User findUser(String login) throws DAOException {
+        return null;
+    }
+
+    @Override
+    public void updateUser(User user) throws DAOException {
+
+    }
 
 }

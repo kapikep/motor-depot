@@ -16,62 +16,60 @@ import java.util.List;
 
 public class MariaDBCarDAO implements CarDAO {
 
-	private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
+    private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
+
+    @Override
+    public boolean createCar(Car car) {
+        return false;
+    }
+
+    @Override
+    public boolean createMadel(CarModel carModel) {
+        return false;
+    }
 
 
+    @Override
+    public List<Car> readAllCar() throws DAOException {
+        List<Car> cars = new ArrayList<>();
 
-	@Override
-	public boolean createCar(Car car) {
-		return false;
-	}
+        try {
+            Connection connection = connectionPool.takeConnection();
+            Statement statement = connection.createStatement();
 
-	@Override
-	public boolean createMadel(CarModel carModel) {
-		return false;
-	}
+            ResultSet resultSet = statement
+                    .executeQuery("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id");
 
+            while (resultSet.next()) {
 
-	@Override
-	public List<Car> readAllCar() throws DAOException {
-		List<Car> cars = new ArrayList<>();
+                cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
+                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
+                        resultSet.getString("model_name"), resultSet.getString("type"),
+                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+                        resultSet.getString("wheel_drive_type"), resultSet.getString("odometr"),
+                        resultSet.getString("status"), resultSet.getString("car_photo")));
+            }
 
-		try {
-			Connection connection = connectionPool.takeConnection();
-			Statement statement = connection.createStatement();
+            connectionPool.returnConnection(connection, statement, resultSet);
 
-			ResultSet resultSet = statement
-					.executeQuery("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id");
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return cars;
+    }
 
-			while (resultSet.next()) {
+    @Override
+    public List<Car> findCars(Criteria criteria) {
+        return null;
+    }
 
-				cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
-						resultSet.getString("color"), resultSet.getInt("car_model_id"),
-						resultSet.getString("model_name"), resultSet.getString("type"),
-						resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
-						resultSet.getString("wheel_drive_type"), resultSet.getString("odometr"),
-						resultSet.getString("status"), resultSet.getString("car_photo")));
-			}
+    @Override
+    public void updateCat(int id, String licencePlate, String color, CarModel carModel) {
 
-			connectionPool.returnConnection(connection, statement, resultSet);
+    }
 
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		}
-		return cars;
-	}
+    @Override
+    public void deleteCar(String licencePlate) {
 
-	@Override
-	public List<Car> findCars(Criteria criteria) {
-		return null;
-	}
-
-	@Override
-	public void updateCat(int id, String licencePlate, String color, CarModel carModel) {
-
-	}
-
-	@Override
-	public void deleteCar(String licencePlate) {
-
-	}
+    }
 }
