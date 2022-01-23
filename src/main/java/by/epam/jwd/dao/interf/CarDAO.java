@@ -9,16 +9,16 @@ import java.util.List;
 
 public interface CarDAO {
 
-    boolean createCar (Car car);
+    boolean createCar (Car car) throws DAOException;
 
-    boolean createMadel (CarModel carModel);
+    boolean createMadel (CarModel carModel) throws DAOException;
 
     List<Car> readAllCar() throws DAOException;
 
     List<Car> findCars (Criteria criteria);
 
-    void updateCat (int id, String licencePlate, String color, CarModel carModel);
+    void updateCar(Car car);
 
-    void deleteCar (String licencePlate);
+    void deleteCar(int id);
 
 }

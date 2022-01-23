@@ -24,7 +24,6 @@ public class GoToManageCars implements Command {
             e.printStackTrace();
         }
         request.setAttribute("cars", cars);
-        System.out.println(cars);
         request.getRequestDispatcher(ADMIN_CARS_PAGE).forward(request, response);
     }
 }

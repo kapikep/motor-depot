@@ -13,5 +13,16 @@
 <body>
 <jsp:include page="_header.jsp"></jsp:include>
 Create car
+<form action="welcome" method="get">
+    <input type="hidden" name="command" value="SignIn">
+    Login: <input type="text" name="login" value=""/> <br>
+    Password: <input type="password" name="password" value=""/> <br>
+    <input type="checkbox" name="remember" checked><label>Remember role</label> <br>
+    <input type="submit" value="Sign in"/>
+    <br>
+    <c:out value="${sessionScope.access}" />
+    <p> <a href="/motor-depot" > Go to main page </a> </p>
+
+</form>
 </body>
 </html>

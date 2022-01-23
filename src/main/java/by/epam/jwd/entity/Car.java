@@ -10,13 +10,13 @@ public class Car extends CarModel  { //extends carModel?
     private String licencePlate;
     private String color;
     private int carModelId;
-    private String odometr;
+    private int odometr;
     private String status;
     private String photo;
 
     public Car() {}
 
-    public Car(int id, String licencePlate, String color, String photo, String odometr, String status,  int carModelId) {
+    public Car(int id, String licencePlate, String color, String photo, int odometr, String status,  int carModelId) {
         this.id = id;
         this.licencePlate = licencePlate;
         this.color = color;
@@ -27,7 +27,7 @@ public class Car extends CarModel  { //extends carModel?
     }
 
     public Car(int id, String licencePlate, String color, int carModelId, String modelName, String type, int loadCapacity, int passengerCapacity, String wheelDriveType,
-               String odometr, String status, String photo) {
+               int odometr, String status, String photo) {
         super(carModelId, modelName, type, loadCapacity, passengerCapacity, wheelDriveType);
         this.id = id;
         this.licencePlate = licencePlate;
@@ -72,11 +72,11 @@ public class Car extends CarModel  { //extends carModel?
         this.carModelId = carModelId;
     }
 
-    public String getOdometr() {
+    public int getOdometr() {
         return odometr;
     }
 
-    public void setOdometr(String odometr) {
+    public void setOdometr(int odometr) {
         this.odometr = odometr;
     }
 

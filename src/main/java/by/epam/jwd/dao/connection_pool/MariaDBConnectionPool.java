@@ -91,6 +91,21 @@ public final class MariaDBConnectionPool extends ConnectionPool {
         }
     }
 
+    public void returnConnection(Connection connection, Statement statement) throws DAOException {
+
+        try {
+            connection.close();    //override method in PooledConnection, not close connection, just return in  connectionQueue
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+
+        try {
+            statement.close();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
     public static void closeConnectionQueue() throws DAOException {
         try {
             closeConnectionsQueue(givenAwayConQueue);

@@ -27,7 +27,6 @@ public class SignIn implements Command {
 
         try {
             user = userService.authorization(login, password);
-            System.out.println(user);
         } catch (ServiceException e) {
             e.printStackTrace();
             //TODO

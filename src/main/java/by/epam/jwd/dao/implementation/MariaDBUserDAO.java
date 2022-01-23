@@ -11,8 +11,8 @@ import by.epam.jwd.entity.User;
 
 public class MariaDBUserDAO implements UserDao {
 
-    private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
-    private static final String AUTHORIZATION = "SELECT * FROM users WHERE login=? AND";
+    private final MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
+    private final String AUTHORIZATION = "SELECT * FROM users WHERE login=? AND password=?";
 
     @Override
     public User authorization(String login, String password) throws DAOException {
@@ -20,7 +20,7 @@ public class MariaDBUserDAO implements UserDao {
 
         try {
             ResultSet rs;
-            Connection connection = connectionPool.takeConnection();
+            Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement(AUTHORIZATION);
             ps.setString(1, login);
             ps.setString(2, password);
@@ -33,7 +33,7 @@ public class MariaDBUserDAO implements UserDao {
                         rs.getString("e-mail"), Role.getRole(rs.getInt("roles_id")));
             }
 
-            connectionPool.returnConnection(connection, ps, rs);
+            CONNECTION_POOL.returnConnection(connection, ps, rs);
 
         } catch (SQLException e) {
             throw new DAOException(e);

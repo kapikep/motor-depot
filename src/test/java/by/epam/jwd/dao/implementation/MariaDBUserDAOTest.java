@@ -15,7 +15,6 @@ public class MariaDBUserDAOTest {
             MariaDBConnectionPool.initPool();
             MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
             UserDao userDao = motorDepotDAO.getUserDao();
-            System.out.println(userDao.authorization("Boris", "driver"));
             MariaDBConnectionPool.closeConnectionQueue();
         } catch (DAOException e) {
             // TODO Auto-generated catch block
