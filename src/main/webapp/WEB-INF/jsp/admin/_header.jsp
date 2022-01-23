@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<div style="background: rgba(2,186,171,0.37); height: 30px; padding: 5px;">
+<link href="css/table.css" rel="stylesheet" >
+<div style="background: rgba(2,186,171,0.37); height: 30px; padding: 5px; border-radius: 10px;">
     <div style="float: right; padding: 5px; text-align: right;">
         Hello <b>${sessionScope.name}</b> <a href="welcome?command=LogOut"> Log out </a>
         <br/>
@@ -14,5 +15,4 @@
         |
         <a href="?command=GoToCarsPage">Cars</a>
     </div>
-
 </div>

@@ -17,6 +17,7 @@ public class MariaDBCarDAOTest {
             MariaDBConnectionPool.initPool();
             MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
             CarDAO carDAO = motorDepotDAO.getCarDao();
+            System.out.println(carDAO.readAllCar());
             MariaDBConnectionPool.closeConnectionQueue();
         } catch (DAOException e) {
             // TODO Auto-generated catch block

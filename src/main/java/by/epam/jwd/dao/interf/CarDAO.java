@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface CarDAO {
 
-    void createCar (String licencePlate, String color, CarModel carModel);
+    boolean createCar (Car car);
+
+    boolean createMadel (CarModel carModel);
 
     List<Car> readAllCar() throws DAOException;
 

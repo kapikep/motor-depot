@@ -19,9 +19,17 @@ public class MariaDBCarDAO implements CarDAO {
 	private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
 
 
+
 	@Override
-	public void createCar(String licencePlate, String color, CarModel carModel) {
+	public boolean createCar(Car car) {
+		return false;
 	}
+
+	@Override
+	public boolean createMadel(CarModel carModel) {
+		return false;
+	}
+
 
 	@Override
 	public List<Car> readAllCar() throws DAOException {
@@ -40,7 +48,8 @@ public class MariaDBCarDAO implements CarDAO {
 						resultSet.getString("color"), resultSet.getInt("car_model_id"),
 						resultSet.getString("model_name"), resultSet.getString("type"),
 						resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
-						resultSet.getString("wheel_drive_type")));
+						resultSet.getString("wheel_drive_type"), resultSet.getString("odometr"),
+						resultSet.getString("status"), resultSet.getString("car_photo")));
 			}
 
 			connectionPool.returnConnection(connection, statement, resultSet);
