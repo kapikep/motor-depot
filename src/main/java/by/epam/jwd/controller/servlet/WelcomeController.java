@@ -32,7 +32,7 @@ public class WelcomeController extends HttpServlet {
         String commandName = request.getParameter("command");
 
         if (commandName != null) {
-            Command command = provider.getCommand(commandName);
+            Command command = provider.getWelcomeCommand(commandName);
             command.execute(request, response);
         } else {
             response.sendRedirect(Command.INDEX_PAGE);

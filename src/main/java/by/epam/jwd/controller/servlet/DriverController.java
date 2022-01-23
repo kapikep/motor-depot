@@ -31,7 +31,7 @@ public class DriverController extends HttpServlet {
 
         if(session.getAttribute("role") == Role.DRIVER) {
             if (commandName != null) {
-                Command command = provider.getCommand(commandName);
+                Command command = provider.getDriverCommand(commandName);
                 command.execute(request, response);
             } else {
                 request.getRequestDispatcher(Command.MAIN_DRIVER_PAGE).forward(request, response);

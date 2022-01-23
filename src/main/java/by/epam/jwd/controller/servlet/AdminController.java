@@ -31,7 +31,7 @@ public class AdminController extends HttpServlet {
 
         if(session.getAttribute("role") == Role.ADMIN) {
             if (commandName != null) {
-                Command command = provider.getCommand(commandName);
+                Command command = provider.getAdminCommand(commandName);
                 command.execute(request, response);
             } else {
                 request.getRequestDispatcher(Command.MAIN_ADMIN_PAGE).forward(request, response);

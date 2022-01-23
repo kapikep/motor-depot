@@ -29,7 +29,7 @@ public class CustomerController extends HttpServlet {
 
         if(session.getAttribute("role") == Role.CUSTOMER) {
             if (commandName != null) {
-                Command command = provider.getCommand(commandName);
+                Command command = provider.getCustomerCommand(commandName);
                 command.execute(request, response);
             } else {
                 request.getRequestDispatcher(Command.MAIN_CUSTOMER_PAGE).forward(request, response);
