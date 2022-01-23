@@ -30,6 +30,9 @@ public interface Command {
     String GO_TO_ADMIN_EMPLOYEES_PAGE = "GoToEmployeesPage";
     String ADMIN_CUSTOMERS_PAGE = DEFAULT_PATH + "admin/customersPage.jsp";
     String GO_TO_ADMIN_CUSTOMERS_PAGE = "GoToCustomersPage";
+    String GO_TO_CREATE_CAR = "GoToCreateCar";
+    String CREATE_CAR = "CreateCar";
+    String CREATE_CAR_PAGE = DEFAULT_PATH + "admin/createCarPage.jsp";
 
 	void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
