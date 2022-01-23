@@ -10,7 +10,7 @@
 <body>
 <h2>Sign in</h2>
 <form action="welcome" method="get">
-    <input type="hidden" name="command" value="CreateCar">
+    <input type="hidden" name="command" value="SignIn">
     Login: <input type="text" name="login"/> <br>
     Password: <input type="password" name="password" value=""/> <br>
     <input type="checkbox" name="remember" checked><label>Remember role</label> <br>
@@ -18,7 +18,6 @@
     <br>
     <c:out value="${sessionScope.access}" />
     <p> <a href="/motor-depot" > Go to main page </a> </p>
-
 </form>
 </body>
 </html>

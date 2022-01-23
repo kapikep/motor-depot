@@ -47,7 +47,17 @@ public class CarServiceImpl implements CarService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
+        return cars;
+    }
 
+    @Override
+    public List<CarModel> readAllCarModel() throws ServiceException {
+        List<CarModel> cars;
+        try {
+            cars = CAR_DAO.readAllCarModels();
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
         return cars;
     }
 }

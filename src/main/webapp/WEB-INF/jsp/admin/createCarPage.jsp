@@ -1,28 +1,39 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kep
-  Date: 23.01.2022
-  Time: 8:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <title>Create cars Page</title>
 </head>
 <body>
 <jsp:include page="_header.jsp"></jsp:include>
-Create car
-<form action="welcome" method="get">
-    <input type="hidden" name="command" value="SignIn">
-    Login: <input type="text" name="login" value=""/> <br>
-    Password: <input type="password" name="password" value=""/> <br>
-    <input type="checkbox" name="remember" checked><label>Remember role</label> <br>
-    <input type="submit" value="Sign in"/>
-    <br>
-    <c:out value="${sessionScope.access}" />
-    <p> <a href="/motor-depot" > Go to main page </a> </p>
+<br>
+<form action="admin" method="get">
+    <input type="hidden" name="command" value="CreateCar">
 
-</form>
+    LicencePlate: <input type="text" name="licencePlate" value=""/> <br>
+    Color: <input type="text" name="color" value=""/> <br>
+    Odometr: <input type="text" name="odometr" value=""/> <br>
+    Status: <input type="text" name="status" value=""/> <br>
+    Select car model:
+    <select>
+        <c:forEach var="carModel" items="${carModels}">
+           <option><c:out value="${carModel}"/></option>
+        </c:forEach>
+    </select>
+        <input type="submit" value="Create car"/>
+        <br>
+        <br>
+        <form action="admin" method="get">
+            <input type="hidden" name="command" value="CreateCarModel">
+
+            ModelName: <input type="text" name="ModelName" value=""/> <br>
+            Type: <input type="text" name="type" value=""/> <br>
+            LoadCapacity: <input type="text" name="loadCapacity" value=""/> <br>
+            Passenger Capacity: <input type="text" name="passengerCapacity" value=""/> <br>
+            Wheel Drive Type: <input type="text" name="wheelDriveType" value=""/> <br>
+            <input type="submit" value="Create car model"/>
+            <br>
+        </form>
 </body>
 </html>

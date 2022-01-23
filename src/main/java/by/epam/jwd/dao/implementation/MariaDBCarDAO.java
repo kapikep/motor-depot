@@ -12,10 +12,12 @@ import java.util.List;
 public class MariaDBCarDAO implements CarDAO {
 
     private final MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
-    private final String CREATE_CAR = "INSERT INTO cars (licence_plate, color, car_photo, odometr, status, car_model_id)" +
+    public static final String CREATE_CAR = "INSERT INTO cars (licence_plate, color, car_photo, odometr, status, car_model_id)" +
             "VALUES(?, ?, ?, ?, ?, ?)";
     private final String CREATE_MODEL = "INSERT INTO car_model (model_name, `type`, load_capacity, passenger_capacity, wheel_drive_type) " +
             "VALUES(?, ?, ?, ?, ?)";
+    private final String FIND_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id";
+    private final String FIND_CAR_MODEL = "SELECT * FROM car_model";
 
     @Override
     public boolean createCar(Car car) throws DAOException {
@@ -75,7 +77,7 @@ public class MariaDBCarDAO implements CarDAO {
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement
-                    .executeQuery("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id");
+                    .executeQuery(FIND_CAR);
 
             while (resultSet.next()) {
 
@@ -85,6 +87,33 @@ public class MariaDBCarDAO implements CarDAO {
                         resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
                         resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
                         resultSet.getString("status"), resultSet.getString("car_photo")));
+            }
+
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return cars;
+    }
+
+    @Override
+    public List<CarModel> readAllCarModels() throws DAOException {
+        List<CarModel> cars = new ArrayList<>();
+
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement
+                    .executeQuery(FIND_CAR_MODEL);
+
+            while (resultSet.next()) {
+
+                cars.add(new CarModel(resultSet.getInt("id"),
+                        resultSet.getString("model_name"), resultSet.getString("type"),
+                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+                        resultSet.getString("wheel_drive_type")));
             }
 
             CONNECTION_POOL.returnConnection(connection, statement, resultSet);

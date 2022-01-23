@@ -26,6 +26,16 @@ public class Car extends CarModel  { //extends carModel?
         this.photo = photo;
     }
 
+    public Car(String licencePlate, String color, String photo, int odometr, String status,  int carModelId) {
+        this.licencePlate = licencePlate;
+        this.color = color;
+        this.carModelId = carModelId;
+        this.odometr = odometr;
+        this.status = status;
+        this.photo = photo;
+    }
+
+
     public Car(int id, String licencePlate, String color, int carModelId, String modelName, String type, int loadCapacity, int passengerCapacity, String wheelDriveType,
                int odometr, String status, String photo) {
         super(carModelId, modelName, type, loadCapacity, passengerCapacity, wheelDriveType);

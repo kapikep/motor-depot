@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="by.epam.jwd.entity.Role" %>
+<%@ page import="by.epam.jwd.dao.implementation.MariaDBCarDAO" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -10,6 +12,10 @@
 </head>
 <body>
 Our Cars
+<br>
+ value="${Role.ADMIN}" />
+<c:out value="${MariaDBCarDAO:CREATE_CAR}" />
+
 <ul>
     <c:forEach var="cookies" items="${cookie}">
         <li>

@@ -7,7 +7,7 @@ public class CarModel implements Serializable{
  
 	private static final long serialVersionUID = 1L;
 	private int id;
-    private String ModelName;
+    private String modelName;
     private String type;
     private int loadCapacity;
     private int passengerCapacity;
@@ -17,7 +17,7 @@ public class CarModel implements Serializable{
 
     public CarModel(int id, String modelName, String type, int loadCapacity, int passengerCapacity, String wheelDriveType) {
         this.id = id;
-        ModelName = modelName;
+        this.modelName = modelName;
         this.type = type;
         this.loadCapacity = loadCapacity;
         this.passengerCapacity = passengerCapacity;
@@ -33,11 +33,11 @@ public class CarModel implements Serializable{
     }
 
     public String getModelName() {
-        return ModelName;
+        return modelName;
     }
 
     public void setModelName(String modelName) {
-        ModelName = modelName;
+        this.modelName = modelName;
     }
 
     public String getType() {
@@ -77,19 +77,19 @@ public class CarModel implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarModel carModel = (CarModel) o;
-        return id == carModel.id && loadCapacity == carModel.loadCapacity && passengerCapacity == carModel.passengerCapacity && Objects.equals(ModelName, carModel.ModelName) && Objects.equals(type, carModel.type) && Objects.equals(wheelDriveType, carModel.wheelDriveType);
+        return id == carModel.id && loadCapacity == carModel.loadCapacity && passengerCapacity == carModel.passengerCapacity && Objects.equals(modelName, carModel.modelName) && Objects.equals(type, carModel.type) && Objects.equals(wheelDriveType, carModel.wheelDriveType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ModelName, type, loadCapacity, passengerCapacity, wheelDriveType);
+        return Objects.hash(id, modelName, type, loadCapacity, passengerCapacity, wheelDriveType);
     }
 
     @Override
     public String toString() {
         return "CarModel{" +
                 "id=" + id +
-                ", ModelName='" + ModelName + '\'' +
+                ", ModelName='" + modelName + '\'' +
                 ", type='" + type + '\'' +
                 ", loadCapacity=" + loadCapacity +
                 ", passengerCapacity=" + passengerCapacity +

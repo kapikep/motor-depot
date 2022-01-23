@@ -11,4 +11,6 @@ public interface CarService {
     List<Car> readAllCar() throws ServiceException;
     boolean createMadel(CarModel carModel) throws ServiceException;
     boolean createCar(Car car) throws ServiceException;
+
+    List<CarModel> readAllCarModel() throws ServiceException;
 }

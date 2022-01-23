@@ -15,6 +15,8 @@ public interface CarDAO {
 
     List<Car> readAllCar() throws DAOException;
 
+    List<CarModel> readAllCarModels() throws DAOException;
+
     List<Car> findCars (Criteria criteria);
 
     void updateCar(Car car);
