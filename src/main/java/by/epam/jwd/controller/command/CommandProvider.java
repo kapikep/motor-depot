@@ -26,6 +26,9 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_CREATE_CAR, new GoToCreateCar());
         ADMIN_COMMANDS.put(Command.ADMIN_CREATE_CAR, new CreateCar());
         ADMIN_COMMANDS.put(Command.ADMIN_CREATE_CAR_MODEL, new CreateCarModel());
+        ADMIN_COMMANDS.put(Command.ADMIN_GO_TO_EDIT_CAR, new GoToEditCar());
+        ADMIN_COMMANDS.put(Command.ADMIN_EDIT_CAR, new EditCar());
+        ADMIN_COMMANDS.put(Command.ADMIN_DELETE_CAR, new DeleteCar());
     }
 
     public static CommandProvider getCommandProvider() {

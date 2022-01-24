@@ -18,6 +18,8 @@ public class GoToCreateCar implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //int id = Integer.parseInt(request.getParameter("id"));
+
         CarService carService = new CarServiceImpl();
         List<CarModel> carModels = null;
         try {

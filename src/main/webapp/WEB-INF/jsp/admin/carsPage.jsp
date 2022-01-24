@@ -12,7 +12,7 @@
 <jsp:include page="_header.jsp"></jsp:include>
 
 <h3 style="padding: 5px;">Car List</h3>
-
+<%-- TODO delete id--%>
 <table border="1" cellpadding="5" cellspacing="1" >
     <tr>
         <th>Id</th>
@@ -40,13 +40,12 @@
             <td><c:out value="${car.odometr}"/> km </td>
             <td><c:out value="${car.status}"/></td>
             <td>
-                <a href="editProduct?code=${product.code}">Edit</a>
+                <a href="admin?command=GoToEditCar&id=${car.id}">Edit</a>
             </td>
         </tr>
     </c:forEach>
 </table>
 <br>
 <a href="?command=GoToCreateCar" style="padding: 5px;">Add Car</a>
-
 </body>
 </html>
