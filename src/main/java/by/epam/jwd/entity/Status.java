@@ -1,6 +1,8 @@
 package by.epam.jwd.entity;
 
-public enum Status {
+import java.io.Serializable;
+
+public enum Status implements Serializable {
     ACTIVE,
     BLOCK
 }

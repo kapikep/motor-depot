@@ -27,32 +27,32 @@ public class MariaDBCarDAOTest {
     @Before
     public void setUp() throws Exception {
         car = new Car(150, "1213 AC-7", "black", "nan", 6666, "utilize", 1);
-        carUpd = new Car(150, "6666 AC-7", "red", "nan", 9999, "utilize", 2);
+        carUpd = new Car(161, "7777 AC-7", "red", "nan", 9999, "", 3);
         carModel = new CarModel(4, "Beatle", "car", 700, 4, "2x2");
         carModel = new CarModel(4, "Audi", "car", 800, 4, "2x2");
     }
 
-    @Test
-    public void createCarTest() {
-        Boolean result = false;
-        try {
-            result = carDAO.createCar(car);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(result);
-    }
-
 //    @Test
-//    public void updateCarTest() {
+//    public void createCarTest() {
 //        Boolean result = false;
 //        try {
-//            result = carDAO.updateCar(carUpd);
+//            result = carDAO.createCar(car);
 //        } catch (DAOException e) {
 //            e.printStackTrace();
 //        }
 //        Assert.assertTrue(result);
 //    }
+
+    @Test
+    public void updateCarTest() {
+        Boolean result = false;
+        try {
+            result = carDAO.updateCar(carUpd);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result);
+    }
 
     @Test
     public void readCarTest() {
@@ -65,16 +65,16 @@ public class MariaDBCarDAOTest {
         Assert.assertEquals(1, car.getId());
     }
 
-    @Test
-    public void createMadelTest() {
-        Boolean result = false;
-        try {
-            result = carDAO.createMadel(carModel);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(result);
-    }
+//    @Test
+//    public void createMadelTest() {
+//        Boolean result = false;
+//        try {
+//            result = carDAO.createMadel(carModel);
+//        } catch (DAOException e) {
+//            e.printStackTrace();
+//        }
+//        Assert.assertTrue(result);
+//    }
 
 //    @Test
 //    public void test() {

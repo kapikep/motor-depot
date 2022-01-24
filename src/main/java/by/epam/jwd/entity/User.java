@@ -1,6 +1,7 @@
 package by.epam.jwd.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable{
 
@@ -112,6 +113,19 @@ public class User implements Serializable{
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof User)) return false;
+		User user = (User) o;
+		return id == user.id && Double.compare(user.phoneNumber, phoneNumber) == 0 && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(photo, user.photo) && status == user.status && Objects.equals(eMail, user.eMail) && role == user.role;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, surname, login, password, phoneNumber, photo, status, eMail, role);
 	}
 
 	@Override
