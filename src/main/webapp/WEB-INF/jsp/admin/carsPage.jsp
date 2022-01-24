@@ -40,7 +40,7 @@
             <td><c:out value="${car.odometr}"/> km </td>
             <td><c:out value="${car.status}"/></td>
             <td>
-                <a href="admin?command=GoToEditCar&id=${car.id}">Edit</a>
+                <a href="admin?command=GoToEditCar&edit_id=${car.id}">Edit</a>
             </td>
         </tr>
     </c:forEach>

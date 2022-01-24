@@ -59,6 +59,17 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public Car readCar(int id) throws ServiceException {
+        Car car = null;
+        try {
+            car = CAR_DAO.readCar(id);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return car;
+    }
+
+    @Override
     public List<CarModel> readAllCarModel() throws ServiceException {
         List<CarModel> cars;
         try {

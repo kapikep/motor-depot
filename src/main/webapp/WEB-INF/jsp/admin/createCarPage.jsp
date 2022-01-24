@@ -52,7 +52,7 @@
             <th>Wheel Drive Type</th>
         </tr>
         <tr>
-            <td><input type="text" name="modelName" value="Nissan Murano" size="8" maxlength="9"/></td>
+            <td><input type="text" name="modelName" value="Nissan Murano" size="7" maxlength="9"/></td>
             <td><input type="text" name="type" value="Car" size="5" maxlength="9"/></td>
             <td><input type="text" name="loadCapacity" value="1111" size="5" maxlength="9" pattern="^[ 0-9]+$"/></td>
             <td><input type="number" name="passengerCapacity" value="5" size="4" maxlength="4"></td>

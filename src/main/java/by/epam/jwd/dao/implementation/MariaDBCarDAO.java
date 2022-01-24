@@ -16,7 +16,8 @@ public class MariaDBCarDAO implements CarDAO {
             "VALUES(?, ?, ?, ?, ?, ?)";
     private final String CREATE_MODEL = "INSERT INTO car_model (model_name, `type`, load_capacity, passenger_capacity, wheel_drive_type) " +
             "VALUES(?, ?, ?, ?, ?)";
-    private final String FIND_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id";
+    private final String FIND_ALL_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id";
+    private final String FIND_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE cars.id=?";
     private final String FIND_CAR_MODEL = "SELECT * FROM car_model";
 
     @Override
@@ -77,7 +78,7 @@ public class MariaDBCarDAO implements CarDAO {
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement
-                    .executeQuery(FIND_CAR);
+                    .executeQuery(FIND_ALL_CAR);
 
             while (resultSet.next()) {
 
@@ -125,13 +126,38 @@ public class MariaDBCarDAO implements CarDAO {
     }
 
     @Override
+    public Car readCar(int id) throws DAOException {
+        Car car = null;
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement ps = connection.prepareStatement(FIND_CAR);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                car = new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
+                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
+                        resultSet.getString("model_name"), resultSet.getString("type"),
+                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+                        resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
+                        resultSet.getString("status"), resultSet.getString("car_photo"));
+            }
+
+            CONNECTION_POOL.returnConnection(connection, ps);
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+
+        return car;
+    }
+
+    @Override
     public List<Car> findCars(Criteria criteria) {
         return null;
     }
 
     @Override
     public void updateCar(Car car) {
-
     }
 
     @Override

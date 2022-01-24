@@ -18,18 +18,21 @@ public class GoToCreateCar implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //int id = Integer.parseInt(request.getParameter("id"));
-
         CarService carService = new CarServiceImpl();
         List<CarModel> carModels = null;
+        int edit_id;
+
+        if(request.getParameter("edit_id") != null) {
+            edit_id = Integer.parseInt(request.getParameter("edit_id"));
+            System.out.println(edit_id);
+        }
         try {
             carModels = carService.readAllCarModel();
         } catch (ServiceException e) {
             //TODO logger
             e.printStackTrace();
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("carModels", carModels);
+        request.setAttribute("carModels", carModels);
         request.getRequestDispatcher(ADMIN_CREATE_CAR_PAGE).forward(request, response);
     }
 }

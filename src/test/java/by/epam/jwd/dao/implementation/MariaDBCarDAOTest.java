@@ -40,6 +40,17 @@ public class MariaDBCarDAOTest {
     }
 
     @Test
+    public void readCarTest() {
+        Car car = null;
+        try {
+            car = carDAO.readCar(1);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(1, car.getId());
+    }
+
+    @Test
     public void createMadelTest() {
         Boolean result = false;
         try {
@@ -50,18 +61,18 @@ public class MariaDBCarDAOTest {
         Assert.assertTrue(result);
     }
 
-    @Test
-    public void test() {
-        MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
-        try {
-            Connection connection = CONNECTION_POOL.takeConnection();
-            Statement statement = connection.createStatement();
-
-            CONNECTION_POOL.returnConnection(connection, statement);
-        } catch (SQLException | DAOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void test() {
+//        MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
+//        try {
+//            Connection connection = CONNECTION_POOL.takeConnection();
+//            Statement statement = connection.createStatement();
+//
+//            CONNECTION_POOL.returnConnection(connection, statement);
+//        } catch (SQLException | DAOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Test
     public void readAllCar(){
@@ -72,7 +83,7 @@ public class MariaDBCarDAOTest {
         } catch (DAOException e) {
             e.printStackTrace();
         }
-        Assert.assertNotNull(carList.get(1));
+        Assert.assertNotNull(carList.get(0));
     }
 
     @AfterClass

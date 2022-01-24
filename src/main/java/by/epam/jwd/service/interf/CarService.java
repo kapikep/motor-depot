@@ -14,5 +14,7 @@ public interface CarService {
 
     List<Car> readAllCar() throws ServiceException;
 
+    Car readCar(int id) throws ServiceException;
+
     List<CarModel> readAllCarModel() throws ServiceException;
 }
