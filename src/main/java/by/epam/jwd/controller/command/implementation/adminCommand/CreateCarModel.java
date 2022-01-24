@@ -12,15 +12,9 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class CreateCarModel implements Command {
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("_____________");
-        Iterator<String> it = request.getParameterNames().asIterator();
-        while (it.hasNext()){
-            System.out.println(it.next());
-        }
-
-        System.out.println("Param =" + request.getParameter("carModel"));
 
         CarService carService = new CarServiceImpl();
         try {

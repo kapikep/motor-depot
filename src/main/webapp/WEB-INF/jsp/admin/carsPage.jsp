@@ -26,7 +26,6 @@
         <th>Odometr</th>
         <th>Status</th>
         <th>Edit</th>
-        <th>Delete</th>
     </tr>
     <c:forEach items="${requestScope.cars}" var="car" >
         <tr>
@@ -42,9 +41,6 @@
             <td><c:out value="${car.status}"/></td>
             <td>
                 <a href="editProduct?code=${product.code}">Edit</a>
-            </td>
-            <td>
-                <a href="deleteProduct?code=${product.code}">Delete</a>
             </td>
         </tr>
     </c:forEach>

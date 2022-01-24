@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface Command {
     //Unauthorized zone
-	String COMMAND = "?command=";
+    String COMMAND = "?command=";
     String DEFAULT_PATH = "/WEB-INF/jsp/";
     String INDEX_PAGE = "index.jsp";
     String SIGN_IN_PAGE = "signIn";
@@ -34,7 +34,8 @@ public interface Command {
     String ADMIN_CREATE_CAR = "CreateCar";
     String ADMIN_CREATE_CAR_PAGE = DEFAULT_PATH + "admin/createCarPage.jsp";
     String ADMIN_CREATE_CAR_MODEL = "CreateCarModel";
+    String ADMIN_EDIT_CAR = "EditCar";
 
-	void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 }
