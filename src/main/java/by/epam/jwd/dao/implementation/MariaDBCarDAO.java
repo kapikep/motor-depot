@@ -8,6 +8,7 @@ import by.epam.jwd.entity.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MariaDBCarDAO implements CarDAO {
 
@@ -17,10 +18,63 @@ public class MariaDBCarDAO implements CarDAO {
     private final String CREATE_MODEL = "INSERT INTO car_model (model_name, `type`, load_capacity, passenger_capacity, wheel_drive_type) " +
             "VALUES(?, ?, ?, ?, ?)";
     private final String FIND_ALL_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id";
-    private final String FIND_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE cars.id=?";
+    private final String FIND_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE car_model.load_capacity>? AND cars.status=?";
+    private final String GET_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE cars.id=?";
     private final String FIND_CAR_MODEL = "SELECT * FROM car_model";
     private final String UPDATE_CAR = "UPDATE cars SET licence_plate=?, color=?, car_photo=?, odometr=?, status=?, car_model_id=? WHERE id=?";
     private final String DELETE_CAR = "DELETE FROM cars WHERE id=?";
+
+    @Override
+    public List<Car> findCars(Map<String, String> criteriaMap) throws DAOException {
+        Car car = null;
+        List<Car> cars = new ArrayList<>();
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement ps = connection.prepareStatement(FIND_CAR);
+            ps.setInt(1, 0);
+            ps.setString(2, "active");
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
+                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
+                        resultSet.getString("model_name"), resultSet.getString("type"),
+                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+                        resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
+                        resultSet.getString("status"), resultSet.getString("car_photo")));
+            }
+
+            CONNECTION_POOL.returnConnection(connection, ps);
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return cars;
+    }
+
+    @Override
+    public Car readCar(int id) throws DAOException {
+        Car car = null;
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement ps = connection.prepareStatement(GET_CAR);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                car = new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
+                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
+                        resultSet.getString("model_name"), resultSet.getString("type"),
+                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+                        resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
+                        resultSet.getString("status"), resultSet.getString("car_photo"));
+            }
+
+            CONNECTION_POOL.returnConnection(connection, ps);
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return car;
+    }
 
     @Override
     public boolean createCar(Car car) throws DAOException {
@@ -127,36 +181,6 @@ public class MariaDBCarDAO implements CarDAO {
         return cars;
     }
 
-    @Override
-    public Car readCar(int id) throws DAOException {
-        Car car = null;
-        try {
-            Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement(FIND_CAR);
-            ps.setInt(1, id);
-            ResultSet resultSet = ps.executeQuery();
-            while (resultSet.next()) {
-                car = new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
-                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
-                        resultSet.getString("model_name"), resultSet.getString("type"),
-                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
-                        resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
-                        resultSet.getString("status"), resultSet.getString("car_photo"));
-            }
-
-            CONNECTION_POOL.returnConnection(connection, ps);
-
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-
-        return car;
-    }
-
-    @Override
-    public List<Car> findCars(Criteria criteria) {
-        return null;
-    }
 
     @Override
     public boolean updateCar(Car car) throws DAOException {

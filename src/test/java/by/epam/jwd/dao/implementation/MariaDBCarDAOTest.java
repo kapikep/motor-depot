@@ -9,6 +9,7 @@ import org.junit.*;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Map;
 
 public class MariaDBCarDAOTest {
 
@@ -26,10 +27,21 @@ public class MariaDBCarDAOTest {
 
     @Before
     public void setUp() throws Exception {
-        car = new Car(150, "1213 AC-7", "black", "nan", 6666, "utilize", 1);
+        car = new Car(1, "1213 AC-7", "black", "nan", 6666, "utilize", 1);
         carUpd = new Car(161, "7777 AC-7", "red", "nan", 9999, "", 3);
         carModel = new CarModel(4, "Beatle", "car", 700, 4, "2x2");
         carModel = new CarModel(4, "Audi", "car", 800, 4, "2x2");
+    }
+
+    @Test
+    public void findCarsTest() {
+        Map<String, String> map = null;
+        try {
+            System.out.println(carDAO.findCars(map));
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(1, car.getId());
     }
 
 //    @Test

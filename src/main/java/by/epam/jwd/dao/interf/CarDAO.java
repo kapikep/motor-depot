@@ -3,9 +3,9 @@ package by.epam.jwd.dao.interf;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.CarModel;
-import by.epam.jwd.entity.Criteria;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CarDAO {
 
@@ -19,7 +19,7 @@ public interface CarDAO {
 
     Car readCar(int id) throws DAOException;
 
-    List<Car> findCars (Criteria criteria);
+    List<Car> findCars(Map<String, String> criteriaMap) throws DAOException;
 
     boolean deleteCar(int id) throws DAOException;
 
