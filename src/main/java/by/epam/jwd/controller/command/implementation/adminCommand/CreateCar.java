@@ -23,6 +23,6 @@ public class CreateCar implements Command {
             e.printStackTrace();
         }
 
-        response.sendRedirect(DEFAULT_ADMIN_PATH + COMMAND + GO_TO_ADMIN_CARS_PAGE);
+        response.sendRedirect(DEFAULT_ADMIN_PATH + COMMAND + GO_TO_ADMIN_CARS_PAGE + "&message=Create done!");
     }
 }

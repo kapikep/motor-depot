@@ -12,6 +12,8 @@
 <jsp:include page="_header.jsp"></jsp:include>
 
 <h3 style="padding: 5px;">Car List</h3>
+
+<c:out value="${param.message}"/>
 <%-- TODO delete id--%>
 <table border="1" cellpadding="5" cellspacing="1" >
     <tr>

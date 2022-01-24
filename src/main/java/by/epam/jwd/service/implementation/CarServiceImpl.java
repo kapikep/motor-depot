@@ -79,4 +79,33 @@ public class CarServiceImpl implements CarService {
         }
         return cars;
     }
+
+    @Override
+    public boolean updateCar(String idStr, String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException {
+        boolean result;
+        int odometr = Integer.parseInt(odometrStr);
+        int carModelId = Integer.parseInt(carModelIdStr);
+        int id = Integer.parseInt(idStr);
+        Car car = new Car(id, licencePlate, color, photo, odometr, status, carModelId);
+
+        try {
+            //TODO validate
+            result = CAR_DAO.updateCar(car);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean deleteCar(String idStr) throws ServiceException{
+        boolean result;
+        int id = Integer.parseInt(idStr);
+        try {
+            result = CAR_DAO.deleteCar(id);
+        } catch (DAOException e) {
+           throw new ServiceException(e);
+        }
+        return result;
+    }
 }

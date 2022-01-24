@@ -30,7 +30,6 @@ public class GoToEditCar implements Command {
             }else {
                 request.setAttribute("create", true);
             }
-            System.out.println(car);
             request.setAttribute("car", car);
             carModels = carService.readAllCarModel();
             request.setAttribute("carModels", carModels);

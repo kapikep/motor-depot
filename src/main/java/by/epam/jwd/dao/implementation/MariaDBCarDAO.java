@@ -19,6 +19,8 @@ public class MariaDBCarDAO implements CarDAO {
     private final String FIND_ALL_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id";
     private final String FIND_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE cars.id=?";
     private final String FIND_CAR_MODEL = "SELECT * FROM car_model";
+    private final String UPDATE_CAR = "UPDATE cars SET licence_plate=?, color=?, car_photo=?, odometr=?, status=?, car_model_id=? WHERE id=?";
+    private final String DELETE_CAR = "DELETE FROM cars WHERE id=?";
 
     @Override
     public boolean createCar(Car car) throws DAOException {
@@ -157,11 +159,49 @@ public class MariaDBCarDAO implements CarDAO {
     }
 
     @Override
-    public void updateCar(Car car) {
+    public boolean updateCar(Car car) throws DAOException {
+
+        boolean result = false;
+        try {
+            int count;
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement ps = connection.prepareStatement(UPDATE_CAR);
+            ps.setString(1, car.getLicencePlate());
+            ps.setString(2, car.getColor());
+            ps.setString(3, car.getPhoto());
+            ps.setInt(4, car.getOdometr());
+            ps.setString(5, car.getStatus());
+            ps.setInt(6, car.getCarModelId());
+            ps.setInt(7, car.getId());
+
+            count = ps.executeUpdate();
+            CONNECTION_POOL.returnConnection(connection, ps);
+            if(count == 1){
+                result = true;
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return result;
+
     }
 
     @Override
-    public void deleteCar(int id) {
-
+    public boolean deleteCar(int id) throws DAOException {
+        boolean result = false;
+        try {
+            int count;
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement ps = connection.prepareStatement(DELETE_CAR);
+            ps.setInt(1, id);
+            count = ps.executeUpdate();
+            CONNECTION_POOL.returnConnection(connection, ps);
+            if(count == 1){
+                result = true;
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return result;
     }
 }

@@ -17,4 +17,8 @@ public interface CarService {
     Car readCar(int id) throws ServiceException;
 
     List<CarModel> readAllCarModel() throws ServiceException;
+
+    boolean updateCar(String id, String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException;
+
+    boolean deleteCar(String idStr) throws ServiceException;
 }

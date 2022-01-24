@@ -30,7 +30,7 @@ public interface Command {
     String GO_TO_ADMIN_EMPLOYEES_PAGE = "GoToEmployeesPage";
     String ADMIN_CUSTOMERS_PAGE = DEFAULT_PATH + "admin/customersPage.jsp";
     String GO_TO_ADMIN_CUSTOMERS_PAGE = "GoToCustomersPage";
-    String GO_TO_ADMIN_CREATE_CAR = "GoToCreateCar";
+    String GO_TO_ADMIN_CREATE_CAR = "GoToCreateCar"; //nan
     String ADMIN_CREATE_CAR = "CreateCar";
     String ADMIN_EDIT_CAR_PAGE = DEFAULT_PATH + "admin/createCarPage.jsp";
     String ADMIN_CREATE_CAR_MODEL = "CreateCarModel";

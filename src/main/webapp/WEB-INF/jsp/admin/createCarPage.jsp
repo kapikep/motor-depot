@@ -12,6 +12,7 @@
 <h3 style="padding: 5px;">Create car</h3>
 
 <form action="admin" method="get">
+    <input type="hidden" name="id" value="${car.id}">
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
             <th>Licence Plate</th>

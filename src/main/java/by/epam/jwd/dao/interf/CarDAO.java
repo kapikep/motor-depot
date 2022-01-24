@@ -21,8 +21,7 @@ public interface CarDAO {
 
     List<Car> findCars (Criteria criteria);
 
-    void updateCar(Car car);
+    boolean deleteCar(int id) throws DAOException;
 
-    void deleteCar(int id);
-
+    boolean updateCar(Car car) throws DAOException;
 }
