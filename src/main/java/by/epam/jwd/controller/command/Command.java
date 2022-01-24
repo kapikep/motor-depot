@@ -32,10 +32,10 @@ public interface Command {
     String GO_TO_ADMIN_CUSTOMERS_PAGE = "GoToCustomersPage";
     String GO_TO_ADMIN_CREATE_CAR = "GoToCreateCar";
     String ADMIN_CREATE_CAR = "CreateCar";
-    String ADMIN_CREATE_CAR_PAGE = DEFAULT_PATH + "admin/createCarPage.jsp";
+    String ADMIN_EDIT_CAR_PAGE = DEFAULT_PATH + "admin/createCarPage.jsp";
     String ADMIN_CREATE_CAR_MODEL = "CreateCarModel";
     String ADMIN_GO_TO_EDIT_CAR = "GoToEditCar";
-    String ADMIN_EDIT_CAR = "EditCar";
+    String ADMIN_EDIT_CAR = "UpdateCar";
     String ADMIN_DELETE_CAR = "DeleteCar";
 
     void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;

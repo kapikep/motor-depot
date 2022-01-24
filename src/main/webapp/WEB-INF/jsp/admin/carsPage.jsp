@@ -46,6 +46,6 @@
     </c:forEach>
 </table>
 <br>
-<a href="?command=GoToCreateCar" style="padding: 5px;">Add Car</a>
+<a href="?command=GoToEditCar" style="padding: 5px;">Add Car</a>
 </body>
 </html>
