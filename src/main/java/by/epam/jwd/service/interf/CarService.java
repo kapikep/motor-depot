@@ -14,6 +14,8 @@ public interface CarService {
 
     List<Car> readAllCar() throws ServiceException;
 
+    int getCarPageCount(double limit) throws ServiceException;
+
     List<Car> readCarsWithOffset(int page, int limit) throws ServiceException;
 
     Car readCar(int id) throws ServiceException;

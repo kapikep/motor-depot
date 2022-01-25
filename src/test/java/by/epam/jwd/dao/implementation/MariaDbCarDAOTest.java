@@ -47,6 +47,11 @@ public class MariaDbCarDAOTest {
     }
 
     @Test
+    public void name() {
+        System.out.println(Math.ceil(35.0/30));
+    }
+
+    @Test
     public void findCarsTest() {
         Map<String, String> map = null;
         try {
@@ -63,7 +68,6 @@ public class MariaDbCarDAOTest {
         List<Car> carList = null;
         try {
             carList = carDAO.readCarsWithOffset(2, offset);
-            System.out.println(carList);
         } catch (DAOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" errorPage="/WEB-INF/jsp/error.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -15,8 +15,9 @@
     <input name="s" placeholder="Искать здесь..." type="search">
     <button type="submit">Поиск</button>
 </form>
-<h3 style="padding: 5px;">Car List</h3>
-
+<h3 style="padding: 5px;">Car List
+    <jsp:include page="/WEB-INF/jsp/_pagination.jsp"></jsp:include>
+</h3>
 <c:out value="${param.message}"/>
 <%-- TODO delete id--%>
 <table border="1" cellpadding="5" cellspacing="1" >
@@ -51,7 +52,6 @@
         </tr>
     </c:forEach>
 </table>
-<br>
 <a href="?command=GoToEditCar" style="padding: 5px;">Add Car</a>
 </body>
 </html>

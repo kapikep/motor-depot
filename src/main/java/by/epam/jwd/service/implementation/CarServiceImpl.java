@@ -58,13 +58,15 @@ public class CarServiceImpl implements CarService {
         return cars;
     }
 
-    public int getCarSize() throws ServiceException{
+    @Override
+    public int getCarPageCount(double limit) throws ServiceException{
         int size = 0;
         try{
             size = CAR_DAO.getCarSize();
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new ServiceException(e);
         }
+        size = (int) Math.ceil(size/limit);
         return size;
     }
 
