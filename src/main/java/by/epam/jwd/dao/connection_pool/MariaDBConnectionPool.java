@@ -20,13 +20,13 @@ public final class MariaDBConnectionPool extends ConnectionPool {
     private MariaDBConnectionPool() {
     }
 
-    public static void initPool() throws DAOException {
+    public static void initPool(String bundleName) throws DAOException {
             instance = new MariaDBConnectionPool();
-            instance.initPoolData();
+            instance.initPoolData(bundleName);
     }
 
-    public void initPoolData() throws DAOException {
-        ResourceBundle bundle = ResourceBundle.getBundle("db");
+    public void initPoolData(String bundleName) throws DAOException {
+        ResourceBundle bundle = ResourceBundle.getBundle(bundleName);
         String URL = bundle.getString("url");
         String USER = bundle.getString("user");
         String PASSWORD = bundle.getString("password");

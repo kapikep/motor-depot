@@ -16,7 +16,7 @@ public class PoolInitListener implements ServletContextListener, HttpSessionList
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         try {
-            MariaDBConnectionPool.initPool();
+            MariaDBConnectionPool.initPool("db");
         } catch (DAOException e) {
             e.printStackTrace();
         }

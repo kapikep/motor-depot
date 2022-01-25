@@ -21,7 +21,7 @@ public class MariaDbCarDAOTest {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        MariaDBConnectionPool.initPool();
+        MariaDBConnectionPool.initPool("testDb");
     }
 
     @Before

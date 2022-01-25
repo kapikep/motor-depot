@@ -12,7 +12,7 @@ public class MariaDbUserDAOTest {
     public void authorization() throws DAOException {
 
         try {
-            MariaDBConnectionPool.initPool();
+            MariaDBConnectionPool.initPool("testDb");
             MotorDepotDAO motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
             UserDao userDao = motorDepotDAO.getUserDao();
             MariaDBConnectionPool.closeConnectionQueue();
