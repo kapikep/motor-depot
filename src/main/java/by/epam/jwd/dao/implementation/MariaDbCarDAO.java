@@ -129,7 +129,28 @@ public class MariaDbCarDAO implements CarDAO {
                 cars.add(buildCar(resultSet));
             }
             CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return cars;
+    }
 
+    @Override
+    public List<Car> readCarsWithOffset(int page, int limit) throws DAOException {
+        List<Car> cars = new ArrayList<>();
+
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id ORDER BY licence_plate LIMIT ? OFFSET ?");
+            int offset = (page - 1) * limit;
+            statement.setInt(1, limit);
+            statement.setInt(2,offset);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                cars.add(buildCar(resultSet));
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -144,8 +165,7 @@ public class MariaDbCarDAO implements CarDAO {
             Connection connection = CONNECTION_POOL.takeConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement
-                    .executeQuery(FIND_CAR_MODEL);
+            ResultSet resultSet = statement.executeQuery(FIND_CAR_MODEL);
 
             while (resultSet.next()) {
 
@@ -154,9 +174,7 @@ public class MariaDbCarDAO implements CarDAO {
                         resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
                         resultSet.getString("wheel_drive_type")));
             }
-
             CONNECTION_POOL.returnConnection(connection, statement, resultSet);
-
         } catch (SQLException e) {
             throw new DAOException(e);
         }

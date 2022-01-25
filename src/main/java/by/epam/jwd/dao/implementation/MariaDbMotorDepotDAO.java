@@ -10,7 +10,7 @@ import by.epam.jwd.dao.interf.UserDao;
 public class MariaDbMotorDepotDAO implements MotorDepotDAO {
 
     private static final MariaDbMotorDepotDAO INSTANCE = new MariaDbMotorDepotDAO();
-    private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
+    private static final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
     private final static CarDAO CAR_DAO = new MariaDbCarDAO();
     private final static UserDao USER_DAO = new MariaDbUserDAO();
     private final static OrderDAO ORDER_DAO = new MariaDbOrderDAO();
@@ -27,7 +27,7 @@ public class MariaDbMotorDepotDAO implements MotorDepotDAO {
     }
 
     @Override
-    public UserDao getUserDao() {
+    public  UserDao getUserDao() {
         return USER_DAO;
     }
 

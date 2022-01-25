@@ -36,23 +36,36 @@ public class MariaDbCarDAOTest {
     public void findCarsTest() {
         Map<String, String> map = null;
         try {
-            System.out.println(carDAO.findCars(map));
+            carDAO.findCars(map);
         } catch (DAOException e) {
             e.printStackTrace();
         }
         Assert.assertEquals(1, car.getId());
     }
 
-//    @Test
-//    public void createCarTest() {
-//        Boolean result = false;
-//        try {
-//            result = carDAO.createCar(car);
-//        } catch (DAOException e) {
-//            e.printStackTrace();
-//        }
-//        Assert.assertTrue(result);
-//    }
+    @Test
+    public void readCarsWithOffsetTest(){
+        int offset = 5;
+        List<Car> carList = null;
+        try {
+            carList = carDAO.readCarsWithOffset(2, offset);
+            System.out.println(carList);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(offset, carList.size());
+    }
+
+    @Test
+    public void createCarTest() {
+        Boolean result = false;
+        try {
+            result = carDAO.createCar(car);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result);
+    }
 
     @Test
     public void updateCarTest() {
@@ -103,7 +116,7 @@ public class MariaDbCarDAOTest {
     @Test
     public void readAllCar(){
         List<Car> carList = null;
-        
+
         try {
             carList = carDAO.readAllCar();
         } catch (DAOException e) {
