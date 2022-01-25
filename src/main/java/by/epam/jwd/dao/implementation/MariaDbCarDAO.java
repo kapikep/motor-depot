@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MariaDBCarDAO implements CarDAO {
+public class MariaDbCarDAO implements CarDAO {
 
     private final MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
     private final String CREATE_CAR = "INSERT INTO cars (licence_plate, color, car_photo, odometr, status, car_model_id)" +
@@ -35,12 +35,7 @@ public class MariaDBCarDAO implements CarDAO {
             ps.setString(2, "active");
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
-                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
-                        resultSet.getString("model_name"), resultSet.getString("type"),
-                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
-                        resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
-                        resultSet.getString("status"), resultSet.getString("car_photo")));
+                cars.add(buildCar(resultSet));
             }
 
             CONNECTION_POOL.returnConnection(connection, ps);
@@ -60,12 +55,7 @@ public class MariaDBCarDAO implements CarDAO {
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                car = new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
-                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
-                        resultSet.getString("model_name"), resultSet.getString("type"),
-                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
-                        resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
-                        resultSet.getString("status"), resultSet.getString("car_photo"));
+                car = buildCar(resultSet);
             }
 
             CONNECTION_POOL.returnConnection(connection, ps);
@@ -133,19 +123,11 @@ public class MariaDBCarDAO implements CarDAO {
             Connection connection = CONNECTION_POOL.takeConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement
-                    .executeQuery(FIND_ALL_CAR);
+            ResultSet resultSet = statement.executeQuery(FIND_ALL_CAR);
 
             while (resultSet.next()) {
-
-                cars.add(new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
-                        resultSet.getString("color"), resultSet.getInt("car_model_id"),
-                        resultSet.getString("model_name"), resultSet.getString("type"),
-                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
-                        resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
-                        resultSet.getString("status"), resultSet.getString("car_photo")));
+                cars.add(buildCar(resultSet));
             }
-
             CONNECTION_POOL.returnConnection(connection, statement, resultSet);
 
         } catch (SQLException e) {
@@ -227,5 +209,14 @@ public class MariaDBCarDAO implements CarDAO {
             throw new DAOException(e);
         }
         return result;
+    }
+
+    private Car buildCar(ResultSet resultSet) throws SQLException {
+        return new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),
+                resultSet.getString("color"), resultSet.getInt("car_model_id"),
+                resultSet.getString("model_name"), resultSet.getString("type"),
+                resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+                resultSet.getString("wheel_drive_type"), resultSet.getInt("odometr"),
+                resultSet.getString("status"), resultSet.getString("car_photo"));
     }
 }

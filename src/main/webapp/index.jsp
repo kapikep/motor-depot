@@ -16,9 +16,12 @@
 	Role ${sessionScope.role}
 
 	<h2>Minsk Motor depot</h2>
-	<p> <a href="presentation"> Our cars </a> </p>
-	<input type="image" src="image/peugeot_boxer_2020.png" width="1000" />
 	<p>Our contacts +375291111111</p>
+	<p> <a href="presentation"> Our cars </a> </p>
+	<input type="image" src="image/peugeot_boxer_2020.png" width="800" /><br>
+	Peugeot Boxer<br>
+	<input type="image" src="image/ManTGX.png" width="800" /><br>
+	Man TGX
 <p></p>
 </body>
 </html>

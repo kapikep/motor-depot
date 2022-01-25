@@ -7,13 +7,12 @@ import by.epam.jwd.dao.interf.MotorDepotDAO;
 import by.epam.jwd.entity.*;
 import org.junit.*;
 
-import java.sql.*;
 import java.util.List;
 import java.util.Map;
 
-public class MariaDBCarDAOTest {
+public class MariaDbCarDAOTest {
 
-    MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
+    MotorDepotDAO motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
     CarDAO carDAO = motorDepotDAO.getCarDao();
     CarModel carModel;
     CarModel carModelUpd;
@@ -28,7 +27,7 @@ public class MariaDBCarDAOTest {
     @Before
     public void setUp() throws Exception {
         car = new Car(1, "1213 AC-7", "black", "nan", 6666, "utilize", 1);
-        carUpd = new Car(161, "7777 AC-7", "red", "nan", 9999, "", 3);
+        carUpd = new Car(10, "new", "red", "nan", 9999, "", 3);
         carModel = new CarModel(4, "Beatle", "car", 700, 4, "2x2");
         carModel = new CarModel(4, "Audi", "car", 800, 4, "2x2");
     }

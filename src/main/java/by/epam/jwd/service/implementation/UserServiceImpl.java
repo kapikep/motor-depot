@@ -1,7 +1,7 @@
 package by.epam.jwd.service.implementation;
 
 import by.epam.jwd.dao.DAOException;
-import by.epam.jwd.dao.implementation.MariaDBMotorDepotDAO;
+import by.epam.jwd.dao.implementation.MariaDbMotorDepotDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
 import by.epam.jwd.dao.interf.UserDao;
 import by.epam.jwd.entity.User;
@@ -11,7 +11,7 @@ import by.epam.jwd.service.validator.UserValidator;
 
 public class UserServiceImpl implements UserService {
 	
-	private final MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
+	private final MotorDepotDAO motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
     private final UserDao userDao = motorDepotDAO.getUserDao();
 
 	@Override

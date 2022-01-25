@@ -6,14 +6,14 @@ import by.epam.jwd.dao.interf.MotorDepotDAO;
 import by.epam.jwd.dao.interf.UserDao;
 import org.junit.Test;
 
-public class MariaDBUserDAOTest {
+public class MariaDbUserDAOTest {
 
     @Test
     public void authorization() throws DAOException {
 
         try {
             MariaDBConnectionPool.initPool();
-            MotorDepotDAO motorDepotDAO = MariaDBMotorDepotDAO.getMySqlMotorDeportDao();
+            MotorDepotDAO motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
             UserDao userDao = motorDepotDAO.getUserDao();
             MariaDBConnectionPool.closeConnectionQueue();
         } catch (DAOException e) {

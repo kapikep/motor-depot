@@ -10,7 +10,11 @@
 <body>
 
 <jsp:include page="_header.jsp"></jsp:include>
-
+<br>
+<form action="" method="get">
+    <input name="s" placeholder="Искать здесь..." type="search">
+    <button type="submit">Поиск</button>
+</form>
 <h3 style="padding: 5px;">Car List</h3>
 
 <c:out value="${param.message}"/>

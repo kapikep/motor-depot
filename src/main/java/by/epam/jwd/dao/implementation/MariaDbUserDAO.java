@@ -9,7 +9,7 @@ import by.epam.jwd.entity.Role;
 import by.epam.jwd.entity.Status;
 import by.epam.jwd.entity.User;
 
-public class MariaDBUserDAO implements UserDao {
+public class MariaDbUserDAO implements UserDao {
 
     private final MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
     private final String AUTHORIZATION = "SELECT * FROM users WHERE login=? AND password=?";

@@ -4,16 +4,18 @@ import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.dao.interf.MotorDepotDAO;
+import by.epam.jwd.dao.interf.OrderDAO;
 import by.epam.jwd.dao.interf.UserDao;
 
-public class MariaDBMotorDepotDAO implements MotorDepotDAO {
+public class MariaDbMotorDepotDAO implements MotorDepotDAO {
 
-    private static final MariaDBMotorDepotDAO INSTANCE = new MariaDBMotorDepotDAO();
+    private static final MariaDbMotorDepotDAO INSTANCE = new MariaDbMotorDepotDAO();
     private final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
-    private static CarDAO carDAO = null;
-    private static UserDao userDao = null;
+    private final static CarDAO CAR_DAO = new MariaDbCarDAO();
+    private final static UserDao USER_DAO = new MariaDbUserDAO();
+    private final static OrderDAO ORDER_DAO = new MariaDbOrderDAO();
 
-    private MariaDBMotorDepotDAO(){}
+    private MariaDbMotorDepotDAO(){}
 
     public static MotorDepotDAO getMySqlMotorDeportDao(){
         return INSTANCE;
@@ -21,18 +23,17 @@ public class MariaDBMotorDepotDAO implements MotorDepotDAO {
 
     @Override
     public CarDAO getCarDao() {
-        if (carDAO == null) {
-            carDAO = new MariaDBCarDAO();
-        }
-        return carDAO;
+        return CAR_DAO;
     }
 
     @Override
     public UserDao getUserDao() {
-        if (userDao == null) {
-            userDao = new MariaDBUserDAO();
-        }
-        return userDao;
+        return USER_DAO;
+    }
+
+    @Override
+    public OrderDAO getOrderDao() {
+        return ORDER_DAO;
     }
 
     @Override

@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="by.epam.jwd.entity.Role" %>
-<%@ page import="by.epam.jwd.dao.implementation.MariaDBCarDAO" %>
+<%@ page import="by.epam.jwd.dao.implementation.MariaDbCarDAO" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>

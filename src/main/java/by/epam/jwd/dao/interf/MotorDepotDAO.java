@@ -8,5 +8,7 @@ public interface MotorDepotDAO {
 
     UserDao getUserDao();
 
+    OrderDAO getOrderDao();
+
     void closeAllConnections() throws DAOException;
 }
