@@ -21,7 +21,6 @@
             <th>Status</th>
             <th>Model</th>
         </tr>
-
         <tr>
             <td><input type="text" name="licencePlate" value="${car.licencePlate}" size="8" maxlength="9"/></td>
             <td><input type="text" name="color" value="${car.color}" size="3" maxlength="9"/></td>

@@ -7,6 +7,7 @@
 <body>
 <table>
     <jsp:include page="_header.jsp" />
+    <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
     <br>
     <tr>
         <th>Company</th>

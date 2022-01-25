@@ -8,16 +8,15 @@
     <title>Manage cars</title>
 </head>
 <body>
-
 <jsp:include page="_header.jsp"></jsp:include>
 <br>
 <form action="" method="get">
     <input name="s" placeholder="Искать здесь..." type="search">
     <button type="submit">Поиск</button>
 </form>
-<h3 style="padding: 5px;">Car List
-    <jsp:include page="/WEB-INF/jsp/_pagination.jsp"></jsp:include>
-</h3>
+<h4 style="padding: 5px;">Car List
+    <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
+</h4>
 <c:out value="${param.message}"/>
 <%-- TODO delete id--%>
 <table border="1" cellpadding="5" cellspacing="1" >
