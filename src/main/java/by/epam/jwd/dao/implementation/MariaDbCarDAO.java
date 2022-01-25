@@ -136,6 +136,24 @@ public class MariaDbCarDAO implements CarDAO {
     }
 
     @Override
+    public int getCarSize() throws DAOException{
+        int size = 0;
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM cars");
+            while (resultSet.next()) {
+                size = resultSet.getInt("COUNT(*)");
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return size;
+    }
+
+    @Override
     public List<Car> readCarsWithOffset(int page, int limit) throws DAOException {
         List<Car> cars = new ArrayList<>();
 

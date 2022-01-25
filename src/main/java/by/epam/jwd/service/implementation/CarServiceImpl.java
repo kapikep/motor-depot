@@ -58,6 +58,27 @@ public class CarServiceImpl implements CarService {
         return cars;
     }
 
+    public int getCarSize() throws ServiceException{
+        int size = 0;
+        try{
+            size = CAR_DAO.getCarSize();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return size;
+    }
+
+    @Override
+    public List<Car> readCarsWithOffset(int page, int limit) throws ServiceException {
+        List<Car> cars;
+        try {
+            cars = CAR_DAO.readCarsWithOffset(page, limit);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return cars;
+    }
+
     @Override
     public Car readCar(int id) throws ServiceException {
         Car car = null;

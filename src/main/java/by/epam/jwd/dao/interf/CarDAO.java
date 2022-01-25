@@ -15,6 +15,8 @@ public interface CarDAO {
 
     List<Car> readAllCar() throws DAOException;
 
+    int getCarSize() throws DAOException;
+
     List<Car> readCarsWithOffset(int page, int limit) throws DAOException;
 
     List<CarModel> readAllCarModels() throws DAOException;

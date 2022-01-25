@@ -33,6 +33,20 @@ public class MariaDbCarDAOTest {
     }
 
     @Test
+    public void getVarSizeTest() {
+        int sizeOne = 0;
+        int sizeTwo = 0;
+        try {
+            sizeOne = carDAO.getCarSize();
+            sizeTwo = carDAO.getCarSize();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(sizeOne > 0);
+        Assert.assertEquals(sizeOne, sizeTwo);
+    }
+
+    @Test
     public void findCarsTest() {
         Map<String, String> map = null;
         try {
