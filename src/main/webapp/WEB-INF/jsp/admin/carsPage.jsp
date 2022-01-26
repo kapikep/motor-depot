@@ -14,8 +14,11 @@
     <input name="s" placeholder="Искать здесь..." type="search">
     <button type="submit">Поиск</button>
 </form>
-<h4 style="padding: 5px;">Car List
+<h4>Car List
     <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
+</h4>
+<h4>
+    test
 </h4>
 <c:out value="${param.message}"/>
 <%-- TODO delete id--%>
@@ -51,6 +54,9 @@
         </tr>
     </c:forEach>
 </table>
+
+Page <c:out value="${param.page}" />
+<br>
 <a href="?command=GoToEditCar" style="padding: 5px;">Add Car</a>
 </body>
 </html>

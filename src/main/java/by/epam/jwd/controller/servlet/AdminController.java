@@ -8,6 +8,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
@@ -43,5 +45,22 @@ public class AdminController extends HttpServlet {
         }else {
             response.sendRedirect("signIn");
         }
+    }
+
+    public static List<Integer> pagination(int page, int pageCount){
+        List<Integer> res = new ArrayList<>();
+
+        for (int i = page - 3; i <= page; i++) {
+            if(i >= 1){
+                res.add(i);
+            }
+        }
+
+        for (int i = page + 1; i <= page + 3; i++) {
+            if(i <= pageCount){
+                res.add(i);
+            }
+        }
+        return res;
     }
 }

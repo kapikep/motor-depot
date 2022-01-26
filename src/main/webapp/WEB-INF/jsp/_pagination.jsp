@@ -5,10 +5,34 @@
     <title>Title</title>
 </head>
 <body>
+<c:choose>
+    <c:when test="${param.page != 1}">
+        <a href="admin?command=GoToCarsPage&page=${param.page - 1}">Prev</a>
+    </c:when>
+    <c:otherwise>
+        <a href="admin?command=GoToCarsPage&page=${1}">Prev</a>
+    </c:otherwise>
+</c:choose>
+
 <c:forEach var="i" begin="1" end="${pageCount}">
     <a href="admin?command=GoToCarsPage&page=${i}"><c:out value="${i}"/></a>
 </c:forEach>
-<a href="admin?command=GoToCarsPage&page=${i}">
+
+<c:choose>
+    <c:when test="${param.page != pageCount}">
+        <a href="admin?command=GoToCarsPage&page=${param.page + 1}">Prev</a>
+    </c:when>
+    <c:otherwise>
+        <a href="admin?command=GoToCarsPage&page=${pageCount}">Prev</a>
+    </c:otherwise>
+</c:choose>
+<br>
+
+
+<c:forEach var="i" begin="${param.page}" end="${5}">
+    <a href="admin?command=GoToCarsPage&page=${i}"><c:out value="${i}"/></a>
+</c:forEach>
+
 <form method="get">
     <select name="rowLimit">
         <c:forEach var="i" begin="10" end="90" step="10">

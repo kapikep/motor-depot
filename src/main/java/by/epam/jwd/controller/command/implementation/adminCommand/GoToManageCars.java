@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoToManageCars implements Command {
@@ -42,4 +43,5 @@ public class GoToManageCars implements Command {
         request.setAttribute("cars", cars);
         request.getRequestDispatcher(ADMIN_CARS_PAGE).forward(request, response);
     }
+
 }
