@@ -42,7 +42,6 @@ public class GoToManageCars implements Command {
             }
         }
 
-
         request.setAttribute("cars", cars);
         request.setAttribute("pageCount", pageCount);
         request.setAttribute("numPages", numPages);

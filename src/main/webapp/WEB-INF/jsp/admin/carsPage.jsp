@@ -11,7 +11,7 @@
 <jsp:include page="_header.jsp"></jsp:include>
 <br>
 <form action="" method="get">
-    <input name="license_plate" placeholder="6566 PE-7" type="search">
+    <input name="license_plate" placeholder="6566 PE-7" type="search" maxlength="9">
     <button type="submit" name="command" value=${param.command}>Search by license plate</button>
 </form>
 <h4>Car List
