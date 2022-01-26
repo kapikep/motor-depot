@@ -107,16 +107,16 @@ public class MariaDbCarDAOTest {
         Assert.assertEquals(1, car.getId());
     }
 
-//    @Test
-//    public void createMadelTest() {
-//        Boolean result = false;
-//        try {
-//            result = carDAO.createMadel(carModel);
-//        } catch (DAOException e) {
-//            e.printStackTrace();
-//        }
-//        Assert.assertTrue(result);
-//    }
+    @Test
+    public void createMadelTest() {
+        Boolean result = false;
+        try {
+            result = carDAO.createMadel(carModel);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result);
+    }
 
 //    @Test
 //    public void test() {

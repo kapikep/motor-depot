@@ -62,7 +62,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public int getCarPageCount(String rowLimitStr) throws ServiceException{
-        double size;
+        int size;
         int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
         try{
@@ -70,9 +70,8 @@ public class CarServiceImpl implements CarService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        size = size/rowLimit;
-        size = Math.ceil(size);
-        return (int) size;
+        size = (int) Math.ceil((double) size/rowLimit);
+        return size;
     }
 
     @Override

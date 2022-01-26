@@ -30,6 +30,5 @@
     </select>
     <button type="submit" name="command" value=${param.command}>Set</button>
 </form>
-${param.command}
 </body>
 </html>
