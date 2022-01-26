@@ -17,27 +17,16 @@ public class GoToManageCars implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pageCount = 0;
-        int rowLimit = 5;
+        int rowLimit = 10;
         int page = 1;
-        String rowLimitStr;
-        String pageStr;
+        String rowLimitStr = (String) request.getSession().getAttribute("rowLimit");
+        String pageStr = request.getParameter("page");;
         List<Car> cars = null;
         CarService carService = new CarServiceImpl();
-        rowLimitStr = request.getParameter("rowLimit");
-
-
-        if(rowLimitStr != null){
-            rowLimit = Integer.parseInt(rowLimitStr);
-            request.getSession().setAttribute("rowLimit", rowLimitStr);
-        }else {
-            rowLimitStr = (String) request.getSession().getAttribute("rowLimit");
-        }
 
         if(rowLimitStr != null) {
             rowLimit = Integer.parseInt(rowLimitStr);
         }
-
-        pageStr = request.getParameter("page");
 
         if (pageStr != null){
             page = Integer.parseInt(pageStr);

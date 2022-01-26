@@ -8,6 +8,7 @@
 <c:forEach var="i" begin="1" end="${pageCount}">
     <a href="admin?command=GoToCarsPage&page=${i}"><c:out value="${i}"/></a>
 </c:forEach>
+<a href="admin?command=GoToCarsPage&page=${i}">
 <form method="get">
     <select name="rowLimit">
         <c:forEach var="i" begin="10" end="90" step="10">

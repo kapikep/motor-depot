@@ -30,6 +30,10 @@ public class AdminController extends HttpServlet {
         session.setAttribute("name", "Dmitrij");
 
         if(session.getAttribute("role") == Role.ADMIN) {
+            String rowLimitStr = request.getParameter("rowLimit");
+            if(rowLimitStr != null){
+                request.getSession().setAttribute("rowLimit", rowLimitStr);
+            }
             if (commandName != null) {
                 Command command = provider.getAdminCommand(commandName);
                 command.execute(request, response);
