@@ -11,7 +11,7 @@ public interface CarDAO {
 
     boolean createCar (Car car) throws DAOException;
 
-    boolean createMadel (CarModel carModel) throws DAOException;
+    boolean createModel(CarModel carModel) throws DAOException;
 
     List<Car> readAllCar() throws DAOException;
 
@@ -19,11 +19,13 @@ public interface CarDAO {
 
     List<Car> readCarsWithOffset(int page, int limit) throws DAOException;
 
+    List<Car> readCarsWithOffset(int page, int limit, String orderBy) throws DAOException;
+
     List<CarModel> readAllCarModels() throws DAOException;
 
-    Car readCar(int id) throws DAOException;
+    List<Car> findCars(String param, String value) throws DAOException;
 
-    List<Car> findCars(Map<String, String> criteriaMap) throws DAOException;
+    Car readCar(int id) throws DAOException;
 
     boolean deleteCar(int id) throws DAOException;
 

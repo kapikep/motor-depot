@@ -7,6 +7,8 @@
         <br/>
     </div>
     <div style="padding: 5px;">
+        <a href="admin">Main</a>
+        |
         <a href="?command=GoToOrdersPage">Orders</a>
         |
         <a href="?command=GoToEmployeesPage">Employees</a>

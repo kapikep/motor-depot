@@ -47,15 +47,11 @@ public class MariaDbCarDAOTest {
     }
 
     @Test
-    public void name() {
-        System.out.println(Math.ceil(35.0/30));
-    }
-
-    @Test
     public void findCarsTest() {
         Map<String, String> map = null;
         try {
-            carDAO.findCars(map);
+            //System.out.println(carDAO.findCars("license_plate", "1213 AC-7"));
+            System.out.println(carDAO.findCars("licence_plate", "1213 AC-7"));
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -111,7 +107,7 @@ public class MariaDbCarDAOTest {
     public void createMadelTest() {
         Boolean result = false;
         try {
-            result = carDAO.createMadel(carModel);
+            result = carDAO.createModel(carModel);
         } catch (DAOException e) {
             e.printStackTrace();
         }

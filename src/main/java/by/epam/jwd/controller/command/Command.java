@@ -23,16 +23,17 @@ public interface Command {
     String DEFAULT_ADMIN_PATH = "admin";
     String MAIN_ADMIN_PAGE = DEFAULT_PATH + "admin/mainAdminPage.jsp";
     String ADMIN_CARS_PAGE = DEFAULT_PATH + "admin/carsPage.jsp";
-    String GO_TO_ADMIN_CARS_PAGE = "GoToCarsPage";
     String ADMIN_ORDERS_PAGE = DEFAULT_PATH + "admin/ordersPage.jsp";
-    String GO_TO_ADMIN_ORDERS_PAGE = "GoToOrdersPage";
     String ADMIN_EMPLOYEES_PAGE = DEFAULT_PATH + "admin/employeesPage.jsp";
-    String GO_TO_ADMIN_EMPLOYEES_PAGE = "GoToEmployeesPage";
     String ADMIN_CUSTOMERS_PAGE = DEFAULT_PATH + "admin/customersPage.jsp";
-    String GO_TO_ADMIN_CUSTOMERS_PAGE = "GoToCustomersPage";
-    String GO_TO_ADMIN_EDIT_ORDER = "GoToCreateCar"; //nan
-    String ADMIN_CREATE_CAR = "CreateCar";
     String ADMIN_EDIT_CAR_PAGE = DEFAULT_PATH + "admin/createCarPage.jsp";
+
+    String GO_TO_ADMIN_CARS_PAGE = "GoToCarsPage";
+    String GO_TO_ADMIN_ORDERS_PAGE = "GoToOrdersPage";
+    String GO_TO_ADMIN_EMPLOYEES_PAGE = "GoToEmployeesPage";
+    String GO_TO_ADMIN_CUSTOMERS_PAGE = "GoToCustomersPage";
+    String GO_TO_ADMIN_EDIT_ORDER = "GoToEditOrder";
+    String ADMIN_CREATE_CAR = "CreateCar";
     String ADMIN_CREATE_CAR_MODEL = "CreateCarModel";
     String ADMIN_GO_TO_EDIT_CAR = "GoToEditCar";
     String ADMIN_EDIT_CAR = "UpdateCar";

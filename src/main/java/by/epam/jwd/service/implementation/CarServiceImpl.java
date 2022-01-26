@@ -25,7 +25,7 @@ public class CarServiceImpl implements CarService {
         CarModel carModel = new CarModel(modelName, type, loadCapacity, passengerCapacity, wheelDriveType);
         try {
             //TODO validate
-            result = CAR_DAO.createMadel(carModel);
+            result = CAR_DAO.createModel(carModel);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -108,6 +108,18 @@ public class CarServiceImpl implements CarService {
         }
         return car;
     }
+
+    @Override
+    public List<Car> findCars(String param, String value) throws ServiceException {
+        List<Car> cars;
+        try {
+            cars = CAR_DAO.findCars(param, value);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return cars;
+    }
+
 
     @Override
     public List<CarModel> readAllCarModel() throws ServiceException {

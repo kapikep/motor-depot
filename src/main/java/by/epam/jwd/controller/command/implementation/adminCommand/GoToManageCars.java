@@ -23,14 +23,26 @@ public class GoToManageCars implements Command {
         List<Car> cars = null;
         List<Integer> numPages = null;
         CarService carService = new CarServiceImpl();
+        String licensePlate = request.getParameter("license_plate");
 
-        try {
-            cars = carService.readCarsWithOffset(page, rowLimit);
-            numPages = carService.pagination(page, rowLimit);
-            pageCount = carService.getCarPageCount(rowLimit);
-        } catch (ServiceException e) {
-            e.printStackTrace();
+        if(licensePlate == null){
+            try {
+                cars = carService.readCarsWithOffset(page, rowLimit);
+                numPages = carService.pagination(page, rowLimit);
+                pageCount = carService.getCarPageCount(rowLimit);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println(licensePlate);
+            try {
+                cars = carService.findCars("licence_plate", licensePlate);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
         }
+
+
         request.setAttribute("cars", cars);
         request.setAttribute("pageCount", pageCount);
         request.setAttribute("numPages", numPages);

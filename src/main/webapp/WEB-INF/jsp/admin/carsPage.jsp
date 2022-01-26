@@ -11,8 +11,8 @@
 <jsp:include page="_header.jsp"></jsp:include>
 <br>
 <form action="" method="get">
-    <input name="s" placeholder="Искать здесь..." type="search">
-    <button type="submit">Поиск</button>
+    <input name="license_plate" placeholder="6566 PE-7" type="search">
+    <button type="submit" name="command" value=${param.command}>Search by license plate</button>
 </form>
 <h4>Car List
     <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
@@ -21,7 +21,6 @@
 <%-- TODO delete id--%>
 <table border="1" cellpadding="5" cellspacing="1">
     <tr>
-        <th>Id</th>
         <th>Model</th>
         <th>Licence Plate</th>
         <th>Color</th>
@@ -35,7 +34,6 @@
     </tr>
     <c:forEach items="${requestScope.cars}" var="car">
         <tr>
-            <td><c:out value="${car.id}"/></td>
             <td><c:out value="${car.modelName}"/></td>
             <td><c:out value="${car.licencePlate}"/></td>
             <td><c:out value="${car.color}"/></td>
@@ -59,14 +57,10 @@
     <td></td>
     <td></td>
     <td></td>
-    <td></td>
     <td>
         <a href="?command=GoToEditCar" style="padding: 10px;">Add Car</a>
     </td>
 </table>
-
 Page <c:out value="${page}"/> of ${pageCount} pages
-
-<a href="?command=GoToEditCar" style="padding: 10px;">Add Car</a>
 </body>
 </html>

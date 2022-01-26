@@ -24,21 +24,47 @@ public class MariaDbCarDAO implements CarDAO {
     private final String UPDATE_CAR = "UPDATE cars SET licence_plate=?, color=?, car_photo=?, odometr=?, status=?, car_model_id=? WHERE id=?";
     private final String DELETE_CAR = "DELETE FROM cars WHERE id=?";
 
+//    @Override
+//    public List<Car> findCars(Map<String, String> criteriaMap) throws DAOException {
+//        Car car = null;
+//        List<Car> cars = new ArrayList<>();
+//        try {
+//            Connection connection = CONNECTION_POOL.takeConnection();
+//            Statement st = connection.createStatement();
+//            StringBuilder s = new StringBuilder("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE");
+//            for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
+//                s.append(" ");
+//                s.append(entry.getKey());
+//                s.append(entry.getValue());
+//            }
+//
+//            ResultSet resultSet = st.executeQuery();
+//            while (resultSet.next()) {
+//                cars.add(buildCar(resultSet));
+//            }
+//            CONNECTION_POOL.returnConnection(connection, st, resultSet);
+//
+//        } catch (SQLException e) {
+//            throw new DAOException(e);
+//        }
+//        return cars;
+//    }
+
     @Override
-    public List<Car> findCars(Map<String, String> criteriaMap) throws DAOException {
-        Car car = null;
+    public List<Car> findCars(String param, String value) throws DAOException {
         List<Car> cars = new ArrayList<>();
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement(FIND_CAR);
-            ps.setInt(1, 0);
-            ps.setString(2, "active");
+            String str = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE " + param + "=?";
+            PreparedStatement ps = connection.prepareStatement(str);
+
+            ps.setString(1, value);
+
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 cars.add(buildCar(resultSet));
             }
-
-            CONNECTION_POOL.returnConnection(connection, ps);
+            CONNECTION_POOL.returnConnection(connection, ps, resultSet);
 
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -58,7 +84,7 @@ public class MariaDbCarDAO implements CarDAO {
                 car = buildCar(resultSet);
             }
 
-            CONNECTION_POOL.returnConnection(connection, ps);
+            CONNECTION_POOL.returnConnection(connection, ps, resultSet);
 
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -92,7 +118,7 @@ public class MariaDbCarDAO implements CarDAO {
     }
 
     @Override
-    public boolean createMadel(CarModel carModel) throws DAOException {
+    public boolean createModel(CarModel carModel) throws DAOException {
         boolean result = false;
         try {
             int count;
@@ -159,10 +185,33 @@ public class MariaDbCarDAO implements CarDAO {
 
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id ORDER BY licence_plate LIMIT ? OFFSET ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id ORDER BY status LIMIT ? OFFSET ?");
             int offset = (page - 1) * limit;
             statement.setInt(1, limit);
             statement.setInt(2,offset);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                cars.add(buildCar(resultSet));
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return cars;
+    }
+
+    @Override
+    public List<Car> readCarsWithOffset(int page, int limit, String orderBy) throws DAOException {
+        List<Car> cars = new ArrayList<>();
+
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id ORDER BY ? LIMIT ? OFFSET ?");
+            int offset = (page - 1) * limit;
+            statement.setInt(1, limit);
+            statement.setInt(2,offset);
+            statement.setString(3,orderBy);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
