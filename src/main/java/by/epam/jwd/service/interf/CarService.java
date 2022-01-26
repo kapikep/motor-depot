@@ -14,9 +14,11 @@ public interface CarService {
 
     List<Car> readAllCar() throws ServiceException;
 
-    int getCarPageCount(double limit) throws ServiceException;
+    int getCarPageCount(String rowLimit) throws ServiceException;
 
-    List<Car> readCarsWithOffset(int page, int limit) throws ServiceException;
+    List<Integer> pagination(String rowLimitStr, String pageStr) throws ServiceException;
+
+    List<Car> readCarsWithOffset(String pageStr, String limitStr) throws ServiceException;
 
     Car readCar(int id) throws ServiceException;
 

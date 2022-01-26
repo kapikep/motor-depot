@@ -17,9 +17,6 @@
 <h4>Car List
     <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 </h4>
-<h4>
-    test
-</h4>
 <c:out value="${param.message}"/>
 <%-- TODO delete id--%>
 <table border="1" cellpadding="5" cellspacing="1" >
@@ -55,8 +52,8 @@
     </c:forEach>
 </table>
 
-Page <c:out value="${param.page}" />
-<br>
-<a href="?command=GoToEditCar" style="padding: 5px;">Add Car</a>
+Page <c:out value="${page}" /> of ${pageCount} pages
+
+<a href="?command=GoToEditCar" style="float: right; padding: 10px; text-align: right;">Add Car</a>
 </body>
 </html>

@@ -3,6 +3,7 @@ package by.epam.jwd.controller.servlet;
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
 import by.epam.jwd.entity.Role;
+import by.epam.jwd.service.ServiceUtil;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -31,36 +32,27 @@ public class AdminController extends HttpServlet {
         session.setAttribute("role", Role.ADMIN);
         session.setAttribute("name", "Dmitrij");
 
-        if(session.getAttribute("role") == Role.ADMIN) {
-            String rowLimitStr = request.getParameter("rowLimit");
-            if(rowLimitStr != null){
-                request.getSession().setAttribute("rowLimit", rowLimitStr);
-            }
+        if (session.getAttribute("role") == Role.ADMIN) {
+            pagination(request, response);
             if (commandName != null) {
                 Command command = provider.getAdminCommand(commandName);
                 command.execute(request, response);
             } else {
                 request.getRequestDispatcher(Command.MAIN_ADMIN_PAGE).forward(request, response);
             }
-        }else {
+        } else {
             response.sendRedirect("signIn");
         }
     }
 
-    public static List<Integer> pagination(int page, int pageCount){
-        List<Integer> res = new ArrayList<>();
-
-        for (int i = page - 3; i <= page; i++) {
-            if(i >= 1){
-                res.add(i);
-            }
+    private void pagination(HttpServletRequest request, HttpServletResponse response) {
+        if(request.getParameter("rowLimit") != null){
+            request.getSession().setAttribute("rowLimit", request.getParameter("rowLimit"));
         }
 
-        for (int i = page + 1; i <= page + 3; i++) {
-            if(i <= pageCount){
-                res.add(i);
-            }
-        }
-        return res;
+        String rowLimit = ServiceUtil.checkRowLimit(request.getParameter("rowLimit"));;
+        String page =  ServiceUtil.checkPage(request.getParameter("page"));;
+
+        request.setAttribute("page", page);
     }
 }

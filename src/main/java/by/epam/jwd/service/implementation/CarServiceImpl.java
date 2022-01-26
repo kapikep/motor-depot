@@ -7,6 +7,7 @@ import by.epam.jwd.dao.interf.MotorDepotDAO;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.CarModel;
 import by.epam.jwd.service.ServiceException;
+import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.interf.CarService;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class CarServiceImpl implements CarService {
     public boolean createMadel(String modelName, String type, String loadCapacityStr, String passengerCapacityStr, String wheelDriveType) throws ServiceException {
         boolean result;
         int loadCapacity = Integer.parseInt(loadCapacityStr);
+        //TODO ServiceUtil
         int passengerCapacity = Integer.parseInt(passengerCapacityStr);
         CarModel carModel = new CarModel(modelName, type, loadCapacity, passengerCapacity, wheelDriveType);
         try {
@@ -59,22 +61,38 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public int getCarPageCount(double limit) throws ServiceException{
-        int size = 0;
+    public int getCarPageCount(String rowLimitStr) throws ServiceException{
+        double size;
+        int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
+
         try{
             size = CAR_DAO.getCarSize();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        size = (int) Math.ceil(size/limit);
-        return size;
+        size = size/rowLimit;
+        size = Math.ceil(size);
+        return (int) size;
     }
 
     @Override
-    public List<Car> readCarsWithOffset(int page, int limit) throws ServiceException {
+    public List<Integer> pagination(String pageStr, String rowLimitStr) throws ServiceException {
+        int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
+        int page = ServiceUtil.parseInt(pageStr);
+        List<Integer> res;
+        int pageCount = getCarPageCount(rowLimitStr);
+        res = ServiceUtil.pagination(pageCount, rowLimit, page);
+        return res;
+    }
+
+    @Override
+    public List<Car> readCarsWithOffset(String pageStr, String rowLimitStr) throws ServiceException {
+        int page = ServiceUtil.parseInt(pageStr);
+        int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
+
         List<Car> cars;
         try {
-            cars = CAR_DAO.readCarsWithOffset(page, limit);
+            cars = CAR_DAO.readCarsWithOffset(page, rowLimit);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -131,4 +149,6 @@ public class CarServiceImpl implements CarService {
         }
         return result;
     }
+
+
 }
