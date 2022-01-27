@@ -10,11 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MariaDbOrderDAO implements OrderDAO {
 
     private final MariaDBConnectionPool CONNECTION_POOL = MariaDBConnectionPool.getConnectionPool();
+    private static final List<String> orderParam = Arrays.asList("id", "criteria", "request_date", "depart_place", "start_date",
+            "end_date", "order_status", "travel_distance", "total_amount", "payment_status", "client_id", "cars_id", "driver_id");
 
     public List<Order> readOrders() throws DAOException {
         List<Order> cars = new ArrayList<>();

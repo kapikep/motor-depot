@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <body>
+<form method="get">
+</form>
 	<a href="welcome?command=GoToSignIn"> Sign In </a>
 
 	<c:if test="${sessionScope.role != null}">

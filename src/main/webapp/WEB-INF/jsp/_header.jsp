@@ -18,4 +18,3 @@
         <a href="?command=GoToCarsPage">Cars</a>
     </div>
 </div>
-<jsp:include page="/WEB-INF/jsp/_localization.jsp"></jsp:include>

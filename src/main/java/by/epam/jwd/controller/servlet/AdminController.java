@@ -34,7 +34,7 @@ public class AdminController extends HttpServlet {
 
         if (session.getAttribute("role") == Role.ADMIN) {
             pagination(request, response);
-            if (commandName != null) {
+            if (commandName != null && !("".equals(commandName))) {
                 Command command = provider.getAdminCommand(commandName);
                 command.execute(request, response);
             } else {

@@ -15,6 +15,7 @@ public interface Command {
     String SIGN_IN = "SignIn";
     String LOG_OUT = "LogOut";
     String GO_TO_SIGN_IN = "GoToSignIn";
+    String CHANGE_LOCALIZATION = "ChangeLocalization";
     //Driver zone
     String MAIN_DRIVER_PAGE = DEFAULT_PATH + "mainDriverPage.jsp";
     //Customer zone

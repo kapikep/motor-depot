@@ -18,6 +18,7 @@ public final class CommandProvider {
         WELCOME_COMMANDS.put(Command.SIGN_IN, new SignIn());
         WELCOME_COMMANDS.put(Command.LOG_OUT, new LogOut());
         WELCOME_COMMANDS.put(Command.GO_TO_SIGN_IN, new GoToSignIn());
+        WELCOME_COMMANDS.put(Command.CHANGE_LOCALIZATION, new ChangeLocalization());
 
         ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_CARS_PAGE, new GoToManageCars());
         ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
@@ -29,6 +30,7 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(Command.ADMIN_GO_TO_EDIT_CAR, new GoToEditCar());
         ADMIN_COMMANDS.put(Command.ADMIN_EDIT_CAR, new UpdateCar());
         ADMIN_COMMANDS.put(Command.ADMIN_DELETE_CAR, new DeleteCar());
+        ADMIN_COMMANDS.put(Command.CHANGE_LOCALIZATION, new ChangeLocalization());
     }
 
     public static CommandProvider getCommandProvider() {
