@@ -11,7 +11,7 @@
 <form action="welcome" method="get">
     <input type="hidden" name="command" value="SignIn">
     Login: <input type="text" name="login"/> <br>
-    Password: <input type="password" name="password" value=""/> <br>
+    Password: <input type="password" name="password" value="" size="16"/> <br>
     <input type="checkbox" name="remember" checked><label>Remember role</label> <br>
     <input type="submit" value="Sign in"/>
     <br>

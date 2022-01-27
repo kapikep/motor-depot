@@ -14,10 +14,6 @@
 		<a href="welcome?command=LogOut"> <fmt:message bundle="${loc}" key="welcome.logOut"/> </a>
 	</c:if>
 </div>
-
-	<br>
-	Role ${sessionScope.role}
-
 	<h2><fmt:message bundle="${loc}" key="welcome.deport"/></h2>
 	<p><fmt:message bundle="${loc}" key="welcome.ourCont"/> +375291111111</p>
 	<p> <a href="presentation"> <fmt:message bundle="${loc}" key="welcome.createOrder"/> </a> </p>
