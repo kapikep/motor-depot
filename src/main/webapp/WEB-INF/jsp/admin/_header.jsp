@@ -1,21 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jsp/_localization.jsp"%>
+
 <link href="css/table.css" rel="stylesheet" >
 <div style="background: rgba(2,186,171,0.37); height: 30px; padding: 5px; border-radius: 10px;">
     <div style="float: right; padding: 5px; text-align: right;">
-        Hello <b>${sessionScope.name}</b> <a href="welcome?command=LogOut"> Log out </a>
+        <c:out value="${welcomeMessage}"/> <b>${sessionScope.name}</b>
+        <a href="welcome?command=LogOut"> <fmt:message bundle="${loc}" key="welcome.logOut"/></a>
         <br/>
     </div>
     <div style="padding: 5px;">
-        <a href="admin">Main</a>
+        <a href="admin"> <fmt:message bundle="${loc}" key="admin.main"/></a>
         |
-        <a href="?command=GoToOrdersPage">Orders</a>
+        <a href="?command=GoToOrdersPage"> <fmt:message bundle="${loc}" key="admin.orders"/></a>
         |
-        <a href="?command=GoToEmployeesPage">Employees</a>
+        <a href="?command=GoToEmployeesPage"> <fmt:message bundle="${loc}" key="admin.employees"/></a>
         |
-        <a href="?command=GoToCustomersPage">Customers</a>
+        <a href="?command=GoToCustomersPage"> <fmt:message bundle="${loc}" key="admin.customers"/></a>
         |
-        <a href="?command=GoToCarsPage">Cars</a>
+        <a href="?command=GoToCarsPage"> <fmt:message bundle="${loc}" key="admin.cars"/></a>
     </div>
 </div>
-<jsp:include page="/WEB-INF/jsp/_localization.jsp"></jsp:include>
+
+<%--<c:import url="/WEB-INF/jsp/_localization.jsp" />--%>
+<%--<fmt:message bundle="${loc}" key="welcome.message" var="welcomeMessage"/>--%>

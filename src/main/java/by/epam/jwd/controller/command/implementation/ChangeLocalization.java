@@ -13,7 +13,7 @@ public class ChangeLocalization implements Command {
         String locale = request.getParameter("locale");
         String prevCommand = request.getParameter("prev_command");
         request.getSession().setAttribute("locale", locale);
-
+        System.out.println(locale);
         response.sendRedirect(request.getRequestURI() + "?command=" + request.getParameter("prev_command"));
 
     }
