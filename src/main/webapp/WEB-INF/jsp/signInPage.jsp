@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jsp/_localization.jsp"%>
 
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
 </head>
 <body>
-<h2>Sign in</h2>
-<jsp:include page="/WEB-INF/jsp/_localization.jsp"></jsp:include>
+<h2><fmt:message bundle="${loc}" key="welcome.signIn"/></h2>
 <form action="welcome" method="get">
     <input type="hidden" name="command" value="SignIn">
     Login: <input type="text" name="login"/> <br>

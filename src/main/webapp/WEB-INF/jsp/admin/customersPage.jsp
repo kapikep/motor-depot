@@ -8,7 +8,6 @@
 </head>
 <body>
 <table>
-    <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
     <br>
     <tr>
         <th>Company</th>

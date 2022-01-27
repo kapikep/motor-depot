@@ -22,6 +22,3 @@ pageEncoding="UTF-8"%>
         <a href="?command=GoToCarsPage"> <fmt:message bundle="${loc}" key="admin.cars"/></a>
     </div>
 </div>
-
-<%--<c:import url="/WEB-INF/jsp/_localization.jsp" />--%>
-<%--<fmt:message bundle="${loc}" key="welcome.message" var="welcomeMessage"/>--%>

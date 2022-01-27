@@ -6,15 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class ChangeLocalization implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String locale = request.getParameter("locale");
-        String prevCommand = request.getParameter("prev_command");
         request.getSession().setAttribute("locale", locale);
-        System.out.println(locale);
         response.sendRedirect(request.getRequestURI() + "?command=" + request.getParameter("prev_command"));
-
+        System.out.println("change");
     }
 }
