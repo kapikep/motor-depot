@@ -12,8 +12,7 @@ import java.util.Map;
 
 public class MariaDbCarDAOTest {
 
-    MotorDepotDAOFactory motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
-    CarDAO carDAO = motorDepotDAO.getCarDao();
+    CarDAO carDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao().getCarDao();
     CarModel carModel;
     CarModel carModelUpd;
     Car car;
@@ -50,8 +49,7 @@ public class MariaDbCarDAOTest {
     public void findCarsTest() {
         Map<String, String> map = null;
         try {
-            //System.out.println(carDAO.findCars("license_plate", "1213 AC-7"));
-            System.out.println(carDAO.findCars("licence_plate", "1213 AC-7"));
+            carDAO.findCars("licence_plate", "1213 AC-7");
         } catch (DAOException e) {
             e.printStackTrace();
         }
