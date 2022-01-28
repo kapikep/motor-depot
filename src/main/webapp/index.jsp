@@ -9,9 +9,10 @@
 </form>
 
 <div style="float: right; padding: 15px; text-align: right;">
-	<a href="welcome?command=GoToSignIn"> <fmt:message bundle="${loc}" key="welcome.signIn"/> </a>
+	<a href="welcome?command=GoToSignIn"> <fmt:message bundle="${loc}" key="welcome.signIn"/></a>
 	<c:if test="${sessionScope.role != null}">
 		<a href="welcome?command=LogOut"> <fmt:message bundle="${loc}" key="welcome.logOut"/> </a>
+		${role}
 	</c:if>
 </div>
 	<h2><fmt:message bundle="${loc}" key="welcome.deport"/></h2>
