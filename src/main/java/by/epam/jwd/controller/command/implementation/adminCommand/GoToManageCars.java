@@ -1,9 +1,11 @@
 package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.implementation.CarServiceImpl;
+import by.epam.jwd.service.implementation.MDServiceFactoryImpl;
 import by.epam.jwd.service.interf.CarService;
 
 import javax.servlet.ServletException;
@@ -22,7 +24,7 @@ public class GoToManageCars implements Command {
         int pageCount = 1;
         List<Car> cars = null;
         List<Integer> numPages = null;
-        CarService carService = new CarServiceImpl();
+        CarService carService = MDServiceFactoryImpl.getMDService().getCarService();
         String licensePlate = request.getParameter("license_plate");
 
         if(licensePlate == null){
@@ -45,7 +47,7 @@ public class GoToManageCars implements Command {
         request.setAttribute("cars", cars);
         request.setAttribute("pageCount", pageCount);
         request.setAttribute("numPages", numPages);
-        request.getRequestDispatcher(ADMIN_CARS_PAGE).forward(request, response);
+        request.getRequestDispatcher(PagePath.ADMIN_CARS_PAGE).forward(request, response);
     }
 
 }

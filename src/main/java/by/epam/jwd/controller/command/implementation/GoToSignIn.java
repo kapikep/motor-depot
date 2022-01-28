@@ -1,6 +1,8 @@
 package by.epam.jwd.controller.command.implementation;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.constant.CommandName;
+import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Role;
 
 import javax.servlet.ServletException;
@@ -14,7 +16,7 @@ public class GoToSignIn implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Role role = (Role)request.getSession().getAttribute("role");
         if(role == null){
-            response.sendRedirect(SIGN_IN_PAGE);
+            request.getRequestDispatcher(PagePath.SIGN_IN_PAGE).forward(request, response);
         }else{
             switch (role) {
                 case ADMIN:

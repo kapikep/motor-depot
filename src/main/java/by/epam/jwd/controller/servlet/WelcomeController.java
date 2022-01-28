@@ -2,6 +2,8 @@ package by.epam.jwd.controller.servlet;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
+import by.epam.jwd.controller.constant.CommandName;
+import by.epam.jwd.controller.constant.PagePath;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -35,7 +37,7 @@ public class WelcomeController extends HttpServlet {
             Command command = provider.getWelcomeCommand(commandName);
             command.execute(request, response);
         } else {
-            response.sendRedirect(Command.INDEX_PAGE);
+            response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_MAIN_PAGE);
         }
     }
 }

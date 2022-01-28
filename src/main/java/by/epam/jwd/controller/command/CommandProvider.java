@@ -5,6 +5,7 @@ import java.util.Map;
 
 import by.epam.jwd.controller.command.implementation.*;
 import by.epam.jwd.controller.command.implementation.adminCommand.*;
+import by.epam.jwd.controller.constant.CommandName;
 
 public final class CommandProvider {
     private static final CommandProvider INSTANCE = new CommandProvider();
@@ -15,22 +16,24 @@ public final class CommandProvider {
     private final Map<String, Command> CUSTOMER_COMMANDS = new HashMap<>();
 
     private CommandProvider() {
-        WELCOME_COMMANDS.put(Command.SIGN_IN, new SignIn());
-        WELCOME_COMMANDS.put(Command.LOG_OUT, new LogOut());
-        WELCOME_COMMANDS.put(Command.GO_TO_SIGN_IN, new GoToSignIn());
-        WELCOME_COMMANDS.put(Command.CHANGE_LOCALIZATION, new ChangeLocalization());
+        WELCOME_COMMANDS.put(CommandName.SIGN_IN, new SignIn());
+        WELCOME_COMMANDS.put(CommandName.LOG_OUT, new LogOut());
+        WELCOME_COMMANDS.put(CommandName.GO_TO_SIGN_IN, new GoToSignIn());
+        WELCOME_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
+        WELCOME_COMMANDS.put(CommandName.GO_TO_MAIN_PAGE, new GoToMainPage());
+        WELCOME_COMMANDS.put(CommandName.GO_TO_WELCOME_CREATE_ORDER, new GoToWelcomeCreateOrder());
 
-        ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_CARS_PAGE, new GoToManageCars());
-        ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
-        ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrders());
-        ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToEmployees());
-        ADMIN_COMMANDS.put(Command.GO_TO_ADMIN_EDIT_ORDER, new GoToEditOrder());
-        ADMIN_COMMANDS.put(Command.ADMIN_CREATE_CAR, new CreateCar());
-        ADMIN_COMMANDS.put(Command.ADMIN_CREATE_CAR_MODEL, new CreateCarModel());
-        ADMIN_COMMANDS.put(Command.ADMIN_GO_TO_EDIT_CAR, new GoToEditCar());
-        ADMIN_COMMANDS.put(Command.ADMIN_EDIT_CAR, new UpdateCar());
-        ADMIN_COMMANDS.put(Command.ADMIN_DELETE_CAR, new DeleteCar());
-        ADMIN_COMMANDS.put(Command.CHANGE_LOCALIZATION, new ChangeLocalization());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CARS_PAGE, new GoToManageCars());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrders());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToEmployees());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EDIT_ORDER, new GoToEditOrder());
+        ADMIN_COMMANDS.put(CommandName.ADMIN_CREATE_CAR, new CreateCar());
+        ADMIN_COMMANDS.put(CommandName.ADMIN_CREATE_CAR_MODEL, new CreateCarModel());
+        ADMIN_COMMANDS.put(CommandName.ADMIN_GO_TO_EDIT_CAR, new GoToEditCar());
+        ADMIN_COMMANDS.put(CommandName.ADMIN_EDIT_CAR, new UpdateCar());
+        ADMIN_COMMANDS.put(CommandName.ADMIN_DELETE_CAR, new DeleteCar());
+        ADMIN_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
     }
 
     public static CommandProvider getCommandProvider() {

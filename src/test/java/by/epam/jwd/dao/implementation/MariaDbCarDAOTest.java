@@ -3,7 +3,7 @@ package by.epam.jwd.dao.implementation;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
-import by.epam.jwd.dao.interf.MotorDepotDAO;
+import by.epam.jwd.dao.interf.MotorDepotDAOFactory;
 import by.epam.jwd.entity.*;
 import org.junit.*;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class MariaDbCarDAOTest {
 
-    MotorDepotDAO motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
+    MotorDepotDAOFactory motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
     CarDAO carDAO = motorDepotDAO.getCarDao();
     CarModel carModel;
     CarModel carModelUpd;

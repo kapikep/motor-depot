@@ -2,6 +2,7 @@ package by.epam.jwd.controller.servlet;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
+import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Role;
 import by.epam.jwd.service.ServiceUtil;
 
@@ -22,7 +23,6 @@ public class AdminController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
-
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +38,7 @@ public class AdminController extends HttpServlet {
                 Command command = provider.getAdminCommand(commandName);
                 command.execute(request, response);
             } else {
-                request.getRequestDispatcher(Command.MAIN_ADMIN_PAGE).forward(request, response);
+                request.getRequestDispatcher(PagePath.MAIN_ADMIN_PAGE).forward(request, response);
             }
         } else {
             response.sendRedirect("signIn");
@@ -46,12 +46,12 @@ public class AdminController extends HttpServlet {
     }
 
     private void pagination(HttpServletRequest request, HttpServletResponse response) {
-        if(request.getParameter("rowLimit") != null){
-            request.getSession().setAttribute("rowLimit", request.getParameter("rowLimit"));
-        }
-
         String rowLimit = ServiceUtil.checkRowLimit(request.getParameter("rowLimit"));;
-        String page =  ServiceUtil.checkPage(request.getParameter("page"));;
+        String page =  ServiceUtil.checkPage(request.getParameter("page"));
+
+        if(rowLimit != null){
+            request.getSession().setAttribute("rowLimit", rowLimit);
+        }
 
         request.setAttribute("page", page);
     }

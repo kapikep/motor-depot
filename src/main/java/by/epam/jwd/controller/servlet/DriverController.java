@@ -2,6 +2,7 @@ package by.epam.jwd.controller.servlet;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
+import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Role;
 
 import javax.servlet.*;
@@ -33,7 +34,7 @@ public class DriverController extends HttpServlet {
                 Command command = provider.getDriverCommand(commandName);
                 command.execute(request, response);
             } else {
-                request.getRequestDispatcher(Command.MAIN_DRIVER_PAGE).forward(request, response);
+                request.getRequestDispatcher(PagePath.MAIN_DRIVER_PAGE).forward(request, response);
             }
         }else {
             response.sendRedirect("signIn");

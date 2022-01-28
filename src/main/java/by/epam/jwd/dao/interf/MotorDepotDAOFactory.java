@@ -2,7 +2,7 @@ package by.epam.jwd.dao.interf;
 
 import by.epam.jwd.dao.DAOException;
 
-public interface MotorDepotDAO {
+public interface MotorDepotDAOFactory {
 
     CarDAO getCarDao();
 

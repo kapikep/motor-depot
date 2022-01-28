@@ -3,21 +3,21 @@ package by.epam.jwd.dao.implementation;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.CarDAO;
-import by.epam.jwd.dao.interf.MotorDepotDAO;
+import by.epam.jwd.dao.interf.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.OrderDAO;
 import by.epam.jwd.dao.interf.UserDao;
 
-public class MariaDbMotorDepotDAO implements MotorDepotDAO {
+public class MariaDbMotorDepotDAO implements MotorDepotDAOFactory {
 
     private static final MariaDbMotorDepotDAO INSTANCE = new MariaDbMotorDepotDAO();
     private static final MariaDBConnectionPool connectionPool = MariaDBConnectionPool.getConnectionPool();
-    private final static CarDAO CAR_DAO = new MariaDbCarDAO();
-    private final static UserDao USER_DAO = new MariaDbUserDAO();
-    private final static OrderDAO ORDER_DAO = new MariaDbOrderDAO();
+    private static final CarDAO CAR_DAO = new MariaDbCarDAO();
+    private static final UserDao USER_DAO = new MariaDbUserDAO();
+    private static final OrderDAO ORDER_DAO = new MariaDbOrderDAO();
 
     private MariaDbMotorDepotDAO(){}
 
-    public static MotorDepotDAO getMySqlMotorDeportDao(){
+    public static MotorDepotDAOFactory getMySqlMotorDeportDao(){
         return INSTANCE;
     }
 
