@@ -47,7 +47,7 @@ public class MariaDbOrderDAO implements OrderDAO {
 
     private Order buildOrder(ResultSet rs) throws SQLException{
         //id, criteria, request_date, depart_place, arrival_place, start_date, end_date, order_status, travel_distance, total_amount, payment_status, client_id, cars_id, driver_id
-        return new Order(rs.getInt("id"), rs.getString("criteria"), rs.getDate("request_date"), rs.getString("depart_place"),
+        return new Order(rs.getInt("id"), rs.getString("criteria"), rs.getTimestamp("request_date"), rs.getString("depart_place"),
                 rs.getString("arrival_place"), rs.getDate("start_date"), rs.getDate("end_date"), rs.getString("order_status"),
                 rs.getString("travel_distance"), rs.getString("total_amount"), rs.getString("payment_status"), rs.getInt("client_id"),
                 rs.getString("name"), rs.getString("surname"), rs.getInt("cars_id"), rs.getString("licence_plate"), rs.getInt("driver_id"),

@@ -3,8 +3,7 @@ package by.epam.jwd.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Car extends CarModel  { //extends carModel?
-   
+public class Car extends CarModel  {
 	private static final long serialVersionUID = 1L;
 	private int id;
     private String licencePlate;

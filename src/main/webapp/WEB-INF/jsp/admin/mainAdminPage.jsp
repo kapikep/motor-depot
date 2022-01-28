@@ -9,6 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<form action="admin" method="get">
+    <input type="datetime-local" name="date">
+    <button type="submit" name="command" value=${param.command}>Set</button>
+</form>
 </body>
 </html>

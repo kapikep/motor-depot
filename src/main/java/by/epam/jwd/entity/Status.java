@@ -4,5 +4,8 @@ import java.io.Serializable;
 
 public enum Status implements Serializable {
     ACTIVE,
-    BLOCK
+    BLOCK,
+    APPROVE,
+    NOT_APPROVE,
+    DONE
 }

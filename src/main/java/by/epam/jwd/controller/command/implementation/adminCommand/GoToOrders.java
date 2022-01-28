@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class GoToOrders implements Command {
@@ -30,6 +32,20 @@ public class GoToOrders implements Command {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
+
+        Date date = orders.get(0).getRequestDate();
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat output = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String s = output.format(date);
+
+//        Date d = sdf.parse();
+//        String formattedTime = output.format(d);
+
+        System.out.println(s);
+        System.out.println(now);
+        System.out.println(now.after(date));
+        System.out.println(now.before(date));
 
         request.setAttribute("orders", orders);
         request.setAttribute("pageCount", pageCount);
