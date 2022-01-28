@@ -1,10 +1,9 @@
 package by.epam.jwd.dao.implementation;
 
 import by.epam.jwd.dao.DAOException;
+import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.OrderDAO;
-import by.epam.jwd.entity.Car;
-import by.epam.jwd.entity.CarModel;
 import by.epam.jwd.entity.Order;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,10 +13,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class MariaDbOrderDAOTest {
-    OrderDAO orderDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao().getOrderDao();
+    OrderDAO orderDAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getOrderDao();
 
     @BeforeClass
     public static void beforeClass() throws Exception {

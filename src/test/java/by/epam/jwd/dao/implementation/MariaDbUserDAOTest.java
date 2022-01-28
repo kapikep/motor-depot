@@ -1,8 +1,8 @@
 package by.epam.jwd.dao.implementation;
 
 import by.epam.jwd.dao.DAOException;
+import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
-import by.epam.jwd.dao.interf.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.UserDao;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class MariaDbUserDAOTest {
 
         try {
             MariaDBConnectionPool.initPool("testDb");
-            MotorDepotDAOFactory motorDepotDAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
+            MotorDepotDAOFactory motorDepotDAO = MotorDepotDAOFactory.getMotorDepotDAOFactory();
             UserDao userDao = motorDepotDAO.getUserDao();
             MariaDBConnectionPool.closeConnectionQueue();
         } catch (DAOException e) {

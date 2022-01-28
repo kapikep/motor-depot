@@ -4,8 +4,7 @@ import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.service.ServiceException;
-import by.epam.jwd.service.implementation.CarServiceImpl;
-import by.epam.jwd.service.implementation.MDServiceFactoryImpl;
+import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.interf.CarService;
 
 import javax.servlet.ServletException;
@@ -24,7 +23,7 @@ public class GoToManageCars implements Command {
         int pageCount = 1;
         List<Car> cars = null;
         List<Integer> numPages = null;
-        CarService carService = MDServiceFactoryImpl.getMDService().getCarService();
+        CarService carService = MDServiceFactory.getMDService().getCarService();
         String licensePlate = request.getParameter("license_plate");
 
         if(licensePlate == null){
@@ -36,7 +35,6 @@ public class GoToManageCars implements Command {
                 e.printStackTrace();
             }
         }else {
-            System.out.println(licensePlate);
             try {
                 cars = carService.findCars("licence_plate", licensePlate);
             } catch (ServiceException e) {

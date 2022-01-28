@@ -5,8 +5,7 @@ import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.CarModel;
 import by.epam.jwd.service.ServiceException;
-import by.epam.jwd.service.implementation.CarServiceImpl;
-import by.epam.jwd.service.implementation.MDServiceFactoryImpl;
+import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.interf.CarService;
 
 import javax.servlet.ServletException;
@@ -19,7 +18,7 @@ public class GoToEditCar implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CarService carService = MDServiceFactoryImpl.getMDService().getCarService();
+        CarService carService = MDServiceFactory.getMDService().getCarService();
         List<CarModel> carModels = null;
         Car car = new Car(1, "7777 KC-7", "blue", 1, "Nissan Murano", "Car", 700,
                 5, "4x2", 1111, "active", "nan");

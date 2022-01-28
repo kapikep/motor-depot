@@ -1,9 +1,8 @@
 package by.epam.jwd.service.implementation;
 
 import by.epam.jwd.dao.DAOException;
-import by.epam.jwd.dao.implementation.MariaDbMotorDepotDAO;
+import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.CarDAO;
-import by.epam.jwd.dao.interf.MotorDepotDAOFactory;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.CarModel;
 import by.epam.jwd.service.ServiceException;
@@ -14,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CarServiceImpl implements CarService {
-    private final CarDAO CAR_DAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao().getCarDao();
+    private final CarDAO CAR_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getCarDao();
     private final List<String> COLUMN_CAR_NAMES  = Arrays.asList("id", "licence_plate", "color", "car_photo", "odometr", "status", "car_model_id");
     private final List<String> COLUMN_CAR_MODEL_NAMES  = Arrays.asList("id", "model_name", "type", "load_capacity", "passenger_capacity", "wheel_drive_type");
 
