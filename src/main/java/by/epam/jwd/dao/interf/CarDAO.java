@@ -30,4 +30,6 @@ public interface CarDAO {
     boolean deleteCar(int id) throws DAOException;
 
     boolean updateCar(Car car) throws DAOException;
+
+    List<Car> findCars(Map<String, String> criteriaMap) throws DAOException;
 }

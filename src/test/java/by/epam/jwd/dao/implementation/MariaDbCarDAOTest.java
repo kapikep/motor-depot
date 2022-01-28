@@ -7,6 +7,8 @@ import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.entity.*;
 import org.junit.*;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ public class MariaDbCarDAOTest {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        MariaDBConnectionPool.initPool("testDb");
+        MariaDBConnectionPool.initPool("db");
     }
 
     @Before
@@ -47,9 +49,13 @@ public class MariaDbCarDAOTest {
 
     @Test
     public void findCarsTest() {
-        Map<String, String> map = null;
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "active");
+        map.put("odometr", ">9999");
+
         try {
             carDAO.findCars("licence_plate", "1213 AC-7");
+            System.out.println(carDAO.findCars(map));
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -68,16 +74,16 @@ public class MariaDbCarDAOTest {
         Assert.assertEquals(offset, carList.size());
     }
 
-    @Test
-    public void createCarTest() {
-        Boolean result = false;
-        try {
-            result = carDAO.createCar(car);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(result);
-    }
+//    @Test
+//    public void createCarTest() {
+//        Boolean result = false;
+//        try {
+//            result = carDAO.createCar(car);
+//        } catch (DAOException e) {
+//            e.printStackTrace();
+//        }
+//        Assert.assertTrue(result);
+//    }
 
     @Test
     public void updateCarTest() {
@@ -101,16 +107,16 @@ public class MariaDbCarDAOTest {
         Assert.assertEquals(1, car.getId());
     }
 
-    @Test
-    public void createMadelTest() {
-        Boolean result = false;
-        try {
-            result = carDAO.createModel(carModel);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(result);
-    }
+//    @Test
+//    public void createMadelTest() {
+//        Boolean result = false;
+//        try {
+//            result = carDAO.createModel(carModel);
+//        } catch (DAOException e) {
+//            e.printStackTrace();
+//        }
+//        Assert.assertTrue(result);
+//    }
 
 //    @Test
 //    public void test() {

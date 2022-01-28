@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MariaDbOrderDAOTest {
@@ -26,14 +27,25 @@ public class MariaDbOrderDAOTest {
     }
 
     @Test
-    public void name() {
+    public void readAllOrdersTest() {
         List<Order> cars = new ArrayList<>();
         try {
             cars = orderDAO.readAllOrders();
         } catch (DAOException e) {
             e.printStackTrace();
         }
-        System.out.println(cars);
+    }
+
+    @Test
+    public void name() {
+        Order order = new Order();
+        order.setCriteria("Маз 10 тонн");
+        order.setRequestDate(new Date());
+        try {
+            orderDAO.createNotApproveOrder(order);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterClass

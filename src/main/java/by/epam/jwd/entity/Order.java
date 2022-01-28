@@ -11,12 +11,12 @@ public class Order {
     private Date startDate;
     private Date endDate;
     private String orderStatus;
-    private String distance;
-    private String totalAmount;
+    private int distance;
+    private int totalAmount;
     private String paymentStatus;
     private int clientId;
-    private String clientName;
-    private String clientSurname;
+    private String clientFullName;
+    private String clientPhone;
     private int carId;
     private String carLicensePlate;
     private int driverId;
@@ -25,6 +25,7 @@ public class Order {
     private int adminId;
     private String adminName;
     private String adminSurname;
+    User customer;
 
     public Order() {
     }
@@ -36,8 +37,8 @@ public class Order {
     }
 
     public Order(int id, String criteria, Date requestDate, String departPlace, String arrivalPlace, Date startDate,
-                 Date endDate, String orderStatus, String distance, String totalAmount, String paymentStatus, int clientId,
-                 String clientName, String clientSurname, int carId, String carLicensePlate, int driverId, String driverName, String driverSurname,
+                 Date endDate, String orderStatus, int distance, int totalAmount, String paymentStatus, int clientId,
+                 String clientFullName, String clientPhone, int carId, String carLicensePlate, int driverId, String driverName, String driverSurname,
                  int adminId, String adminName, String adminSurname) {
         this.id = id;
         this.criteria = criteria;
@@ -51,8 +52,8 @@ public class Order {
         this.totalAmount = totalAmount;
         this.paymentStatus = paymentStatus;
         this.clientId = clientId;
-        this.clientName = clientName;
-        this.clientSurname = clientSurname;
+        this.clientFullName = clientFullName;
+        this.clientPhone = clientPhone;
         this.carId = carId;
         this.carLicensePlate = carLicensePlate;
         this.driverId = driverId;
@@ -127,19 +128,19 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public String getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 
-    public String getTotalAmount() {
+    public int getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(String totalAmount) {
+    public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -159,20 +160,20 @@ public class Order {
         this.clientId = clientId;
     }
 
-    public String getClientName() {
-        return clientName;
+    public String getClientFullName() {
+        return clientFullName;
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    public void setClientFullName(String clientFullName) {
+        this.clientFullName = clientFullName;
     }
 
-    public String getClientSurname() {
-        return clientSurname;
+    public String getClientPhone() {
+        return clientPhone;
     }
 
-    public void setClientSurname(String clientSurname) {
-        this.clientSurname = clientSurname;
+    public void setClientPhone(String clientPhone) {
+        this.clientPhone = clientPhone;
     }
 
     public int getCarId() {
@@ -239,23 +240,31 @@ public class Order {
         this.adminSurname = adminSurname;
     }
 
+    public User getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(User customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
-        return "\n Order{" +
+        return "Order{" +
                 "id=" + id +
                 ", criteria='" + criteria + '\'' +
                 ", requestDate=" + requestDate +
                 ", departPlace='" + departPlace + '\'' +
                 ", arrivalPlace='" + arrivalPlace + '\'' +
                 ", startDate=" + startDate +
-                ", end_date=" + endDate +
-                ", order_status='" + orderStatus + '\'' +
+                ", endDate=" + endDate +
+                ", orderStatus='" + orderStatus + '\'' +
                 ", distance='" + distance + '\'' +
                 ", totalAmount='" + totalAmount + '\'' +
                 ", paymentStatus='" + paymentStatus + '\'' +
                 ", clientId=" + clientId +
-                ", clientName='" + clientName + '\'' +
-                ", clientSurname='" + clientSurname + '\'' +
+                ", clientFullName='" + clientFullName + '\'' +
+                ", clientPhone='" + clientPhone + '\'' +
                 ", carId=" + carId +
                 ", carLicensePlate='" + carLicensePlate + '\'' +
                 ", driverId=" + driverId +
@@ -264,6 +273,7 @@ public class Order {
                 ", adminId=" + adminId +
                 ", adminName='" + adminName + '\'' +
                 ", adminSurname='" + adminSurname + '\'' +
+                ", customer=" + customer +
                 '}';
     }
 }

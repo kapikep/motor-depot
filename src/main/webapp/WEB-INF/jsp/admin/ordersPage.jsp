@@ -20,6 +20,7 @@
         <th><fmt:message bundle="${loc}" key="table.order.startDate"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.orderStatus"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.clientNumber"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.driverFullName"/></th>
         <th><fmt:message bundle="${loc}" key="table.car.license"/></th>
         <th><fmt:message bundle="${loc}" key="table.view"/></th>
@@ -31,7 +32,8 @@
             <td><fmt:formatDate value="${order.requestDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td><fmt:formatDate value="${order.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td><c:out value="${order.orderStatus}"/></td>
-            <td><c:out value="${order.clientSurname}"/> <c:out value="${order.clientName}"/></td>
+            <td><c:out value="${order.clientFullName}"/> </td>
+            <td><c:out value="${order.clientPhone}"/> </td>
             <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
             <td><c:out value="${order.carLicensePlate}"/></td>
             <td>
@@ -40,6 +42,7 @@
             </td>
         </tr>
     </c:forEach>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
