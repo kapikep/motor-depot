@@ -18,37 +18,11 @@ public class MariaDbCarDAO implements CarDAO {
     private final String CREATE_MODEL = "INSERT INTO car_model (model_name, `type`, load_capacity, passenger_capacity, wheel_drive_type) " +
             "VALUES(?, ?, ?, ?, ?)";
     private final String FIND_ALL_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id";
-    private final String FIND_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE car_model.load_capacity>? AND cars.status=?";
     private final String GET_CAR = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE cars.id=?";
     private final String FIND_CAR_MODEL = "SELECT * FROM car_model";
     private final String UPDATE_CAR = "UPDATE cars SET licence_plate=?, color=?, car_photo=?, odometr=?, status=?, car_model_id=? WHERE id=?";
     private final String DELETE_CAR = "DELETE FROM cars WHERE id=?";
-
-//    @Override
-//    public List<Car> findCars(Map<String, String> criteriaMap) throws DAOException {
-//        Car car = null;
-//        List<Car> cars = new ArrayList<>();
-//        try {
-//            Connection connection = CONNECTION_POOL.takeConnection();
-//            Statement st = connection.createStatement();
-//            StringBuilder s = new StringBuilder("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE");
-//            for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
-//                s.append(" ");
-//                s.append(entry.getKey());
-//                s.append(entry.getValue());
-//            }
-//
-//            ResultSet resultSet = st.executeQuery();
-//            while (resultSet.next()) {
-//                cars.add(buildCar(resultSet));
-//            }
-//            CONNECTION_POOL.returnConnection(connection, st, resultSet);
-//
-//        } catch (SQLException e) {
-//            throw new DAOException(e);
-//        }
-//        return cars;
-//    }
+    private final String READ_CARS_WITH_OFFSET = "SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id ORDER BY ? LIMIT ? OFFSET ?";
 
     @Override
     public List<Car> findCars(String param, String value) throws DAOException {
@@ -295,6 +269,32 @@ public class MariaDbCarDAO implements CarDAO {
         }
         return result;
     }
+
+    //    @Override
+//    public List<Car> findCars(Map<String, String> criteriaMap) throws DAOException {
+//        Car car = null;
+//        List<Car> cars = new ArrayList<>();
+//        try {
+//            Connection connection = CONNECTION_POOL.takeConnection();
+//            Statement st = connection.createStatement();
+//            StringBuilder s = new StringBuilder("SELECT * FROM cars JOIN car_model ON cars.car_model_id = car_model.id WHERE");
+//            for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
+//                s.append(" ");
+//                s.append(entry.getKey());
+//                s.append(entry.getValue());
+//            }
+//
+//            ResultSet resultSet = st.executeQuery();
+//            while (resultSet.next()) {
+//                cars.add(buildCar(resultSet));
+//            }
+//            CONNECTION_POOL.returnConnection(connection, st, resultSet);
+//
+//        } catch (SQLException e) {
+//            throw new DAOException(e);
+//        }
+//        return cars;
+//    }
 
     private Car buildCar(ResultSet resultSet) throws SQLException {
         return new Car(resultSet.getInt("id"), resultSet.getString("licence_plate"),

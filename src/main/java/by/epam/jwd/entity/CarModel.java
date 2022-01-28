@@ -95,13 +95,12 @@ public class CarModel implements Serializable{
 
     @Override
     public String toString() {
-        return "CarModel{" +
+        return "CarModel: " +
                 "id=" + id +
-                ", ModelName='" + modelName + '\'' +
-                ", type='" + type + '\'' +
+                ", ModelName='" + modelName +
+                ", type=" + type +
                 ", loadCapacity=" + loadCapacity +
                 ", passengerCapacity=" + passengerCapacity +
-                ", wheelDriveType='" + wheelDriveType + '\'' +
-                '}';
+                ", wheelDriveType=" + wheelDriveType;
     }
 }

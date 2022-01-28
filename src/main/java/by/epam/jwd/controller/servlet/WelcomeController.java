@@ -27,7 +27,6 @@ public class WelcomeController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
-
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

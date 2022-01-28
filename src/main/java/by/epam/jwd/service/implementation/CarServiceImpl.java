@@ -10,14 +10,16 @@ import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.interf.CarService;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CarServiceImpl implements CarService {
-    private final MotorDepotDAOFactory MOTOR_DEPORT_DAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao();
-    private final CarDAO CAR_DAO = MOTOR_DEPORT_DAO.getCarDao();
+    private final CarDAO CAR_DAO = MariaDbMotorDepotDAO.getMySqlMotorDeportDao().getCarDao();
+    private final List<String> COLUMN_CAR_NAMES  = Arrays.asList("id", "licence_plate", "color", "car_photo", "odometr", "status", "car_model_id");
+    private final List<String> COLUMN_CAR_MODEL_NAMES  = Arrays.asList("id", "model_name", "type", "load_capacity", "passenger_capacity", "wheel_drive_type");
 
     @Override
-    public boolean createMadel(String modelName, String type, String loadCapacityStr, String passengerCapacityStr, String wheelDriveType) throws ServiceException {
+    public boolean createModel(String modelName, String type, String loadCapacityStr, String passengerCapacityStr, String wheelDriveType) throws ServiceException {
         boolean result;
         int loadCapacity = Integer.parseInt(loadCapacityStr);
         //TODO ServiceUtil
@@ -36,8 +38,8 @@ public class CarServiceImpl implements CarService {
     public boolean createCar(String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException {
         boolean result;
         //TODO validation
-        int odometr = Integer.parseInt(odometrStr);
-        int carModelId = Integer.parseInt(carModelIdStr);
+        int odometr = ServiceUtil.parseInt(odometrStr);
+        int carModelId = ServiceUtil.parseInt(carModelIdStr);
 
         Car car = new Car(licencePlate, color, photo, odometr, status, carModelId);
         try {
