@@ -2,9 +2,12 @@ package by.epam.jwd.controller.servlet;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
+import by.epam.jwd.controller.constant.CommandName;
 import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Role;
+import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceUtil;
+import by.epam.jwd.service.interf.OrderService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -38,10 +41,10 @@ public class AdminController extends HttpServlet {
                 Command command = provider.getAdminCommand(commandName);
                 command.execute(request, response);
             } else {
-                request.getRequestDispatcher(PagePath.MAIN_ADMIN_PAGE).forward(request, response);
+                response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE);
             }
         } else {
-            response.sendRedirect("signIn");
+            response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_SIGN_IN);
         }
     }
 

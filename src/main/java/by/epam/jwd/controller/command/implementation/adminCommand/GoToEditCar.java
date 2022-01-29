@@ -22,10 +22,9 @@ public class GoToEditCar implements Command {
         List<CarModel> carModels = null;
         Car car = new Car(1, "7777 KC-7", "blue", 1, "Nissan Murano", "Car", 700,
                 5, "4x2", 1111, "active", "nan");
-        int edit_id;
+        String edit_id = request.getParameter("edit_id");
         try {
-            if(request.getParameter("edit_id") != null) {
-                edit_id = Integer.parseInt(request.getParameter("edit_id"));
+            if(edit_id != null) {
                 car = carService.readCar(edit_id);
                 request.setAttribute("edit", true);
             }else {

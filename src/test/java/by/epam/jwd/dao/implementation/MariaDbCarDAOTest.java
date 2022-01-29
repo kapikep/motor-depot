@@ -8,7 +8,6 @@ import by.epam.jwd.entity.*;
 import org.junit.*;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +66,7 @@ public class MariaDbCarDAOTest {
         int offset = 5;
         List<Car> carList = null;
         try {
-            carList = carDAO.readCarsWithOffset(2, offset);
+            carList = carDAO.readCars(2, offset);
         } catch (DAOException e) {
             e.printStackTrace();
         }

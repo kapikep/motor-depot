@@ -17,9 +17,9 @@ public interface CarDAO {
 
     int getCarSize() throws DAOException;
 
-    List<Car> readCarsWithOffset(int page, int limit) throws DAOException;
+    List<Car> readCars(int page, int limit) throws DAOException;
 
-    List<Car> readCarsWithOffset(int page, int limit, String orderBy) throws DAOException;
+    List<Car> readCars(int page, int limit, String orderBy) throws DAOException;
 
     List<CarModel> readAllCarModels() throws DAOException;
 

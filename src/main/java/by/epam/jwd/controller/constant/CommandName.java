@@ -12,6 +12,7 @@ public final class CommandName {
     public static final String LOG_OUT = "LogOut";
     public static final String CHANGE_LOCALIZATION = "ChangeLocalization";
     public static final String GO_TO_WELCOME_CREATE_ORDER = "GoToWelcomeCreateOrder";
+    public static final String CREATE_ORDER = "CreateOrder";
 
     //Admin zone
     public static final String ADMIN_COMMAND = "admin?command=";
@@ -25,8 +26,7 @@ public final class CommandName {
     public static final String ADMIN_GO_TO_EDIT_CAR = "GoToEditCar";
     public static final String ADMIN_EDIT_CAR = "UpdateCar";
     public static final String ADMIN_DELETE_CAR = "DeleteCar";
-//    public static final String
-//    public static final String
+    public static final String GO_TO_MAIN_ADMIN_PAGE = "GoToMainAdminPage";
 //    public static final String
 //    public static final String
 //    public static final String

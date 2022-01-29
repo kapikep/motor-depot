@@ -25,7 +25,6 @@ public class Order {
     private int adminId;
     private String adminName;
     private String adminSurname;
-    User customer;
 
     public Order() {
     }
@@ -240,14 +239,6 @@ public class Order {
         this.adminSurname = adminSurname;
     }
 
-    public User getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(User customer) {
-        this.customer = customer;
-    }
-
     @Override
     public String toString() {
         return "Order{" +
@@ -273,7 +264,6 @@ public class Order {
                 ", adminId=" + adminId +
                 ", adminName='" + adminName + '\'' +
                 ", adminSurname='" + adminSurname + '\'' +
-                ", customer=" + customer +
                 '}';
     }
 }

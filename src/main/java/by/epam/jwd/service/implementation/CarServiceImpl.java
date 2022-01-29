@@ -33,6 +33,7 @@ public class CarServiceImpl implements CarService {
         return result;
     }
 
+
     @Override
     public boolean createCar(String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException {
         boolean result;
@@ -51,7 +52,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> readAllCar() throws ServiceException {
+    public List<Car> readCars() throws ServiceException {
         List<Car> cars;
         try {
             cars = CAR_DAO.readAllCar();
@@ -86,13 +87,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> readCarsWithOffset(String pageStr, String rowLimitStr) throws ServiceException {
+    public List<Car> readCars(String pageStr, String rowLimitStr) throws ServiceException {
+        List<Car> cars;
         int page = ServiceUtil.parseInt(pageStr);
         int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
-        List<Car> cars;
         try {
-            cars = CAR_DAO.readCarsWithOffset(page, rowLimit);
+            cars = CAR_DAO.readCars(page, rowLimit);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -100,8 +101,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car readCar(int id) throws ServiceException {
+    public Car readCar(String idStr) throws ServiceException {
         Car car = null;
+        int id = ServiceUtil.parseInt(idStr);
         try {
             car = CAR_DAO.readCar(id);
         } catch (DAOException e) {
@@ -161,6 +163,4 @@ public class CarServiceImpl implements CarService {
         }
         return result;
     }
-
-
 }

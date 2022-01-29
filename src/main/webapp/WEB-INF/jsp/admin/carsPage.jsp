@@ -33,7 +33,7 @@
         <th><fmt:message bundle="${loc}" key="table.car.weelDr"/></th>
         <th><fmt:message bundle="${loc}" key="table.car.odometr"/></th>
         <th><fmt:message bundle="${loc}" key="table.car.status"/></th>
-        <th><fmt:message bundle="${loc}" key="table.car.edit"/></th>
+        <th><fmt:message bundle="${loc}" key="table.edit"/></th>
     </tr>
     <c:forEach items="${requestScope.cars}" var="car">
         <tr>
@@ -48,7 +48,7 @@
             <td><c:out value="${car.status}"/></td>
             <td>
                 <a href="admin?command=GoToEditCar&edit_id=${car.id}">
-                    <fmt:message bundle="${loc}" key="table.car.edit"/></a>
+                    <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
     </c:forEach>
@@ -63,7 +63,7 @@
     <td></td>
     <td>
         <a href="?command=GoToEditCar" style="padding: 10px;">
-            <fmt:message bundle="${loc}" key="table.car.add"/>
+            <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>
 </table>

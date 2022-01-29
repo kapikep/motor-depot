@@ -7,6 +7,14 @@
     <title>Orders Page</title>
 </head>
 <body>
+<br>
+<form action="" method="get">
+    <input name="findId" placeholder="Order №" type="search" maxlength="9" minlength="1">
+    <button type="submit" name="command" value=${param.command}>
+        <fmt:message bundle="${loc}" key="table.search"/>
+    </button>
+</form>
+
 <fmt:message bundle="${loc}" key="admin.orders"/>
 <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 
@@ -17,7 +25,12 @@
         <th><fmt:message bundle="${loc}" key="table.order.orderNumber"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.criteria"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.requestDate"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.departPlace"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.arrivalPlace"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.startDate"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.endDate"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.totalAmount"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.paymentStatus"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.orderStatus"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.clientNumber"/></th>
@@ -30,15 +43,24 @@
             <td><c:out value="${order.id}"/></td>
             <td><c:out value="${order.criteria}"/></td>
             <td><fmt:formatDate value="${order.requestDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td><c:out value="${order.departPlace}"/></td>
+            <td><c:out value="${order.arrivalPlace}"/></td>
             <td><fmt:formatDate value="${order.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td><fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td><c:out value="${order.totalAmount}"/></td>
+            <td><c:out value="${order.paymentStatus}"/></td>
             <td><c:out value="${order.orderStatus}"/></td>
             <td><c:out value="${order.clientFullName}"/> </td>
             <td><c:out value="${order.clientPhone}"/> </td>
             <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
-            <td><c:out value="${order.carLicensePlate}"/></td>
             <td>
-                <a href="admin?command=GoToEditCar&edit_id=${order.id}">
-                    <fmt:message bundle="${loc}" key="table.view"/></a>
+                <a href="admin?command=GoToCarsPage&license_plate=${order.carLicensePlate}">
+                    <c:out value="${order.carLicensePlate}"/>
+                </a>
+            </td>
+            <td>
+                <a href="admin?command=GoToEditOrder&edit_id=${order.id}">
+                    <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
     </c:forEach>
@@ -51,9 +73,14 @@
     <td></td>
     <td></td>
     <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td>
         <a href="?command=GoToEditCar" style="padding: 10px;">
-            <fmt:message bundle="${loc}" key="table.car.add"/>
+            <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>
 </table>

@@ -2,6 +2,7 @@ package by.epam.jwd.controller.servlet;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
+import by.epam.jwd.controller.constant.CommandName;
 import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Role;
 
@@ -36,7 +37,7 @@ public class CustomerController extends HttpServlet {
                 request.getRequestDispatcher(PagePath.MAIN_CUSTOMER_PAGE).forward(request, response);
             }
         }else {
-            response.sendRedirect("signIn");
+            response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_SIGN_IN);
         }
     }
 }

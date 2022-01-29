@@ -9,6 +9,7 @@ import by.epam.jwd.entity.Status;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,23 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
+    public void createNotApproveOrder(String fullName, String phoneNumber, String criteria, Date requestDate) throws DAOException{
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (criteria, order_status, client_full_name, client_phone, request_date)" +
+                    "VALUES(?, ?, ?, ?, ?)");
+            ps.setString(1, criteria);
+            ps.setString(2, Status.NOT_APPROVE.toString());
+            ps.setString(3, fullName);
+            ps.setString(4, phoneNumber);
+            ps.setTimestamp(5, new Timestamp(requestDate.getTime()));
+            ps.executeUpdate();
+            CONNECTION_POOL.returnConnection(connection, ps);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
     public void createNotApproveOrder(Order order) throws DAOException{
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
@@ -69,12 +87,13 @@ public class MariaDbOrderDAO implements OrderDAO {
         }
     }
 
+
     @Override
     public List<Order> findOrders(String param, String value) throws DAOException {
         List<Order> orders = new ArrayList<>();
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            String str = "SELECT * FROM orders JOIN cars c on c.id = orders.cars_id " +
+            String str = "SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
                     "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + param + "=?";
@@ -135,7 +154,7 @@ public class MariaDbOrderDAO implements OrderDAO {
         Order order = null;
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id " +
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
                     "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE orders.id=?");
@@ -152,7 +171,7 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
-    public List<Order> readAllOrders() throws DAOException {
+    public List<Order> readOrders() throws DAOException {
         List<Order> cars = new ArrayList<>();
 
         try {
@@ -160,7 +179,7 @@ public class MariaDbOrderDAO implements OrderDAO {
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement
-                    .executeQuery("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id " +
+                    .executeQuery("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                             "LEFT JOIN users u on u.id = orders.client_id " +
                             "LEFT JOIN users u2 on u2.id = orders.driver_id " +
                             "LEFT JOIN users u3 on u3.id = orders.admin_id");
@@ -175,30 +194,35 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
-    public int getOrderSize() throws DAOException{
-        int size = 0;
+    public List<Order> readOrders(String whereParam, String whereValue) throws DAOException {
+        List<Order> cars = new ArrayList<>();
+
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            Statement statement = connection.createStatement();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
+                    "LEFT JOIN users u on u.id = orders.client_id " +
+                    "LEFT JOIN users u2 on u2.id = orders.driver_id " +
+                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + whereParam + "=?");
+            statement.setString(1, whereValue);
 
-            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM orders");
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                size = resultSet.getInt("COUNT(*)");
+                cars.add(buildOrder(resultSet));
             }
             CONNECTION_POOL.returnConnection(connection, statement, resultSet);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
-        return size;
+        return cars;
     }
 
     @Override
-    public List<Order> readOrdersWithOffset(int page, int limit) throws DAOException {
+    public List<Order> readOrders(int page, int limit) throws DAOException {
         List<Order> orders = new ArrayList<>();
 
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id " +
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
                     "LEFT JOIN users u3 on u3.id = orders.admin_id ORDER BY orders.id LIMIT ? OFFSET ?");
@@ -218,12 +242,38 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
-    public List<Order> readOrdersWithOffset(int page, int limit, String orderBy) throws DAOException {
+    public List<Order> readOrders(int page, int limit, String whereParam, String whereValue) throws DAOException {
         List<Order> orders = new ArrayList<>();
 
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id " +
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
+                    "LEFT JOIN users u on u.id = orders.client_id " +
+                    "LEFT JOIN users u2 on u2.id = orders.driver_id " +
+                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + whereParam + "=?" +" LIMIT ? OFFSET ?");
+            int offset = (page - 1) * limit;
+            statement.setString(1, whereValue);
+            statement.setInt(2, limit);
+            statement.setInt(3,offset);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                orders.add(buildOrder(resultSet));
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> readOrders(int page, int limit, String orderBy) throws DAOException {
+        List<Order> orders = new ArrayList<>();
+
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
                     "LEFT JOIN users u3 on u3.id = orders.admin_id ORDER BY ? LIMIT ? OFFSET ?");
@@ -241,6 +291,24 @@ public class MariaDbOrderDAO implements OrderDAO {
             throw new DAOException(e);
         }
         return orders;
+    }
+
+    @Override
+    public int getOrderSize() throws DAOException{
+        int size = 0;
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM orders");
+            while (resultSet.next()) {
+                size = resultSet.getInt("COUNT(*)");
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return size;
     }
 
     @Override
@@ -278,7 +346,7 @@ public class MariaDbOrderDAO implements OrderDAO {
 
     private Order buildOrder(ResultSet rs) throws SQLException{
         return new Order(rs.getInt("id"), rs.getString("criteria"), rs.getTimestamp("request_date"), rs.getString("depart_place"),
-                rs.getString("arrival_place"), rs.getDate("start_date"), rs.getDate("end_date"), rs.getString("order_status"),
+                rs.getString("arrival_place"), rs.getTimestamp("start_date"), rs.getTimestamp("end_date"), rs.getString("order_status"),
                 rs.getInt("travel_distance"), rs.getInt("total_amount"), rs.getString("payment_status"), rs.getInt("client_id"),
                 rs.getString("client_full_name"), rs.getString("client_phone"), rs.getInt("cars_id"), rs.getString("licence_plate"), rs.getInt("driver_id"),
                 rs.getString("u2.name"), rs.getString("u2.surname"), rs.getInt("admin_id"),

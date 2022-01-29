@@ -151,7 +151,7 @@ public class MariaDbCarDAO implements CarDAO {
     }
 
     @Override
-    public List<Car> readCarsWithOffset(int page, int limit) throws DAOException {
+    public List<Car> readCars(int page, int limit) throws DAOException {
         List<Car> cars = new ArrayList<>();
 
         try {
@@ -173,7 +173,7 @@ public class MariaDbCarDAO implements CarDAO {
     }
 
     @Override
-    public List<Car> readCarsWithOffset(int page, int limit, String orderBy) throws DAOException {
+    public List<Car> readCars(int page, int limit, String orderBy) throws DAOException {
         List<Car> cars = new ArrayList<>();
 
         try {

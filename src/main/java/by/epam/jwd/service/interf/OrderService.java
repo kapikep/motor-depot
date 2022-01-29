@@ -10,23 +10,31 @@ import java.util.Map;
 public interface OrderService {
     void createOrder(Order order) throws ServiceException;
 
-    void createNotApproveOrder(Order order) throws ServiceException;
+    void createNotApproveOrder(String fullName, String phoneNumber, String criteria) throws ServiceException;
 
     List<Order> findOrders(String param, String value) throws ServiceException;
 
     List<Order> findOrders(Map<String, String> criteriaMap) throws ServiceException;
 
-    Order readOrder(int id) throws ServiceException;
+    Order readOrder(String id) throws ServiceException;
 
-    List<Order> readAllOrders() throws ServiceException;
+    List<Order> readOrders() throws ServiceException;
 
     int getOrderSize() throws ServiceException;
 
-    List<Order> readOrdersWithOffset(int page, int limit) throws ServiceException;
+    List<Order> readOrders(String whereParam, String whereValue) throws ServiceException;
 
-    List<Order> readOrdersWithOffset(int page, int limit, String orderBy) throws ServiceException;
+    List<Order> readOrders(int page, int limit) throws ServiceException;
+
+    List<Order> readOrders(String page, String limit, String orderBy) throws ServiceException;
 
     void updateOrder(Car car) throws ServiceException;
 
     void deleteOrder(int id) throws ServiceException;
+
+    List<Integer> pagination(String pageStr, String rowLimitStr) throws ServiceException;
+
+    int getOrderPageCount(String rowLimitStr) throws ServiceException;
+
+    List<Order> readOrders(String page, String limit, String whereParam, String whereValue) throws ServiceException;
 }

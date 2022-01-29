@@ -30,7 +30,7 @@ public class MariaDbOrderDAOTest {
     public void readAllOrdersTest() {
         List<Order> cars = new ArrayList<>();
         try {
-            cars = orderDAO.readAllOrders();
+            cars = orderDAO.readOrders();
         } catch (DAOException e) {
             e.printStackTrace();
         }

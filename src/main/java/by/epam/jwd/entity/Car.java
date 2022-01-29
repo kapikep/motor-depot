@@ -121,14 +121,10 @@ public class Car extends CarModel  {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", licencePlate='" + licencePlate + '\'' +
+        return "Car licencePlate='" + licencePlate + '\'' +
                 ", color='" + color + '\'' +
                 ", carModelId=" + carModelId +
                 ", odometr='" + odometr + '\'' +
-                ", status='" + status + '\'' +
-                ", photo='" + photo + '\'' +
-                '}' + super.toString()+ "\n";
+                ", status='" + status + '\'' + super.toString()+ "\n";
     }
 }

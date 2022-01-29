@@ -22,10 +22,11 @@ public final class CommandProvider {
         WELCOME_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
         WELCOME_COMMANDS.put(CommandName.GO_TO_MAIN_PAGE, new GoToMainPage());
         WELCOME_COMMANDS.put(CommandName.GO_TO_WELCOME_CREATE_ORDER, new GoToWelcomeCreateOrder());
+        WELCOME_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
 
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CARS_PAGE, new GoToManageCars());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
-        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrders());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrdersPage());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToEmployees());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EDIT_ORDER, new GoToEditOrder());
         ADMIN_COMMANDS.put(CommandName.ADMIN_CREATE_CAR, new CreateCar());
@@ -34,6 +35,8 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(CommandName.ADMIN_EDIT_CAR, new UpdateCar());
         ADMIN_COMMANDS.put(CommandName.ADMIN_DELETE_CAR, new DeleteCar());
         ADMIN_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
+        ADMIN_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_MAIN_ADMIN_PAGE, new GoToMainAdminPage());
     }
 
     public static CommandProvider getCommandProvider() {

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="by.epam.jwd.entity.Role" %>
-<%@ page import="by.epam.jwd.dao.implementation.MariaDbCarDAO" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jsp/_localization.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,27 +11,18 @@
     <title>Insert title here</title>
 </head>
 <body>
-Our Cars
-<br>
-<%-- value="${Role.ADMIN}"--%>
-<%--${MariaDBCarDAO.CREATE_CAR}--%>
-
-<ul>
-    <c:forEach var="cookies" items="${cookie}">
-        <li>
-            <br>
-            <c:out value="${cookies.key}" />:
-            <br>
-            Object=
-            <c:out value="${cookies.value}" />,
-            <br>
-            value=
-            <c:out value="${cookies.value.value}" />
-        </li>
-    </c:forEach>
-</ul>
-${sessionScope.size()}"
-<br>
-
+<link href="css/welcCreateOrder.css" rel="stylesheet" >
+<form class="form" action="welcome" method="get">
+    <input type="hidden" name="command" value="CreateOrder">
+    <h2><fmt:message bundle="${loc}" key="welcome.createOrder"/></h2>
+    <p type="Full name:"><input placeholder="Write your name here.." name="fullName"></input></p>
+    <p type="Phone"><input placeholder="Let us know how to contact you back.." name="phone"></input></p>
+    <p type="Message:"><input placeholder="What kind of car do you need" name="criteria"></input></p>
+    <button><fmt:message bundle="${loc}" key="table.send"/></button>
+    <div>
+        <span class="fa fa-phone"></span>+375291111111
+        <span class="fa fa-envelope-o"></span> motor_dep@mail.com
+    </div>
+</form>
 </body>
 </html>
