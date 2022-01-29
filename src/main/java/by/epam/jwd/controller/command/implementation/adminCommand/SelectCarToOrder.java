@@ -34,6 +34,8 @@ public class SelectCarToOrder implements Command {
         Car car = null;
         Order order = null;
         String edit_id = request.getParameter("edit_id");
+        String startDateStr = request.getParameter("startDate");
+        String endDateStr = request.getParameter("endDate");
         try {
             if (edit_id != null && !("".equals(edit_id))) {
                 car = carService.readCar(edit_id);
@@ -47,8 +49,12 @@ public class SelectCarToOrder implements Command {
                 order.setCriteria(request.getParameter("criteria"));
                 order.setDepartPlace(request.getParameter("departPlace"));
                 order.setArrivalPlace(request.getParameter("arrivalPlace"));
-                order.setStartDate(sdf.parse(request.getParameter("startDate")));
-                order.setEndDate(sdf.parse(request.getParameter("endDate")));
+                if(startDateStr != null && !("".equals(endDateStr))){
+                    order.setStartDate(sdf.parse(startDateStr));
+                }
+                if(endDateStr != null && !("".equals(endDateStr))){
+                    order.setStartDate(sdf.parse(endDateStr));
+                }
                 order.setClientFullName(request.getParameter("clientFullName"));
                 order.setClientPhone(request.getParameter("clientPhone"));
 
@@ -56,7 +62,6 @@ public class SelectCarToOrder implements Command {
                 cars = carService.findCars(criteriaMap);
             }
             request.setAttribute("order", order);
-            System.out.println(cars);
             request.setAttribute("cars", cars);
         } catch (ServiceException e) {
             //TODO logger
