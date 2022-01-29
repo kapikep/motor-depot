@@ -31,7 +31,7 @@ public class GoToEditCar implements Command {
                 request.setAttribute("create", true);
             }
             request.setAttribute("car", car);
-            carModels = carService.readAllCarModel();
+            carModels = carService.readCarModels();
             request.setAttribute("carModels", carModels);
         } catch (ServiceException e) {
             //TODO logger

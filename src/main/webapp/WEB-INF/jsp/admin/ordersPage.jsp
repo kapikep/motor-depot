@@ -36,7 +36,7 @@
         <th><fmt:message bundle="${loc}" key="table.order.clientNumber"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.driverFullName"/></th>
         <th><fmt:message bundle="${loc}" key="table.car.license"/></th>
-        <th><fmt:message bundle="${loc}" key="table.view"/></th>
+        <th><fmt:message bundle="${loc}" key="table.edit"/></th>
     </tr>
     <c:forEach items="${requestScope.orders}" var="order">
         <tr>
@@ -64,29 +64,19 @@
             </td>
         </tr>
     </c:forEach>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+
+    <c:forEach var="i" begin="1" end="14">
+        <td></td>
+    </c:forEach>
+
     <td>
-        <a href="?command=GoToEditCar" style="padding: 10px;">
+        <a href="?command=GoToEditOrder">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>
 </table>
 <fmt:message bundle="${loc}" key="table.page"/> <c:out value="${page}"/>
 <fmt:message bundle="${loc}" key="table.of"/> <c:out value="${pageCount}"/>
-
 </body>
 </html>
 

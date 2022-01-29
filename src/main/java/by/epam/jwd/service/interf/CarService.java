@@ -23,7 +23,9 @@ public interface CarService {
 
     List<Car> findCars(String param, String value) throws ServiceException;
 
-    List<CarModel> readAllCarModel() throws ServiceException;
+    List<CarModel> readCarModels() throws ServiceException;
+
+    List<String> readCarTypes() throws ServiceException;
 
     boolean updateCar(String id, String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException;
 

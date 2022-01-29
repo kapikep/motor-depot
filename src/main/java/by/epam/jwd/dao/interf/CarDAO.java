@@ -21,13 +21,17 @@ public interface CarDAO {
 
     List<Car> readCars(int page, int limit, String orderBy) throws DAOException;
 
-    List<CarModel> readAllCarModels() throws DAOException;
+    List<String> readCarTypes() throws DAOException;
+
+    List<CarModel> readCarModels() throws DAOException;
 
     List<Car> findCars(String param, String value) throws DAOException;
 
     Car readCar(int id) throws DAOException;
 
     boolean deleteCar(int id) throws DAOException;
+
+    List<CarModel> readCarModels(String whereParam, String whereValue) throws DAOException;
 
     boolean updateCar(Car car) throws DAOException;
 

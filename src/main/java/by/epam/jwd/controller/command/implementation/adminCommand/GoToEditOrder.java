@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class GoToEditOrder implements Command {
@@ -23,21 +24,27 @@ public class GoToEditOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
         List<Order> orders = null;
+        List<CarModel> carModels = null;
+        List<String> carTypes = null;
         Car car = null;
         Order order = null;
         String edit_id = request.getParameter("edit_id");
         try {
-            if(edit_id != null) {
+            if(edit_id != null && !("".equals(edit_id))) {
                 car = carService.readCar(edit_id);
                 order = orderService.readOrder(edit_id);
                 request.setAttribute("edit", true);
             }else {
                 request.setAttribute("create", true);
+                order = new Order();
+                order.setRequestDate(new Date());
+                order.setAdminName((String) request.getSession().getAttribute("userFullName"));
+                carTypes = carService.readCarTypes();
+
+                request.setAttribute("carTypes", carTypes);
             }
             request.setAttribute("order", order);
             request.setAttribute("car", car);
-//            carModels = carService.readAllCarModel();
-//            request.setAttribute("carModels", carModels);
         } catch (ServiceException e) {
             //TODO logger
             e.printStackTrace();

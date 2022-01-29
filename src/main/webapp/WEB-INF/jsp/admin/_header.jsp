@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <link href="css/table.css" rel="stylesheet" >
 <div style="background: rgba(2,186,171,0.37); height: 30px; padding: 5px; border-radius: 10px;">
     <div style="float: right; padding: 5px; text-align: right;">
-        <c:out value="${welcomeMessage}"/> <b>${sessionScope.name}</b>
+        <c:out value="${welcomeMessage}"/> <b>${sessionScope.userFullName}</b>
         <a href="welcome?command=LogOut"> <fmt:message bundle="${loc}" key="welcome.logOut"/></a>
         <br/>
     </div>

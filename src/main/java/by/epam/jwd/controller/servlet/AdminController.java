@@ -33,7 +33,7 @@ public class AdminController extends HttpServlet {
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession();
         session.setAttribute("role", Role.ADMIN);
-        session.setAttribute("name", "Dmitrij");
+        session.setAttribute("userFullName", "Dmitrij");
 
         if (session.getAttribute("role") == Role.ADMIN) {
             pagination(request, response);

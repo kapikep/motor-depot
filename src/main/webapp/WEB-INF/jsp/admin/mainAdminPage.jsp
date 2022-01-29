@@ -49,7 +49,7 @@
     <td></td>
     <td></td>
     <td>
-        <a href="?command=GoToEditCar" style="padding: 10px;">
+        <a href="?command=GoToEditOrder" style="padding: 10px;">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>

@@ -196,14 +196,57 @@ public class MariaDbCarDAO implements CarDAO {
     }
 
     @Override
-    public List<CarModel> readAllCarModels() throws DAOException {
+    public List<String> readCarTypes() throws DAOException{
+        List<String> types = new ArrayList<>();
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT type FROM car_model");
+
+            while (resultSet.next()) {
+                types.add(resultSet.getString("type"));
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return types;
+    }
+
+    @Override
+    public List<CarModel> readCarModels() throws DAOException {
         List<CarModel> cars = new ArrayList<>();
 
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery(FIND_CAR_MODEL);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM car_model");
+
+            while (resultSet.next()) {
+
+                cars.add(new CarModel(resultSet.getInt("id"),
+                        resultSet.getString("model_name"), resultSet.getString("type"),
+                        resultSet.getInt("load_capacity"), resultSet.getInt("passenger_capacity"),
+                        resultSet.getString("wheel_drive_type")));
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return cars;
+    }
+
+    @Override
+    public List<CarModel> readCarModels(String whereParam, String whereValue) throws DAOException {
+        List<CarModel> cars = new ArrayList<>();
+
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM car_model WHERE " + whereParam + "=?");
 
             while (resultSet.next()) {
 

@@ -73,7 +73,16 @@ public class MariaDbCarDAOTest {
         Assert.assertEquals(offset, carList.size());
     }
 
-//    @Test
+    @Test
+    public void readCarTypesTest() {
+        try{
+            System.out.println(carDAO.readCarTypes());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //    @Test
 //    public void createCarTest() {
 //        Boolean result = false;
 //        try {

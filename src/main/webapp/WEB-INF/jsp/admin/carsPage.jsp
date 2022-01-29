@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" errorPage="/WEB-INF/jsp/error.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="_header.jsp"%>
+<%@ include file="_header.jsp" %>
 
 <html>
 <head>
@@ -17,8 +17,8 @@
     </button>
 </form>
 
-    <fmt:message bundle="${loc}" key="admin.cars"/>
-    <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
+<fmt:message bundle="${loc}" key="admin.cars"/>
+<jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 
 <c:out value="${param.message}"/>
 
@@ -52,15 +52,11 @@
             </td>
         </tr>
     </c:forEach>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+
+    <c:forEach var="i" begin="1" end="9">
+        <td></td>
+    </c:forEach>
+
     <td>
         <a href="?command=GoToEditCar" style="padding: 10px;">
             <fmt:message bundle="${loc}" key="table.add"/>
@@ -69,6 +65,5 @@
 </table>
 <fmt:message bundle="${loc}" key="table.page"/> <c:out value="${page}"/>
 <fmt:message bundle="${loc}" key="table.of"/> <c:out value="${pageCount}"/>
-
 </body>
 </html>
