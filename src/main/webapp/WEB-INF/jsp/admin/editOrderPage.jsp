@@ -12,7 +12,7 @@
 <br>
 <br>
 <br>
-<c:if test="${create != null}">
+<c:if test="${createStep1 != null}">
     <fmt:message bundle="${loc}" key="table.order.createNewOrder"/>
 </c:if>
 
@@ -41,9 +41,9 @@
             <td><fmt:formatDate value="${order.requestDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td><textarea name="departPlace" rows="4" cols="8">${order.departPlace}</textarea></td>
             <td><textarea name="arrivalPlace" rows="4" cols="8">${order.arrivalPlace}</textarea></td>
-            <td><input type="datetime-local" name="date"
+            <td><input type="datetime-local" name="startDate"
                        value="<fmt:formatDate value="${order.startDate}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
-            <td><input type="datetime-local" name="date"
+            <td><input type="datetime-local" name="endDate"
                        value="<fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
             <td><input type="text" name="distance" value="${order.distance}" size="3" maxlength="30" minlength="5"/>
             </td>
@@ -72,18 +72,29 @@
         </tr>
     </table>
     <br>
-    <fmt:message bundle="${loc}" key="table.order.selectCarModel"/>
-    <select name="selectCarModel">
-        <c:forEach var="carType" items="${carTypes}">
-            <option>${carType}</option>
+
+    <c:if test="${createStep1 != null}">
+        <fmt:message bundle="${loc}" key="table.order.selectCarModel"/>
+        <select name="carType">
+            <c:forEach var="carType" items="${carTypes}">
+                <option value="${carType}"><c:out value="${carType}"/></option>
+            </c:forEach>
+        </select>
+        <br>
+        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}" key="table.next"/></button>
+    </c:if>
+    <c:if test="${createStep2 != null}">
+        <fmt:message bundle="${loc}" key="table.order.selectCar"/>
+        <br>
+        <c:forEach var="c" items="${cars}">
+            <input type="radio" checked name="car" value="${c.id}"/><c:out value="${c}"/><br>
+            <br>
         </c:forEach>
-    </select>
-    <c:if test="${create != null}">
+
         <button type="submit" name="command" value="CreateOrder"><fmt:message bundle="${loc}" key="table.create"/></button>
     </c:if>
     <c:if test="${edit != null}">
-        <button type="submit" name="command" value="UpdateOrder"><fmt:message bundle="${loc}"
-                                                                              key="table.update"/></button>
+        <button type="submit" name="command" value="UpdateOrder"><fmt:message bundle="${loc}" key="table.update"/></button>
         <br>
         <br>
         <table border="1" cellpadding="5" cellspacing="1">

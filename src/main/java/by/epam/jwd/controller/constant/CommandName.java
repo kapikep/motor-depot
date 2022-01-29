@@ -27,6 +27,7 @@ public final class CommandName {
     public static final String ADMIN_EDIT_CAR = "UpdateCar";
     public static final String ADMIN_DELETE_CAR = "DeleteCar";
     public static final String GO_TO_MAIN_ADMIN_PAGE = "GoToMainAdminPage";
+    public static final String SELECT_CAR_TO_ORDER = "SelectCarToOrder";
 //    public static final String
 //    public static final String
 //    public static final String

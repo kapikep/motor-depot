@@ -11,11 +11,12 @@ import by.epam.jwd.service.interf.CarService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class CarServiceImpl implements CarService {
     private final CarDAO CAR_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getCarDao();
-    private final List<String> COLUMN_CAR_NAMES  = Arrays.asList("id", "licence_plate", "color", "car_photo", "odometr", "status", "car_model_id");
-    private final List<String> COLUMN_CAR_MODEL_NAMES  = Arrays.asList("id", "model_name", "type", "load_capacity", "passenger_capacity", "wheel_drive_type");
+    private final List<String> COLUMN_CAR_NAMES = Arrays.asList("id", "licence_plate", "color", "car_photo", "odometr", "status", "car_model_id");
+    private final List<String> COLUMN_CAR_MODEL_NAMES = Arrays.asList("id", "model_name", "type", "load_capacity", "passenger_capacity", "wheel_drive_type");
 
     @Override
     public boolean createModel(String modelName, String type, String loadCapacityStr, String passengerCapacityStr, String wheelDriveType) throws ServiceException {
@@ -63,16 +64,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public int getCarPageCount(String rowLimitStr) throws ServiceException{
+    public int getCarPageCount(String rowLimitStr) throws ServiceException {
         int size;
         int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
-        try{
+        try {
             size = CAR_DAO.getCarSize();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        size = (int) Math.ceil((double) size/rowLimit);
+        size = (int) Math.ceil((double) size / rowLimit);
         return size;
     }
 
@@ -136,7 +137,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<String> readCarTypes() throws ServiceException{
+    public List<Car> findCars(Map<String, String> criteriaMap) throws ServiceException {
+        List<Car> cars = null;
+        try {
+            cars = CAR_DAO.findCars(criteriaMap);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return cars;
+    }
+
+    @Override
+    public List<String> readCarTypes() throws ServiceException {
         List<String> list = null;
         try {
             list = CAR_DAO.readCarTypes();
@@ -164,13 +176,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public boolean deleteCar(String idStr) throws ServiceException{
+    public boolean deleteCar(String idStr) throws ServiceException {
         boolean result;
         int id = Integer.parseInt(idStr);
         try {
             result = CAR_DAO.deleteCar(id);
         } catch (DAOException e) {
-           throw new ServiceException(e);
+            throw new ServiceException(e);
         }
         return result;
     }

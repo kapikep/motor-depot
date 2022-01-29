@@ -5,6 +5,7 @@ import by.epam.jwd.entity.CarModel;
 import by.epam.jwd.service.ServiceException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CarService {
     boolean createModel(String modelName, String type, String loadCapacityStr, String passengerCapacityStr, String wheelDriveType) throws ServiceException;
@@ -24,6 +25,8 @@ public interface CarService {
     List<Car> findCars(String param, String value) throws ServiceException;
 
     List<CarModel> readCarModels() throws ServiceException;
+
+    List<Car> findCars(Map<String, String> criteriaMap) throws ServiceException;
 
     List<String> readCarTypes() throws ServiceException;
 

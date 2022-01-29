@@ -37,6 +37,7 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
         ADMIN_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
         ADMIN_COMMANDS.put(CommandName.GO_TO_MAIN_ADMIN_PAGE, new GoToMainAdminPage());
+        ADMIN_COMMANDS.put(CommandName.SELECT_CAR_TO_ORDER, new SelectCarToOrder());
     }
 
     public static CommandProvider getCommandProvider() {

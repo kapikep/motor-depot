@@ -14,40 +14,57 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class GoToEditOrder implements Command {
-
+public class SelectCarToOrder implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Map<String, String> criteriaMap = new HashMap<>();
         List<Order> orders = null;
         List<CarModel> carModels = null;
-        List<String> carTypes = null;
+        List<Car> cars = null;
         Car car = null;
         Order order = null;
         String edit_id = request.getParameter("edit_id");
         try {
-            if(edit_id != null && !("".equals(edit_id))) {
+            if (edit_id != null && !("".equals(edit_id))) {
                 car = carService.readCar(edit_id);
                 order = orderService.readOrder(edit_id);
                 request.setAttribute("edit", true);
-            }else {
-                request.setAttribute("createStep1", true);
+            } else {
+                request.setAttribute("createStep2", true);
                 order = new Order();
                 order.setRequestDate(new Date());
                 order.setAdminName((String) request.getSession().getAttribute("userFullName"));
-                carTypes = carService.readCarTypes();
-                request.setAttribute("carTypes", carTypes);
+                order.setCriteria(request.getParameter("criteria"));
+                order.setDepartPlace(request.getParameter("departPlace"));
+                order.setArrivalPlace(request.getParameter("arrivalPlace"));
+                order.setStartDate(sdf.parse(request.getParameter("startDate")));
+                order.setEndDate(sdf.parse(request.getParameter("endDate")));
+                order.setClientFullName(request.getParameter("clientFullName"));
+                order.setClientPhone(request.getParameter("clientPhone"));
+
+                criteriaMap.put("type", request.getParameter("carType"));
+                cars = carService.findCars(criteriaMap);
             }
             request.setAttribute("order", order);
-            request.setAttribute("car", car);
+            System.out.println(cars);
+            request.setAttribute("cars", cars);
         } catch (ServiceException e) {
             //TODO logger
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);
     }
 }
+

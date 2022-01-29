@@ -38,7 +38,7 @@ public class CreateOrder implements Command {
         }
 
         if("/admin".equals(request.getServletPath())){
-            System.out.println("kdk");
+            System.out.println(request.getParameter("car"));
         }
 
 
