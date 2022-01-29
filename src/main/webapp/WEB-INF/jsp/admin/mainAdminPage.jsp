@@ -54,6 +54,7 @@
         </a>
     </td>
 </table>
+
 <fmt:message bundle="${loc}" key="table.page"/> <c:out value="${page}"/>
 <fmt:message bundle="${loc}" key="table.of"/> <c:out value="${pageCount}"/>
 

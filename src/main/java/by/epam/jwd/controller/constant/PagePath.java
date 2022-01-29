@@ -19,8 +19,8 @@ public final class PagePath {
     public static final String ADMIN_ORDERS_PAGE = DEFAULT_PATH + "admin/ordersPage.jsp";
     public static final String ADMIN_EMPLOYEES_PAGE = DEFAULT_PATH + "admin/employeesPage.jsp";
     public static final String ADMIN_CUSTOMERS_PAGE = DEFAULT_PATH + "admin/customersPage.jsp";
-    public static final String ADMIN_EDIT_CAR_PAGE = DEFAULT_PATH + "admin/createCarPage.jsp";
-    public static final String ADMIN_EDIT_ORDER_PAGE = DEFAULT_PATH + "admin/createOrderPage.jsp";
+    public static final String ADMIN_EDIT_CAR_PAGE = DEFAULT_PATH + "admin/editCarPage.jsp";
+    public static final String ADMIN_EDIT_ORDER_PAGE = DEFAULT_PATH + "admin/editOrderPage.jsp";
 //    public static final String
 //    public static final String
 //    public static final String

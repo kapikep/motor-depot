@@ -9,6 +9,6 @@
 </head>
 <body>
 <h2>Exception occurred while processing the request</h2>
-<input type="image" src="image/overheatCar.png" width="800" /><br>
+<input type="image" src="image/overheatCar.png"/><br>
 </body>
 </html>
