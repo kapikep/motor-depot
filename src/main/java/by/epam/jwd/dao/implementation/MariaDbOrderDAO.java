@@ -49,23 +49,6 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
-    public void createNotApproveOrder(String fullName, String phoneNumber, String criteria, Date requestDate) throws DAOException{
-        try {
-            Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (criteria, order_status, client_full_name, client_phone, request_date)" +
-                    "VALUES(?, ?, ?, ?, ?)");
-            ps.setString(1, criteria);
-            ps.setString(2, Status.NOT_APPROVE.toString());
-            ps.setString(3, fullName);
-            ps.setString(4, phoneNumber);
-            ps.setTimestamp(5, new Timestamp(requestDate.getTime()));
-            ps.executeUpdate();
-            CONNECTION_POOL.returnConnection(connection, ps);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
     public void createNotApproveOrder(Order order) throws DAOException{
         try {
             Connection connection = CONNECTION_POOL.takeConnection();

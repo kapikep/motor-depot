@@ -10,6 +10,8 @@ import java.util.Map;
 public interface OrderService {
     void createOrder(Order order) throws ServiceException;
 
+    void createOrder(Map<String, String> param) throws ServiceException;
+
     void createNotApproveOrder(String fullName, String phoneNumber, String criteria) throws ServiceException;
 
     List<Order> findOrders(String param, String value) throws ServiceException;
@@ -37,4 +39,6 @@ public interface OrderService {
     int getOrderPageCount(String rowLimitStr) throws ServiceException;
 
     List<Order> readOrders(String page, String limit, String whereParam, String whereValue) throws ServiceException;
+
+    Order createOrderEntity(Map<String, String> param) throws ServiceException;
 }

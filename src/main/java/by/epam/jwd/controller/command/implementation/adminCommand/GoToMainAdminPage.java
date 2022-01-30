@@ -20,32 +20,17 @@ public class GoToMainAdminPage implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
-        String rowLimit = (String) request.getSession().getAttribute("rowLimit");
-        String page = (String) request.getAttribute("page");
-        int pageCount = 1;
-        List<Order> orders = null;
-        List<Integer> numPages = null;
-        String id = request.getParameter("findId");
 
-        if (id == null) {
-            try {
-                orders = orderService.readOrders(page, rowLimit, "order_status", Status.NOT_APPROVE.toString());
-                numPages = orderService.pagination(page, rowLimit);
-                pageCount = orderService.getOrderPageCount(rowLimit);
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                orders = orderService.readOrders("id", id);
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
+        String page = (String) request.getAttribute("page");
+        List<Order> orders = null;
+
+        try {
+            orders = orderService.readOrders( "order_status", Status.NOT_APPROVE.toString());
+        } catch (ServiceException e) {
+            e.printStackTrace();
         }
 
         request.setAttribute("orders", orders);
-        request.setAttribute("pageCount", pageCount);
-        request.setAttribute("numPages", numPages);
         request.getRequestDispatcher(PagePath.MAIN_ADMIN_PAGE).forward(request, response);
     }
 }

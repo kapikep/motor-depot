@@ -47,7 +47,7 @@
                        value="<fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
             <td><input type="text" name="distance" value="${order.distance}" size="3" maxlength="30" minlength="5"/>
             </td>
-            <td><input type="text" name="departPlace" value="${order.totalAmount}" size="3" maxlength="30"
+            <td><input type="text" name="totalAmount" value="${order.totalAmount}" size="3" maxlength="30"
                        minlength="5"/>
             </td>
             <td><input type="text" name="paymentStatus" value="${order.paymentStatus}" size="4" maxlength="30"

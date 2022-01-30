@@ -12,8 +12,6 @@ public interface OrderDAO {
 
     void createOrder(Order order) throws DAOException;
 
-    void createNotApproveOrder(String fullName, String phoneNumber, String criteria, Date requestDate) throws DAOException;
-
     void createNotApproveOrder(Order order) throws DAOException;
 
     List<Order> findOrders(String param, String value) throws DAOException;

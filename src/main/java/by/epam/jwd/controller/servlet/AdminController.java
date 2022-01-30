@@ -36,7 +36,6 @@ public class AdminController extends HttpServlet {
         session.setAttribute("userFullName", "Dmitrij");
 
         if (session.getAttribute("role") == Role.ADMIN) {
-            pagination(request, response);
             if (commandName != null && !("".equals(commandName))) {
                 Command command = provider.getAdminCommand(commandName);
                 command.execute(request, response);
@@ -48,14 +47,4 @@ public class AdminController extends HttpServlet {
         }
     }
 
-    private void pagination(HttpServletRequest request, HttpServletResponse response) {
-        String rowLimit = ServiceUtil.checkRowLimit(request.getParameter("rowLimit"));;
-        String page =  ServiceUtil.checkPage(request.getParameter("page"));
-
-        if(rowLimit != null){
-            request.getSession().setAttribute("rowLimit", rowLimit);
-        }
-
-        request.setAttribute("page", page);
-    }
 }

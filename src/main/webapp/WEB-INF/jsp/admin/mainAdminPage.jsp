@@ -41,22 +41,16 @@
             </td>
         </tr>
     </c:forEach>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <c:forEach var="i" begin="1" end="7">
+        <td></td>
+    </c:forEach>
+
     <td>
         <a href="?command=GoToEditOrder" style="padding: 10px;">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>
 </table>
-
-<fmt:message bundle="${loc}" key="table.page"/> <c:out value="${page}"/>
-<fmt:message bundle="${loc}" key="table.of"/> <c:out value="${pageCount}"/>
 
 </body>
 </html>

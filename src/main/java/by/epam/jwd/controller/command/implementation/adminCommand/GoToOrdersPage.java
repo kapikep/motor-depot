@@ -16,13 +16,23 @@ import java.util.List;
 
 public class GoToOrdersPage implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        OrderService orderService = MDServiceFactory.getMDService().getOrderService();
-        String rowLimit = (String) request.getSession().getAttribute("rowLimit");
-        String page = (String) request.getAttribute("page");
         int pageCount = 1;
         List<Order> orders = null;
         List<Integer> numPages = null;
+        String page = request.getParameter("page");
+        String rowLimit = request.getParameter("rowLimit");
         String id = request.getParameter("findId");
+        OrderService orderService = MDServiceFactory.getMDService().getOrderService();
+
+        if (rowLimit != null && !("".equals(rowLimit))) {
+            request.getSession().setAttribute("rowLimit", rowLimit);
+        }else {
+            rowLimit = (String) request.getSession().getAttribute("rowLimit");
+        }
+
+        if (page == null || "".equals(page)) {
+            page = "1";
+        }
 
         if (id == null) {
             try {
@@ -41,6 +51,7 @@ public class GoToOrdersPage implements Command {
             }
         }
 
+        request.setAttribute("page", page);
         request.setAttribute("orders", orders);
         request.setAttribute("pageCount", pageCount);
         request.setAttribute("numPages", numPages);

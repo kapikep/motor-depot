@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateOrder implements Command {
     @Override
@@ -38,6 +40,21 @@ public class CreateOrder implements Command {
         }
 
         if("/admin".equals(request.getServletPath())){
+
+            Map <String, String> param = new HashMap<>();
+            param.put("criteria", request.getParameter("criteria"));
+            param.put("departPlace", request.getParameter("departPlace"));
+            param.put("arrivalPlace", request.getParameter("arrivalPlace"));
+            param.put("startDate", request.getParameter("startDate"));
+            param.put("endDate", request.getParameter("endDate"));
+            param.put("distance", request.getParameter("distance"));
+            param.put("totalAmount", request.getParameter("totalAmount"));
+            param.put("paymentStatus", request.getParameter("paymentStatus"));
+            param.put("status", request.getParameter("status"));
+            param.put("clientFullName", request.getParameter("clientFullName"));
+            param.put("clientPhone", request.getParameter("clientPhone"));
+            param.put("adminName", request.getParameter("adminName"));
+
             System.out.println(request.getParameter("car"));
         }
 

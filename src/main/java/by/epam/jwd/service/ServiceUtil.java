@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceUtil {
-    public static List<Integer> pagination(int pageCount, int rowLimit, int page) {
 
+    public static List<Integer> getPagesNumber(int pageCount, int rowLimit, int page) {
         List<Integer> res = new ArrayList<>();
         int rowWidth = 5;
         int row = page / rowWidth;
@@ -48,21 +48,4 @@ public class ServiceUtil {
         return d;
     }
 
-    public static String checkRowLimit(String paramRowLimit) {
-        String rowLimit = "10";
-
-        if (paramRowLimit != null) {
-            rowLimit = paramRowLimit;
-        }
-        return rowLimit;
-    }
-
-    public static String checkPage(String paramPage) {
-        String page = "1";
-
-        if (paramPage != null) {
-            page = paramPage;
-        }
-        return page;
-    }
 }

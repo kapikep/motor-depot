@@ -36,17 +36,18 @@ public class MariaDbOrderDAOTest {
         }
     }
 
-    @Test
-    public void name() {
-        Order order = new Order();
-        order.setCriteria("Маз 10 тонн");
-        order.setRequestDate(new Date());
-        try {
-            orderDAO.createNotApproveOrder(order);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void name() {
+//        Order order = new Order();
+//        order.setCriteria("Маз 10 тонн");
+//        order.setRequestDate(new Date());
+//        try {
+//            orderDAO.createNotApproveOrder(order);
+//        } catch (DAOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 
     @AfterClass
     public static void afterClass() throws Exception {

@@ -83,7 +83,7 @@ public class CarServiceImpl implements CarService {
         int page = ServiceUtil.parseInt(pageStr);
         List<Integer> res;
         int pageCount = getCarPageCount(rowLimitStr);
-        res = ServiceUtil.pagination(pageCount, rowLimit, page);
+        res = ServiceUtil.getPagesNumber(pageCount, rowLimit, page);
         return res;
     }
 

@@ -21,8 +21,7 @@
             </c:choose>
         </c:forEach>
     </select>
-    <button type="submit" name="command" value=${param.command}><fmt:message bundle="${loc}"
-                                                                             key="welcome.set"/></button>
+    <button type="submit" name="command" value=${param.command}><fmt:message bundle="${loc}" key="welcome.set"/></button>
 </form>
 <c:if test="${page != 1}">
     <a href="admin?command=${param.command}&page=${page - 1}"><fmt:message bundle="${loc}" key="pagination.prev"/></a>

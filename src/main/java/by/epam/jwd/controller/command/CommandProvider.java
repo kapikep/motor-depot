@@ -24,7 +24,7 @@ public final class CommandProvider {
         WELCOME_COMMANDS.put(CommandName.GO_TO_WELCOME_CREATE_ORDER, new GoToWelcomeCreateOrder());
         WELCOME_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
 
-        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CARS_PAGE, new GoToManageCars());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CARS_PAGE, new GoToCarsPage());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrdersPage());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToEmployees());

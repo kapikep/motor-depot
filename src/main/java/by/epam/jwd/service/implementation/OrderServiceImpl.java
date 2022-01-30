@@ -5,10 +5,13 @@ import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.OrderDAO;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Order;
+import by.epam.jwd.entity.Status;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.interf.OrderService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +21,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createOrder(Order order) throws ServiceException {
+
+    }
+
+    @Override
+    public void createOrder(Map<String, String> param) throws ServiceException {
+        String clientId = param.get("clientId");
+        if (clientId == null || "".equals(clientId)) {
+            param.put("clientId", "1");
+        }
+        Order order = createOrderEntity(param);
         try {
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
@@ -27,8 +40,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createNotApproveOrder(String fullName, String phoneNumber, String criteria) throws ServiceException {
+        Order order = new Order();
         try {
-            ORDER_DAO.createNotApproveOrder(fullName, phoneNumber, criteria, new Date());
+            order.setClientFullName(fullName);
+            order.setClientPhone(phoneNumber);
+            order.setCriteria(criteria);
+            order.setOrderStatus(Status.NOT_APPROVE.toString());
+            order.setRequestDate(new Date());
+            ORDER_DAO.createNotApproveOrder(order);
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -120,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
         int page = ServiceUtil.parseInt(pageStr);
         List<Integer> res;
         int pageCount = getOrderPageCount(rowLimitStr);
-        res = ServiceUtil.pagination(pageCount, rowLimit, page);
+        res = ServiceUtil.getPagesNumber(pageCount, rowLimit, page);
         return res;
     }
 
@@ -150,5 +169,72 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
         return orders;
+    }
+    
+    @Override
+    public Order createOrderEntity(Map<String, String> param) throws ServiceException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Order order = new Order();
+        
+        String id = param.get("id");
+        if (id != null && !("".equals(id))) {
+            order.setId(Integer.parseInt(id));
+        }
+        order.setCriteria(param.get("criteria"));
+        try {
+            String requestDateStr = param.get("requestDate");
+            if (requestDateStr != null && !("".equals(requestDateStr))) {
+                order.setRequestDate(sdf.parse(requestDateStr));
+            }else {
+                order.setRequestDate(new Date());
+            }
+            String startDateStr = param.get("startDate");
+            if (startDateStr != null && !("".equals(startDateStr))) {
+                order.setStartDate(sdf.parse(startDateStr));
+            }
+            String endDateStr  = param.get("endDate");
+            if (endDateStr != null && !("".equals(endDateStr))) {
+                order.setStartDate(sdf.parse(endDateStr));
+            }
+        } catch (ParseException e) {
+            throw new ServiceException(e);
+        }
+        order.setDepartPlace(param.get("departPlace"));
+        order.setArrivalPlace(param.get("arrivalPlace"));
+        order.setOrderStatus(param.get("orderStatus"));
+        String distanceStr = param.get("distance");
+        if (distanceStr != null && !("".equals(distanceStr))) {
+            order.setDistance(Integer.parseInt(distanceStr));
+        }
+        String totalAmount = param.get("totalAmount");
+        if (totalAmount != null && !("".equals(totalAmount))) {
+            order.setTotalAmount(Integer.parseInt(totalAmount));
+        }
+        order.setPaymentStatus(param.get("paymentStatus"));
+        String clientId = param.get("clientId");
+        if (clientId != null && !("".equals(clientId))) {
+            order.setClientId(Integer.parseInt(clientId));
+        }
+        String carId = param.get("carId");
+        if (carId != null && !("".equals(carId))) {
+            order.setCarId(Integer.parseInt(carId));
+        }
+        String driverId = param.get("driverId");
+        if (driverId != null && !("".equals(driverId))) {
+            order.setDriverId(Integer.parseInt(driverId));
+        }
+        String adminId = param.get("adminId");
+        if (adminId != null && !("".equals(adminId))) {
+            order.setAdminId(Integer.parseInt(adminId));
+        }
+        order.setClientFullName(param.get("clientFullName"));
+        order.setClientPhone(param.get("clientPhone"));
+        order.setCarLicensePlate(param.get("carLicensePlate"));
+        order.setDriverName(param.get("driverName"));
+        order.setDriverSurname(param.get("driverSurname"));
+        order.setAdminName(param.get("adminName"));
+        order.setAdminSurname(param.get("adminSurname"));
+        
+        return order;
     }
 }

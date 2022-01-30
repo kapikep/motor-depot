@@ -28,9 +28,7 @@ public class MariaDbUserDAO implements UserDao {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("surname"), rs.getString("login"),
-                        rs.getString("password"), rs.getDouble("phone_number"), rs.getString("photo"), Status.valueOf(rs.getString("status")),
-                        rs.getString("e-mail"), Role.getRole(rs.getInt("roles_id")));
+                user = buildUser(rs);
             }
 
             CONNECTION_POOL.returnConnection(connection, ps, rs);
@@ -55,6 +53,12 @@ public class MariaDbUserDAO implements UserDao {
     @Override
     public void updateUser(User user) throws DAOException {
 
+    }
+
+    private User buildUser(ResultSet rs) throws SQLException{
+        return new User(rs.getInt("id"), rs.getString("name"), rs.getString("surname"), rs.getString("login"),
+                rs.getString("password"), rs.getDouble("phone_number"), rs.getString("photo"), Status.valueOf(rs.getString("status")),
+                rs.getString("e-mail"), Role.getRole(rs.getInt("roles_id")));
     }
 
 }
