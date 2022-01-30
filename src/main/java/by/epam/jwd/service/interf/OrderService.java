@@ -12,7 +12,7 @@ public interface OrderService {
 
     void createOrder(Map<String, String> param) throws ServiceException;
 
-    void createNotApproveOrder(String fullName, String phoneNumber, String criteria) throws ServiceException;
+    void createNotApproveOrder(String fullName, String phoneNumber, String criteria, int userId) throws ServiceException;
 
     Order readOrder(String id) throws ServiceException;
 
@@ -24,7 +24,7 @@ public interface OrderService {
 
     List<Order> findOrders(String whereParam, String whereValue) throws ServiceException;
 
-    List<Order> readOrders(int page, int limit) throws ServiceException;
+    List<Order> readOrders(String pageStr, String limitStr) throws ServiceException;
 
     List<Order> readOrders(String page, String limit, String orderBy) throws ServiceException;
 

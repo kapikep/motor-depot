@@ -36,7 +36,7 @@ public class GoToOrdersPage implements Command {
 
         if (id == null) {
             try {
-                orders = orderService.readOrders(page, rowLimit, "id");
+                orders = orderService.readOrders(page, rowLimit, "orders.id");
                 numPages = orderService.pagination(page, rowLimit);
                 pageCount = orderService.getOrderPageCount(rowLimit);
             } catch (ServiceException e) {

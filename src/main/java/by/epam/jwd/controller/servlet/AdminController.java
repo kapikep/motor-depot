@@ -33,6 +33,7 @@ public class AdminController extends HttpServlet {
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession();
         session.setAttribute("role", Role.ADMIN);
+        session.setAttribute("userId", 3);
         session.setAttribute("userFullName", "Dmitrij");
 
         if (session.getAttribute("role") == Role.ADMIN) {

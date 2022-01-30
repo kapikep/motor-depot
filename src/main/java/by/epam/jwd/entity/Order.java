@@ -87,6 +87,27 @@ public class Order {
         this.adminId = adminId;
     }
 
+    public Order(String criteria, Date requestDate, String departPlace, String arrivalPlace, Date startDate,
+                 Date endDate, String orderStatus, int distance, int totalAmount, String paymentStatus, int clientId,
+                 String clientFullName, String clientPhone, int carId, int driverId, int adminId) {
+        this.criteria = criteria;
+        this.requestDate = requestDate;
+        this.departPlace = departPlace;
+        this.arrivalPlace = arrivalPlace;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.orderStatus = orderStatus;
+        this.distance = distance;
+        this.totalAmount = totalAmount;
+        this.paymentStatus = paymentStatus;
+        this.clientId = clientId;
+        this.clientFullName = clientFullName;
+        this.clientPhone = clientPhone;
+        this.carId = carId;
+        this.driverId = driverId;
+        this.adminId = adminId;
+    }
+
     public int getId() {
         return id;
     }

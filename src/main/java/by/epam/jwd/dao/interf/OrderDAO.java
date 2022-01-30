@@ -1,7 +1,6 @@
 package by.epam.jwd.dao.interf;
 
 import by.epam.jwd.dao.DAOException;
-import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Order;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public interface OrderDAO {
 
     int getOrderSize() throws DAOException;
 
-    void updateOrder(Car car) throws DAOException;
+    void updateOrder(Order order) throws DAOException;
 
     void deleteOrder(int id) throws DAOException;
 }

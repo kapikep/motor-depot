@@ -61,7 +61,6 @@ public class MariaDbDriverDAOTest {
         } catch (DAOException e) {
             e.printStackTrace();
         }
-        System.out.println(drivers);
     }
 
     @Test

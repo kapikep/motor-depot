@@ -2,8 +2,10 @@ package by.epam.jwd.service.implementation;
 
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.MotorDepotDAOFactory;
+import by.epam.jwd.dao.interf.DriverDAO;
 import by.epam.jwd.dao.interf.OrderDAO;
 import by.epam.jwd.entity.Car;
+import by.epam.jwd.entity.Driver;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
 import by.epam.jwd.service.ServiceException;
@@ -18,28 +20,35 @@ import java.util.Map;
 
 public class OrderServiceImpl implements OrderService {
     private final OrderDAO ORDER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getOrderDao();
+    private final DriverDAO DRIVER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getDriverDao();
 
     @Override
     public void createOrder(Order order) throws ServiceException {
-
     }
 
     @Override
     public void createOrder(Map<String, String> param) throws ServiceException {
+        List<Driver> drivers;
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
             param.put("clientId", "1");
         }
-        Order order = createOrderEntity(param);
         try {
+            drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
+            System.out.println(drivers);
+            param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
+            Order order = createOrderEntity(param);
+            System.out.println(order);
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
 
+    //http://127.0.0.1:8080/motor-depot/admin?criteria=Travel&departPlace=Minsk&arrivalPlace=Praha&startDate=2022-01-31T01%3A00&endDate=2022-02-01T13%3A00&distance=1300&totalAmount=100&paymentStatus=not+paid&status=APPROVE&clientFullName=Mikola&clientPhone=%2B3658848&car=3&command=CreateOrder
+
     @Override
-    public void createNotApproveOrder(String fullName, String phoneNumber, String criteria) throws ServiceException {
+    public void createNotApproveOrder(String fullName, String phoneNumber, String criteria, int userId) throws ServiceException {
         Order order = new Order();
         try {
             order.setClientFullName(fullName);
@@ -47,6 +56,7 @@ public class OrderServiceImpl implements OrderService {
             order.setCriteria(criteria);
             order.setOrderStatus(Status.NOT_APPROVE.toString());
             order.setRequestDate(new Date());
+            order.setClientId(userId);
             ORDER_DAO.createNotApproveOrder(order);
         } catch (DAOException e) {
             e.printStackTrace();
@@ -89,8 +99,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> readOrders(int page, int limit) throws ServiceException {
-        return null;
+    public List<Order> readOrders(String pageStr, String rowLimitStr) throws ServiceException {
+        List<Order> orders;
+        int page = ServiceUtil.parseInt(pageStr);
+        int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
+
+        try {
+            orders = ORDER_DAO.readOrders(page, rowLimit);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return orders;
     }
 
     @Override
@@ -100,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
         int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
         try {
-            orders = ORDER_DAO.readOrders(page, rowLimit);
+            orders = ORDER_DAO.readOrders(page, rowLimit, orderBy);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -189,14 +208,14 @@ public class OrderServiceImpl implements OrderService {
             }
             String endDateStr  = param.get("endDate");
             if (endDateStr != null && !("".equals(endDateStr))) {
-                order.setStartDate(sdf.parse(endDateStr));
+                order.setEndDate(sdf.parse(endDateStr));
             }
         } catch (ParseException e) {
             throw new ServiceException(e);
         }
         order.setDepartPlace(param.get("departPlace"));
         order.setArrivalPlace(param.get("arrivalPlace"));
-        order.setOrderStatus(param.get("orderStatus"));
+        order.setOrderStatus(param.get("status"));
         String distanceStr = param.get("distance");
         if (distanceStr != null && !("".equals(distanceStr))) {
             order.setDistance(Integer.parseInt(distanceStr));

@@ -19,29 +19,30 @@ public class CreateOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         String message = null;
 
-        if("/welcome".equals(request.getServletPath())){
+        if ("/welcome".equals(request.getServletPath())) {
             int countRequest = 0;
-            if (request.getSession().getAttribute("countRequest") != null){
+            if (request.getSession().getAttribute("countRequest") != null) {
                 countRequest = (int) request.getSession().getAttribute("countRequest");
             }
             request.getSession().setAttribute("countRequest", ++countRequest);
-            if(countRequest < 2) {
+            if (countRequest < 2) {
                 try {
                     orderService.createNotApproveOrder(request.getParameter("fullName"),
-                            request.getParameter("phone"), request.getParameter("criteria"));
-                    message = "The order has been created, wait for the administrator to call";
+                            request.getParameter("phone"), request.getParameter("criteria"), 1);
                 } catch (ServiceException e) {
+                    message = "Something wrong, try agan";
                     e.printStackTrace();
                 }
-            }else {
+                message = "The order has been created, wait for the administrator to call";
+            } else {
                 message = "To much requests";
             }
             response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_MAIN_PAGE + "&message=" + message);
         }
 
-        if("/admin".equals(request.getServletPath())){
+        if ("/admin".equals(request.getServletPath())) {
 
-            Map <String, String> param = new HashMap<>();
+            Map<String, String> param = new HashMap<>();
             param.put("criteria", request.getParameter("criteria"));
             param.put("departPlace", request.getParameter("departPlace"));
             param.put("arrivalPlace", request.getParameter("arrivalPlace"));
@@ -54,8 +55,16 @@ public class CreateOrder implements Command {
             param.put("clientFullName", request.getParameter("clientFullName"));
             param.put("clientPhone", request.getParameter("clientPhone"));
             param.put("adminName", request.getParameter("adminName"));
+            param.put("carId", request.getParameter("car"));
+            param.put("adminId", request.getSession().getAttribute("userId").toString());
 
-            System.out.println(request.getParameter("car"));
+            try {
+                orderService.createOrder(param);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+
+            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE);
         }
 
 

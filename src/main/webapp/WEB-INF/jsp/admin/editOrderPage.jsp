@@ -45,13 +45,13 @@
                        value="<fmt:formatDate value="${order.startDate}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
             <td><input type="datetime-local" name="endDate"
                        value="<fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
-            <td><input type="text" name="distance" value="${order.distance}" size="3" maxlength="30" minlength="5"/>
+            <td><input type="text" name="distance" value="${order.distance}" size="3" maxlength="6" minlength="1"/>
             </td>
             <td><input type="text" name="totalAmount" value="${order.totalAmount}" size="3" maxlength="30"
-                       minlength="5"/>
+                       minlength="1"/>
             </td>
             <td><input type="text" name="paymentStatus" value="${order.paymentStatus}" size="4" maxlength="30"
-                       minlength="5"/></td>
+                       minlength="1"/></td>
             <td><select name="status">
                 <c:forEach var="s" items="${Status.values()}">
                     <c:choose>

@@ -3,13 +3,11 @@ package by.epam.jwd.dao.implementation;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
 import by.epam.jwd.dao.interf.OrderDAO;
-import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,25 +22,9 @@ public class MariaDbOrderDAO implements OrderDAO {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (criteria, request_date, depart_place, arrival_place, start_date, end_date, " +
                     "order_status, travel_distance, total_amount, payment_status, client_full_name, client_phone, client_id, cars_id, driver_id, admin_id)" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setString(1, order.getCriteria());
-            ps.setTimestamp(2, new Timestamp(order.getRequestDate().getTime()));
-            ps.setString(3, order.getDepartPlace());
-            ps.setString(4, order.getArrivalPlace());
-            ps.setString(5, order.getArrivalPlace());
-            ps.setString(6, order.getArrivalPlace());
-            ps.setString(7, order.getArrivalPlace());
-            ps.setInt(8, order.getDistance());
-            ps.setInt(9, order.getTotalAmount());
-            ps.setString(10, order.getPaymentStatus());
-            ps.setString(11, order.getClientFullName());
-            ps.setString(12, order.getClientPhone());
-            ps.setInt(13, order.getClientId());
-            ps.setInt(14, order.getCarId());
-            ps.setInt(15, order.getDriverId());
-            ps.setInt(16, order.getAdminId());
+            initPrepStatement(order, ps);
             ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,17 +34,17 @@ public class MariaDbOrderDAO implements OrderDAO {
     public void createNotApproveOrder(Order order) throws DAOException{
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (criteria, request_date, depart_place, arrival_place, start_date, " +
-                    "order_status, client_full_name, client_phone)" +
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (criteria, request_date, depart_place, arrival_place, " +
+                    "order_status, client_full_name, client_phone, client_id)" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, order.getCriteria());
             ps.setTimestamp(2, new Timestamp(order.getRequestDate().getTime()));
             ps.setString(3, order.getDepartPlace());
             ps.setString(4, order.getArrivalPlace());
-            ps.setTimestamp(5, new Timestamp(order.getRequestDate().getTime()));
-            ps.setString(6, Status.NOT_APPROVE.toString());
-            ps.setString(7, order.getClientFullName());
-            ps.setString(8, order.getClientPhone());
+            ps.setString(5, Status.NOT_APPROVE.toString());
+            ps.setString(6, order.getClientFullName());
+            ps.setString(7, order.getClientPhone());
+            ps.setInt(8, order.getClientId());
             ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
         } catch (SQLException e) {
@@ -174,7 +156,7 @@ public class MariaDbOrderDAO implements OrderDAO {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
-                    "LEFT JOIN users u3 on u3.id = orders.admin_id ORDER BY " + orderBy + " LIMIT ? OFFSET ?");
+                    "LEFT JOIN users u3 on u3.id = orders.admin_id ORDER BY " + orderBy + " DESC LIMIT ? OFFSET ?");
             int offset = (page - 1) * limit;
             statement.setInt(1, limit);
             statement.setInt(2,offset);
@@ -268,23 +250,38 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
-    public void updateOrder(Car car) throws DAOException {
+    public void updateOrder(Order order) throws DAOException {
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement("UPDATE cars SET licence_plate=?, color=?, car_photo=?, " +
-                    "odometr=?, status=?, car_model_id=? WHERE id=?");
-            ps.setString(1, car.getLicencePlate());
-            ps.setString(2, car.getColor());
-            ps.setString(3, car.getPhoto());
-            ps.setInt(4, car.getOdometr());
-            ps.setString(5, car.getStatus());
-            ps.setInt(6, car.getCarModelId());
-            ps.setInt(7, car.getId());
+            PreparedStatement ps = connection.prepareStatement( "UPDATE orders SET " +
+                    "criteria=?, request_date=?, depart_place=?, arrival_place=?, start_date=?, end_date=?, order_status=?, travel_distance=?, " +
+                    "total_amount=?, payment_status=?, client_full_name=?, client_phone=?, client_id=?, cars_id=?, driver_id=?, admin_id=? WHERE id=?");
+            initPrepStatement(order, ps);
+            ps.setInt(17, order.getId());
             ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
+    }
+
+    private void initPrepStatement(Order order, PreparedStatement ps) throws SQLException {
+        ps.setString(1, order.getCriteria());
+        ps.setTimestamp(2, new Timestamp(order.getRequestDate().getTime()));
+        ps.setString(3, order.getDepartPlace());
+        ps.setString(4, order.getArrivalPlace());
+        ps.setTimestamp(5, new Timestamp(order.getStartDate().getTime()));
+        ps.setTimestamp(6, new Timestamp(order.getEndDate().getTime()));
+        ps.setString(7, order.getOrderStatus());
+        ps.setInt(8, order.getDistance());
+        ps.setInt(9, order.getTotalAmount());
+        ps.setString(10, order.getPaymentStatus());
+        ps.setString(11, order.getClientFullName());
+        ps.setString(12, order.getClientPhone());
+        ps.setInt(13, order.getClientId());
+        ps.setInt(14, order.getCarId());
+        ps.setInt(15, order.getDriverId());
+        ps.setInt(16, order.getAdminId());
     }
 
     @Override

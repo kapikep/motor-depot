@@ -35,13 +35,9 @@ public class SignIn implements Command {
 
         if (user != null && user.getStatus() == Status.ACTIVE) {
 
-            if(remember != null){
-                session.setAttribute("role", user.getRole());
-                session.setAttribute("userFullName", user.getName() + " " + user.getSurname());
-                session.setAttribute("userId", user.getId());
-            }else {
-                session.invalidate();
-            }
+            session.setAttribute("role", user.getRole());
+            session.setAttribute("userFullName", user.getName() + " " + user.getSurname());
+            session.setAttribute("userId", user.getId());
 
             switch (user.getRole()) {
                 case ADMIN:
@@ -56,9 +52,9 @@ public class SignIn implements Command {
             }
 
         } else {
-            if(user == null){
+            if (user == null) {
                 session.setAttribute("access", "Invalid login or password");
-            }else {
+            } else {
                 session.setAttribute("access", "Account block");
             }
             response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_SIGN_IN);

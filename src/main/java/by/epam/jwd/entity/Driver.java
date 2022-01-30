@@ -48,6 +48,10 @@ public class Driver extends User implements Serializable {
         return id;
     }
 
+    public int getUserId(){
+        return super.getId();
+    }
+
     @Override
     public void setId(int id) {
         this.id = id;
