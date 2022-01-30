@@ -19,6 +19,7 @@ public class MariaDbCarDAOTest {
     Car car;
     Car carUpd;
 
+
     @BeforeClass
     public static void beforeClass() throws Exception {
         MariaDBConnectionPool.initPool("db");
@@ -26,7 +27,10 @@ public class MariaDbCarDAOTest {
 
     @Before
     public void setUp() throws Exception {
-        car = new Car(1, "1213 AC-7", "black", "nan", 6666, "utilize", 1);
+        int licencePlate = 1234;
+        licencePlate++;
+
+        car = new Car(1, licencePlate + " AC-7", "black", "nan", 6666, "utilize", 1);
         carUpd = new Car(10, "new", "red", "nan", 9999, "", 3);
         carModel = new CarModel(4, "Beatle", "car", 700, 4, "2x2");
         carModel = new CarModel(4, "Audi", "car", 800, 4, "2x2");
@@ -54,7 +58,6 @@ public class MariaDbCarDAOTest {
 
         try {
             carDAO.findCars("licence_plate", "1213 AC-7");
-            System.out.println(carDAO.findCars(map));
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -76,22 +79,22 @@ public class MariaDbCarDAOTest {
     @Test
     public void readCarTypesTest() {
         try{
-            System.out.println(carDAO.readCarTypes());
+            carDAO.readCarTypes();
         } catch (DAOException e) {
             e.printStackTrace();
         }
     }
 
-    //    @Test
-//    public void createCarTest() {
-//        Boolean result = false;
-//        try {
-//            result = carDAO.createCar(car);
-//        } catch (DAOException e) {
-//            e.printStackTrace();
-//        }
-//        Assert.assertTrue(result);
-//    }
+    @Test
+    public void createCarTest() {
+        Boolean result = false;
+        try {
+            result = carDAO.createCar(car);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result);
+    }
 
     @Test
     public void updateCarTest() {
@@ -144,7 +147,7 @@ public class MariaDbCarDAOTest {
         List<Car> carList = null;
 
         try {
-            carList = carDAO.readAllCar();
+            carList = carDAO.readCars();
         } catch (DAOException e) {
             e.printStackTrace();
         }

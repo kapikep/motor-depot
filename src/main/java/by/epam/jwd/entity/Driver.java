@@ -9,26 +9,48 @@ public class Driver extends User implements Serializable {
 
     private int id;
     private String category;
-    private double drivingExperience;
+    private int drivingExperience;
     private Date dateOfEmployment;
     private Date dateOfDismissal;
-    private int users_id;
     private int attached_car_id;
+    private String license_plate;
 
     public Driver() {
     }
 
-    public Driver(int id, String name, String surname, String login, String password, double phoneNumber, String photo,
-                  Status status, String eMail, Role role, String category, double drivingExperience,
-                  Date dateOfEmployment, Date dateOfDismissal, int users_id, int attached_car_id) {
-        super(users_id, name, surname, login, password, phoneNumber, photo, status, eMail, role);
+    public Driver(String name, String surname, String login, String password, String phoneNumber, String photo,
+                  Status status, String eMail, String additionalInfo, Role role, String category, int drivingExperience,
+                  Date dateOfEmployment, Date dateOfDismissal, int attached_car_id, String license_plate) {
+        super(name, surname, login, password, phoneNumber, photo, status, eMail, additionalInfo, role);
+        this.category = category;
+        this.drivingExperience = drivingExperience;
+        this.dateOfEmployment = dateOfEmployment;
+        this.dateOfDismissal = dateOfDismissal;
+        this.attached_car_id = attached_car_id;
+        this.license_plate = license_plate;
+    }
+
+    public Driver(int id, String name, String surname, String login, String password, String phoneNumber,
+                  String photo, Status status, String eMail, String additionalInfo, Role role, int user_id, String category,
+                  int drivingExperience, Date dateOfEmployment, Date dateOfDismissal, int attached_car_id, String license_plate) {
+        super(user_id, name, surname, login, password, phoneNumber, photo, status, eMail, additionalInfo, role);
         this.id = id;
         this.category = category;
         this.drivingExperience = drivingExperience;
         this.dateOfEmployment = dateOfEmployment;
         this.dateOfDismissal = dateOfDismissal;
-        this.users_id = users_id;
         this.attached_car_id = attached_car_id;
+        this.license_plate = license_plate;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCategory() {
@@ -39,11 +61,11 @@ public class Driver extends User implements Serializable {
         this.category = category;
     }
 
-    public double getDrivingExperience() {
+    public int getDrivingExperience() {
         return drivingExperience;
     }
 
-    public void setDrivingExperience(double drivingExperience) {
+    public void setDrivingExperience(int drivingExperience) {
         this.drivingExperience = drivingExperience;
     }
 
@@ -63,19 +85,24 @@ public class Driver extends User implements Serializable {
         this.dateOfDismissal = dateOfDismissal;
     }
 
-    public int getUsers_id() {
-        return users_id;
-    }
-
-    public void setUsers_id(int users_id) {
-        this.users_id = users_id;
-    }
-
     public int getAttached_car_id() {
         return attached_car_id;
     }
 
     public void setAttached_car_id(int attached_car_id) {
         this.attached_car_id = attached_car_id;
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", drivingExperience=" + drivingExperience +
+                ", dateOfEmployment=" + dateOfEmployment +
+                ", dateOfDismissal=" + dateOfDismissal +
+                ", attached_car_id=" + attached_car_id +
+                ", license_plate='" + license_plate + '\'' + super.toString() +
+                '}' ;
     }
 }

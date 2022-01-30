@@ -56,7 +56,7 @@ public class CarServiceImpl implements CarService {
     public List<Car> readCars() throws ServiceException {
         List<Car> cars;
         try {
-            cars = CAR_DAO.readAllCar();
+            cars = CAR_DAO.readCars();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

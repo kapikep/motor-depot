@@ -12,17 +12,18 @@ public class User implements Serializable{
 	private String surname;
 	private String login;
 	private String password;
-	private double phoneNumber;
+	private String phoneNumber;
 	private String photo;
 	private Status status;
 	private String eMail;
+	private String additionalInfo;
 	private Role role;
 
 	public User() {
 	}
 
 	public User(int id, String name, String surname, String login, String password,
-				double phoneNumber, String photo, Status status, String eMail, Role role) {
+				String phoneNumber, String photo, Status status, String eMail, String additionalInfo, Role role) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -32,6 +33,21 @@ public class User implements Serializable{
 		this.photo = photo;
 		this.status = status;
 		this.eMail = eMail;
+		this.additionalInfo = additionalInfo;
+		this.role = role;
+	}
+
+	public User(String name, String surname, String login, String password, String phoneNumber, String photo,
+				Status status, String eMail, String additionalInfo, Role role) {
+		this.name = name;
+		this.surname = surname;
+		this.login = login;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.photo = photo;
+		this.status = status;
+		this.eMail = eMail;
+		this.additionalInfo = additionalInfo;
 		this.role = role;
 	}
 
@@ -75,11 +91,11 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public double getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(double phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -115,18 +131,14 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof User)) return false;
-		User user = (User) o;
-		return id == user.id && Double.compare(user.phoneNumber, phoneNumber) == 0 && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(photo, user.photo) && status == user.status && Objects.equals(eMail, user.eMail) && role == user.role;
+	public String getAdditionalInfo() {
+		return additionalInfo;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, surname, login, password, phoneNumber, photo, status, eMail, role);
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
 	}
+
 
 	@Override
 	public String toString() {

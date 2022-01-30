@@ -27,7 +27,7 @@ public class MariaDbOrderDAO implements OrderDAO {
             ps.setString(1, order.getCriteria());
             ps.setTimestamp(2, new Timestamp(order.getRequestDate().getTime()));
             ps.setString(3, order.getDepartPlace());
-            ps.setString(4, order.getDepartPlace());
+            ps.setString(4, order.getArrivalPlace());
             ps.setString(5, order.getArrivalPlace());
             ps.setString(6, order.getArrivalPlace());
             ps.setString(7, order.getArrivalPlace());
@@ -68,68 +68,6 @@ public class MariaDbOrderDAO implements OrderDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-
-    @Override
-    public List<Order> findOrders(String param, String value) throws DAOException {
-        List<Order> orders = new ArrayList<>();
-        try {
-            Connection connection = CONNECTION_POOL.takeConnection();
-            String str = "SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
-                    "LEFT JOIN users u on u.id = orders.client_id " +
-                    "LEFT JOIN users u2 on u2.id = orders.driver_id " +
-                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + param + "=?";
-            PreparedStatement ps = connection.prepareStatement(str);
-
-            ps.setString(1, value);
-
-            ResultSet resultSet = ps.executeQuery();
-            while (resultSet.next()) {
-                orders.add(buildOrder(resultSet));
-            }
-            CONNECTION_POOL.returnConnection(connection, ps, resultSet);
-
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-        return orders;
-    }
-
-    @Override
-    public List<Order> findOrders(Map<String, String> criteriaMap) throws DAOException {
-        List<Order> orders = new ArrayList<>();
-        try {
-            Connection connection = CONNECTION_POOL.takeConnection();
-            Statement st = connection.createStatement();
-            StringBuilder s = new StringBuilder("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id " +
-                    "LEFT JOIN users u on u.id = orders.client_id " +
-                    "LEFT JOIN users u2 on u2.id = orders.driver_id " +
-                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE ");
-
-            for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
-                String str = entry.getValue();
-                if(str.matches("(\\>|\\<|(\\<=)|(\\>=))\\d+")){
-                    s.append(entry.getKey());
-                    s.append(entry.getValue());
-                    s.append(" AND ");
-                }else {
-                    s.append(entry.getKey());
-                    s.append("='");
-                    s.append(entry.getValue());
-                    s.append("' AND ");
-                }
-            }
-            String res = s.substring(0, s.length() - 5);
-            ResultSet resultSet = st.executeQuery(res);
-            while (resultSet.next()) {
-                orders.add(buildOrder(resultSet));
-            }
-            CONNECTION_POOL.returnConnection(connection, st, resultSet);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-        return orders;
     }
 
     @Override
@@ -177,47 +115,24 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
-    public List<Order> readOrders(String whereParam, String whereValue) throws DAOException {
-        List<Order> cars = new ArrayList<>();
-
-        try {
-            Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
-                    "LEFT JOIN users u on u.id = orders.client_id " +
-                    "LEFT JOIN users u2 on u2.id = orders.driver_id " +
-                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + whereParam + "=?");
-            statement.setString(1, whereValue);
-
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                cars.add(buildOrder(resultSet));
-            }
-            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-        return cars;
-    }
-
-    @Override
     public List<Order> readOrders(int page, int limit) throws DAOException {
         List<Order> orders = new ArrayList<>();
 
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
                     "LEFT JOIN users u3 on u3.id = orders.admin_id ORDER BY orders.id LIMIT ? OFFSET ?");
             int offset = (page - 1) * limit;
-            statement.setInt(1, limit);
-            statement.setInt(2,offset);
-            ResultSet resultSet = statement.executeQuery();
+            ps.setInt(1, limit);
+            ps.setInt(2,offset);
+            ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
                 orders.add(buildOrder(resultSet));
             }
-            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+            CONNECTION_POOL.returnConnection(connection, ps, resultSet);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -225,7 +140,7 @@ public class MariaDbOrderDAO implements OrderDAO {
     }
 
     @Override
-    public List<Order> readOrders(int page, int limit, String whereParam, String whereValue) throws DAOException {
+    public List<Order> findOrders(int page, int limit, String whereParam, String whereValue) throws DAOException {
         List<Order> orders = new ArrayList<>();
 
         try {
@@ -259,17 +174,75 @@ public class MariaDbOrderDAO implements OrderDAO {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
-                    "LEFT JOIN users u3 on u3.id = orders.admin_id ORDER BY ? LIMIT ? OFFSET ?");
+                    "LEFT JOIN users u3 on u3.id = orders.admin_id ORDER BY " + orderBy + " LIMIT ? OFFSET ?");
             int offset = (page - 1) * limit;
             statement.setInt(1, limit);
             statement.setInt(2,offset);
-            statement.setString(3,orderBy);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 orders.add(buildOrder(resultSet));
             }
             CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> findOrders(String whereParam, String whereValue) throws DAOException {
+        List<Order> cars = new ArrayList<>();
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
+                    "LEFT JOIN users u on u.id = orders.client_id " +
+                    "LEFT JOIN users u2 on u2.id = orders.driver_id " +
+                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + whereParam + "=?");
+
+            statement.setString(1, whereValue);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                cars.add(buildOrder(resultSet));
+            }
+            CONNECTION_POOL.returnConnection(connection, statement, resultSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return cars;
+    }
+
+    @Override
+    public List<Order> findOrders(Map<String, String> criteriaMap) throws DAOException {
+        List<Order> orders = new ArrayList<>();
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            Statement st = connection.createStatement();
+            StringBuilder s = new StringBuilder("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id " +
+                    "LEFT JOIN users u on u.id = orders.client_id " +
+                    "LEFT JOIN users u2 on u2.id = orders.driver_id " +
+                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE ");
+
+            for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
+                String str = entry.getValue();
+                if(str.matches("(\\>|\\<|(\\<=)|(\\>=))\\d+")){
+                    s.append(entry.getKey());
+                    s.append(entry.getValue());
+                    s.append(" AND ");
+                }else {
+                    s.append(entry.getKey());
+                    s.append("='");
+                    s.append(entry.getValue());
+                    s.append("' AND ");
+                }
+            }
+            String res = s.substring(0, s.length() - 5);
+            ResultSet resultSet = st.executeQuery(res);
+            while (resultSet.next()) {
+                orders.add(buildOrder(resultSet));
+            }
+            CONNECTION_POOL.returnConnection(connection, st, resultSet);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -298,7 +271,8 @@ public class MariaDbOrderDAO implements OrderDAO {
     public void updateOrder(Car car) throws DAOException {
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement("UPDATE cars SET licence_plate=?, color=?, car_photo=?, odometr=?, status=?, car_model_id=? WHERE id=?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE cars SET licence_plate=?, color=?, car_photo=?, " +
+                    "odometr=?, status=?, car_model_id=? WHERE id=?");
             ps.setString(1, car.getLicencePlate());
             ps.setString(2, car.getColor());
             ps.setString(3, car.getPhoto());

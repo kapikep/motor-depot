@@ -14,17 +14,15 @@ public interface OrderService {
 
     void createNotApproveOrder(String fullName, String phoneNumber, String criteria) throws ServiceException;
 
-    List<Order> findOrders(String param, String value) throws ServiceException;
+    Order readOrder(String id) throws ServiceException;
 
     List<Order> findOrders(Map<String, String> criteriaMap) throws ServiceException;
-
-    Order readOrder(String id) throws ServiceException;
 
     List<Order> readOrders() throws ServiceException;
 
     int getOrderSize() throws ServiceException;
 
-    List<Order> readOrders(String whereParam, String whereValue) throws ServiceException;
+    List<Order> findOrders(String whereParam, String whereValue) throws ServiceException;
 
     List<Order> readOrders(int page, int limit) throws ServiceException;
 

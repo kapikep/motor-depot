@@ -54,11 +54,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findOrders(String param, String value) throws ServiceException {
-        return null;
-    }
-
-    @Override
     public List<Order> findOrders(Map<String, String> criteriaMap) throws ServiceException {
         return null;
     }
@@ -82,11 +77,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> readOrders(String whereParam, String whereValue) throws ServiceException {
+    public List<Order> findOrders(String whereParam, String whereValue) throws ServiceException {
         List<Order> orders;
 
         try {
-            orders = ORDER_DAO.readOrders(whereParam, whereValue);
+            orders = ORDER_DAO.findOrders(whereParam, whereValue);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -164,7 +159,7 @@ public class OrderServiceImpl implements OrderService {
         int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
         try {
-            orders = ORDER_DAO.readOrders(page, rowLimit, whereParam, whereValue);
+            orders = ORDER_DAO.findOrders(page, rowLimit, whereParam, whereValue);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

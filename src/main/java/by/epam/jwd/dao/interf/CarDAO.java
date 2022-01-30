@@ -13,7 +13,7 @@ public interface CarDAO {
 
     boolean createModel(CarModel carModel) throws DAOException;
 
-    List<Car> readAllCar() throws DAOException;
+    List<Car> readCars() throws DAOException;
 
     int getCarSize() throws DAOException;
 

@@ -2,12 +2,10 @@ package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.constant.PagePath;
-import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
-import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.OrderService;
 
 import javax.servlet.ServletException;
@@ -25,7 +23,7 @@ public class GoToMainAdminPage implements Command {
         List<Order> orders = null;
 
         try {
-            orders = orderService.readOrders( "order_status", Status.NOT_APPROVE.toString());
+            orders = orderService.findOrders( "order_status", Status.NOT_APPROVE.toString());
         } catch (ServiceException e) {
             e.printStackTrace();
         }
