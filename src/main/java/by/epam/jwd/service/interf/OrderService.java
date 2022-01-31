@@ -28,7 +28,7 @@ public interface OrderService {
 
     List<Order> readOrders(String page, String limit, String orderBy) throws ServiceException;
 
-    void updateOrder(Car car) throws ServiceException;
+    void updateOrder(Order order) throws ServiceException;
 
     void deleteOrder(int id) throws ServiceException;
 

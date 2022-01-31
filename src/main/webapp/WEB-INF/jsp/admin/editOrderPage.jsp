@@ -19,6 +19,7 @@
 <c:if test="${edit != null}">
     <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${order.id}"/>
 </c:if>
+
 <form action="admin" method="get">
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
@@ -52,6 +53,7 @@
             </td>
             <td><input type="text" name="paymentStatus" value="${order.paymentStatus}" size="4" maxlength="30"
                        minlength="1"/></td>
+
             <td><select name="status">
                 <c:forEach var="s" items="${Status.values()}">
                     <c:choose>
@@ -75,14 +77,25 @@
 
     <c:if test="${createStep1 != null}">
         <fmt:message bundle="${loc}" key="table.order.selectCarModel"/>
+
         <select name="carType">
             <c:forEach var="carType" items="${carTypes}">
                 <option value="${carType}"><c:out value="${carType}"/></option>
             </c:forEach>
         </select>
+
         <br>
-        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}" key="table.next"/></button>
+        <br>
+        <fmt:message bundle="${loc}" key="table.car.loadCap"/>
+        <input type="text" name="loadCapacity" value="" size="8" maxlength="6" minlength="1"/>
+        <br>
+        <fmt:message bundle="${loc}" key="table.car.passengerCap"/>
+        <input type="text" name="passengerCapacity" value="" size="3" maxlength="6" minlength="1"/>
+        <br>
+        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
+                                                                                   key="table.next"/></button>
     </c:if>
+
     <c:if test="${createStep2 != null}">
         <fmt:message bundle="${loc}" key="table.order.selectCar"/>
         <br>
@@ -91,10 +104,13 @@
             <br>
         </c:forEach>
 
-        <button type="submit" name="command" value="CreateOrder"><fmt:message bundle="${loc}" key="table.create"/></button>
+        <button type="submit" name="command" value="CreateOrder"><fmt:message bundle="${loc}"
+                                                                              key="table.create"/></button>
     </c:if>
+
     <c:if test="${edit != null}">
-        <button type="submit" name="command" value="UpdateOrder"><fmt:message bundle="${loc}" key="table.update"/></button>
+        <button type="submit" name="command" value="UpdateOrder"><fmt:message bundle="${loc}"
+                                                                              key="table.update"/></button>
         <br>
         <br>
         <table border="1" cellpadding="5" cellspacing="1">

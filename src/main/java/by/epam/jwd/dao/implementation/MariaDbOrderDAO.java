@@ -26,7 +26,7 @@ public class MariaDbOrderDAO implements OrderDAO {
             ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
@@ -48,7 +48,7 @@ public class MariaDbOrderDAO implements OrderDAO {
             ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
@@ -207,11 +207,12 @@ public class MariaDbOrderDAO implements OrderDAO {
                     "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE ");
 
             for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
-                String str = entry.getValue();
-                if(str.matches("(\\>|\\<|(\\<=)|(\\>=))\\d+")){
+                String str = entry.getKey();
+                if(str.matches("(.*)(\\>|\\<|(\\<=)|(\\>=))$")){
                     s.append(entry.getKey());
+                    s.append("'");
                     s.append(entry.getValue());
-                    s.append(" AND ");
+                    s.append("' AND ");
                 }else {
                     s.append(entry.getKey());
                     s.append("='");
@@ -220,6 +221,7 @@ public class MariaDbOrderDAO implements OrderDAO {
                 }
             }
             String res = s.substring(0, s.length() - 5);
+            System.out.println(res);
             ResultSet resultSet = st.executeQuery(res);
             while (resultSet.next()) {
                 orders.add(buildOrder(resultSet));

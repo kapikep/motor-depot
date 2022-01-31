@@ -40,7 +40,7 @@ public class MariaDbCarDAO implements CarDAO {
 
             count = ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
-            if(count == 1){
+            if (count == 1) {
                 result = true;
             }
         } catch (SQLException e) {
@@ -64,7 +64,7 @@ public class MariaDbCarDAO implements CarDAO {
 
             count = ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
-            if(count == 1){
+            if (count == 1) {
                 result = true;
             }
         } catch (SQLException e) {
@@ -133,7 +133,7 @@ public class MariaDbCarDAO implements CarDAO {
     }
 
     @Override
-    public List<String> readCarTypes() throws DAOException{
+    public List<String> readCarTypes() throws DAOException {
         List<String> types = new ArrayList<>();
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
@@ -161,7 +161,7 @@ public class MariaDbCarDAO implements CarDAO {
                     "cars.car_model_id = car_model.id ORDER BY status LIMIT ? OFFSET ?");
             int offset = (page - 1) * limit;
             statement.setInt(1, limit);
-            statement.setInt(2,offset);
+            statement.setInt(2, offset);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -208,7 +208,7 @@ public class MariaDbCarDAO implements CarDAO {
                     "ORDER BY " + orderBy + " LIMIT ? OFFSET ?");
             int offset = (page - 1) * limit;
             statement.setInt(1, limit);
-            statement.setInt(2,offset);
+            statement.setInt(2, offset);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -231,11 +231,11 @@ public class MariaDbCarDAO implements CarDAO {
 
             for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
                 String str = entry.getValue();
-                if(str.matches("(\\>|\\<|(\\<=)|(\\>=))\\d+")){
+                if (str.matches("(\\>|\\<|(\\<=)|(\\>=))\\d+")) {
                     s.append(entry.getKey());
                     s.append(entry.getValue());
                     s.append(" AND ");
-                }else {
+                } else {
                     s.append(entry.getKey());
                     s.append("='");
                     s.append(entry.getValue());
@@ -253,6 +253,28 @@ public class MariaDbCarDAO implements CarDAO {
         }
         return cars;
     }
+
+//    @Override
+//    public List<Car> findFreeCars(Map<String, String> criteriaMap) throws DAOException {
+//        List<Car> cars = null;
+//        List<String> strings = new ArrayList<>();
+//        try {
+//            Connection connection = CONNECTION_POOL.takeConnection();
+//            Statement st = connection.createStatement();
+//            StringBuilder s = new StringBuilder("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id WHERE ");
+//            ResultSet resultSet = st.executeQuery("SELECT * FROM orders RIGHT OUTER JOIN cars c on c.id = orders.cars_id " +
+//                    "JOIN car_model cm on cm.id = c.car_model_id WHERE start_date>'2022-02-01 23:11:05.064' and end_date<'2022-04-22 23:11:00.0'");
+//            while (resultSet.next()) {
+//                System.out.println(resultSet.getString("licence_plate") + " " + resultSet.getString("id") + " " +
+//                        resultSet.getString("start_date") + " " + resultSet.getString("end_date"));
+//                strings.add(resultSet.getString("type"));
+//            }
+//            System.out.println(strings.size());
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return cars;
+//    }
 
     @Override
     public List<CarModel> readCarModels(String whereParam, String whereValue) throws DAOException {
@@ -294,7 +316,7 @@ public class MariaDbCarDAO implements CarDAO {
             ps.setInt(7, car.getId());
             count = ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
-            if(count == 1){
+            if (count == 1) {
                 result = true;
             }
         } catch (SQLException e) {
@@ -313,7 +335,7 @@ public class MariaDbCarDAO implements CarDAO {
             ps.setInt(1, id);
             count = ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
-            if(count == 1){
+            if (count == 1) {
                 result = true;
             }
         } catch (SQLException e) {
@@ -323,7 +345,7 @@ public class MariaDbCarDAO implements CarDAO {
     }
 
     @Override
-    public int getCarSize() throws DAOException{
+    public int getCarSize() throws DAOException {
         int size = 0;
         try {
             Connection connection = CONNECTION_POOL.takeConnection();

@@ -4,7 +4,6 @@ import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.DriverDAO;
 import by.epam.jwd.dao.interf.OrderDAO;
-import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Driver;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
@@ -36,7 +35,11 @@ public class OrderServiceImpl implements OrderService {
         try {
             drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
             System.out.println(drivers);
-            param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
+            if(drivers.isEmpty()){
+                param.put("driverId", "1");
+            }else {
+                param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
+            }
             Order order = createOrderEntity(param);
             System.out.println(order);
             ORDER_DAO.createOrder(order);
@@ -44,8 +47,6 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
     }
-
-    //http://127.0.0.1:8080/motor-depot/admin?criteria=Travel&departPlace=Minsk&arrivalPlace=Praha&startDate=2022-01-31T01%3A00&endDate=2022-02-01T13%3A00&distance=1300&totalAmount=100&paymentStatus=not+paid&status=APPROVE&clientFullName=Mikola&clientPhone=%2B3658848&car=3&command=CreateOrder
 
     @Override
     public void createNotApproveOrder(String fullName, String phoneNumber, String criteria, int userId) throws ServiceException {
@@ -65,7 +66,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findOrders(Map<String, String> criteriaMap) throws ServiceException {
-        return null;
+        List<Order> orders;
+
+        try {
+            orders = ORDER_DAO.findOrders(criteriaMap);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return orders;
     }
 
     @Override
@@ -83,7 +91,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int getOrderSize() throws ServiceException {
-        return 0;
+        int size = 0;
+        try{
+            size = ORDER_DAO.getOrderSize();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return size;
     }
 
     @Override
@@ -127,13 +141,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(Car car) throws ServiceException {
-
+    public void updateOrder(Order order) throws ServiceException {
+        try {
+            ORDER_DAO.updateOrder(order);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
     public void deleteOrder(int id) throws ServiceException {
-
+        try {
+            ORDER_DAO.deleteOrder(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override

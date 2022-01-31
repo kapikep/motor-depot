@@ -11,12 +11,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class MariaDbOrderDAOTest {
     OrderDAO orderDAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getOrderDao();
+    Map<String, String> map = new HashMap<>();
     Order order;
 
     @BeforeClass
@@ -62,6 +61,18 @@ public class MariaDbOrderDAOTest {
 //            e.printStackTrace();
 //        }
 //    }
+
+
+    @Test
+    public void findOrdersTest() {
+        map.put("start_date>", "2020-02-01 23:11:05.064");
+        map.put("end_date<", "2022-04-22 23:11:00.0");
+        try {
+            System.out.println(orderDAO.findOrders(map));
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void updateOrderTest() {

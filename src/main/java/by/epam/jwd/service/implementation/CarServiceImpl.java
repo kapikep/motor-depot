@@ -5,6 +5,8 @@ import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.CarDAO;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.CarModel;
+import by.epam.jwd.entity.Order;
+import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.interf.CarService;
@@ -138,6 +140,14 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> findCars(Map<String, String> criteriaMap) throws ServiceException {
+        if("".equals(criteriaMap.get("load_capacity"))){
+            criteriaMap.put("load_capacity", ">1");
+        }
+
+        if("".equals(criteriaMap.get("passenger_capacity"))){
+            criteriaMap.put("passenger_capacity", ">1");
+        }
+
         List<Car> cars = null;
         try {
             cars = CAR_DAO.findCars(criteriaMap);
@@ -173,6 +183,12 @@ public class CarServiceImpl implements CarService {
             throw new ServiceException(e);
         }
         return result;
+    }
+
+    public List<Car> findFreeCar(Map<String, String> criteriaCar, Map<String, String> criteriaOrder) throws ServiceException{
+        List<Car> cars = findCars(criteriaCar);
+        List<Order> orders = MDServiceFactory.getMDService().getOrderService().findOrders(criteriaOrder);
+
     }
 
     @Override
