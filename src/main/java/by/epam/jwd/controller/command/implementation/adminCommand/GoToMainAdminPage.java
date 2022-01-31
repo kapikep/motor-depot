@@ -19,7 +19,6 @@ public class GoToMainAdminPage implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
 
-        String page = (String) request.getAttribute("page");
         List<Order> orders = null;
 
         try {

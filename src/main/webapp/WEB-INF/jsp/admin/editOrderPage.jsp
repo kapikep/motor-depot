@@ -12,12 +12,12 @@
 <br>
 <br>
 <br>
-<c:if test="${createStep1 != null}">
+<c:if test="${create != null}">
     <fmt:message bundle="${loc}" key="table.order.createNewOrder"/>
 </c:if>
 
 <c:if test="${edit != null}">
-    <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${order.id}"/>
+    <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.edit_id}"/>
 </c:if>
 
 <form action="admin" method="get">
@@ -75,7 +75,56 @@
     </table>
     <br>
 
-    <c:if test="${createStep1 != null}">
+    <c:if test="${createStep2 != null}">
+        <fmt:message bundle="${loc}" key="table.order.selectCar"/> <br>
+
+        <c:forEach var="c" items="${cars}">
+            <input type="radio" checked name="car" value="${c.id}"/><c:out value="${c}"/><br>
+            <br>
+        </c:forEach>
+        <c:if test="${create != null}">
+        <button type="submit" name="command" value="CreateOrder"><fmt:message bundle="${loc}" key="table.create"/></button>
+        </c:if>
+    </c:if>
+
+    <c:if test="${edit != null}">
+        <c:if test="${step1 != null}">
+            <input type="hidden" name="car" value="${car.id}">
+        </c:if>
+    <button type="submit" name="command" value="UpdateOrder"><fmt:message bundle="${loc}" key="table.update"/></button><br><br>
+    </c:if>
+    <c:if test="${step1 != null && edit != null}">
+
+        <table border="1" cellpadding="5" cellspacing="1">
+            <tr>
+                <th><fmt:message bundle="${loc}" key="table.order.driverFullName"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.model"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.license"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.color"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.type"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.loadCap"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.passengerCap"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.weelDr"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.odometr"/></th>
+                <th><fmt:message bundle="${loc}" key="table.car.status"/></th>
+            </tr>
+            <tr>
+                <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
+                <td><c:out value="${car.modelName}"/></td>
+                <td><c:out value="${car.licencePlate}"/></td>
+                <td><c:out value="${car.color}"/></td>
+                <td><c:out value="${car.type}"/></td>
+                <td><c:out value="${car.loadCapacity}"/></td>
+                <td><c:out value="${car.passengerCapacity}"/></td>
+                <td><c:out value="${car.wheelDriveType}"/></td>
+                <td><c:out value="${car.odometr}"/></td>
+                <td><c:out value="${car.status}"/></td>
+            </tr>
+        </table>
+        <br>
+    </c:if>
+
+    <c:if test="${step1 != null}">
         <fmt:message bundle="${loc}" key="table.order.selectCarModel"/>
 
         <select name="carType">
@@ -92,59 +141,12 @@
         <fmt:message bundle="${loc}" key="table.car.passengerCap"/>
         <input type="text" name="passengerCapacity" value="" size="3" maxlength="6" minlength="1"/>
         <br>
-        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
-                                                                                   key="table.next"/></button>
+        <c:if test="${edit != null}">
+            <input type="hidden" name="edit_id" value="${order.id}">
+        </c:if>
+        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}" key="table.next"/></button>
     </c:if>
 
-    <c:if test="${createStep2 != null}">
-        <fmt:message bundle="${loc}" key="table.order.selectCar"/>
-        <br>
-        <c:forEach var="c" items="${cars}">
-            <input type="radio" checked name="car" value="${c.id}"/><c:out value="${c}"/><br>
-            <br>
-        </c:forEach>
-
-        <button type="submit" name="command" value="CreateOrder"><fmt:message bundle="${loc}"
-                                                                              key="table.create"/></button>
-    </c:if>
-
-    <c:if test="${edit != null}">
-        <button type="submit" name="command" value="UpdateOrder"><fmt:message bundle="${loc}"
-                                                                              key="table.update"/></button>
-        <br>
-        <br>
-        <table border="1" cellpadding="5" cellspacing="1">
-            <tr>
-                <th><fmt:message bundle="${loc}" key="table.order.driverFullName"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.model"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.license"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.color"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.type"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.loadCap"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.passengerCap"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.weelDr"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.odometr"/></th>
-                <th><fmt:message bundle="${loc}" key="table.car.status"/></th>
-                <th><fmt:message bundle="${loc}" key="table.edit"/></th>
-            </tr>
-            <tr>
-                <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
-                <td><c:out value="${car.modelName}"/></td>
-                <td><c:out value="${car.licencePlate}"/></td>
-                <td><c:out value="${car.color}"/></td>
-                <td><c:out value="${car.type}"/></td>
-                <td><c:out value="${car.loadCapacity}"/></td>
-                <td><c:out value="${car.passengerCapacity}"/></td>
-                <td><c:out value="${car.wheelDriveType}"/></td>
-                <td><c:out value="${car.odometr}"/> km</td>
-                <td><c:out value="${car.status}"/></td>
-                <td>
-                    <a href="admin?command=GoToEditCar&edit_id=${car.id}">
-                        <fmt:message bundle="${loc}" key="table.edit"/></a>
-                </td>
-            </tr>
-        </table>
-    </c:if>
 </form>
 </body>
 </html>

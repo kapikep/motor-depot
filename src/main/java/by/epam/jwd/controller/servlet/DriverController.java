@@ -35,7 +35,7 @@ public class DriverController extends HttpServlet {
                 Command command = provider.getDriverCommand(commandName);
                 command.execute(request, response);
             } else {
-                request.getRequestDispatcher(PagePath.MAIN_DRIVER_PAGE).forward(request, response);
+                response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_MAIN_PAGE);
             }
         }else {
             response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_SIGN_IN);

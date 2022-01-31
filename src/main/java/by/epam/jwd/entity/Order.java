@@ -1,6 +1,7 @@
 package by.epam.jwd.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Order {
     private int id;
@@ -62,8 +63,6 @@ public class Order {
         this.adminSurname = adminSurname;
         this.adminName = adminName;
     }
-
-
 
     public Order(int id, String criteria, Date requestDate, String departPlace, String arrivalPlace, Date startDate,
                  Date endDate, String orderStatus, int distance, int totalAmount, String paymentStatus, int clientId,
@@ -282,6 +281,19 @@ public class Order {
 
     public void setAdminSurname(String adminSurname) {
         this.adminSurname = adminSurname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return id == order.id && distance == order.distance && totalAmount == order.totalAmount && clientId == order.clientId && carId == order.carId && driverId == order.driverId && adminId == order.adminId && Objects.equals(criteria, order.criteria) && Objects.equals(requestDate, order.requestDate) && Objects.equals(departPlace, order.departPlace) && Objects.equals(arrivalPlace, order.arrivalPlace) && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate) && Objects.equals(orderStatus, order.orderStatus) && Objects.equals(paymentStatus, order.paymentStatus) && Objects.equals(clientFullName, order.clientFullName) && Objects.equals(clientPhone, order.clientPhone) && Objects.equals(carLicensePlate, order.carLicensePlate) && Objects.equals(driverName, order.driverName) && Objects.equals(driverSurname, order.driverSurname) && Objects.equals(adminName, order.adminName) && Objects.equals(adminSurname, order.adminSurname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, criteria, requestDate, departPlace, arrivalPlace, startDate, endDate, orderStatus, distance, totalAmount, paymentStatus, clientId, clientFullName, clientPhone, carId, carLicensePlate, driverId, driverName, driverSurname, adminId, adminName, adminSurname);
     }
 
     @Override

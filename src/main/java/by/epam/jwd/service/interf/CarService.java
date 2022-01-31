@@ -32,5 +32,7 @@ public interface CarService {
 
     boolean updateCar(String id, String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException;
 
+    List<Car> findFreeCars(Map<String, String> criteriaCar, Map<String, String> criteriaOrder) throws ServiceException;
+
     boolean deleteCar(String idStr) throws ServiceException;
 }

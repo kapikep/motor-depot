@@ -3,7 +3,6 @@ package by.epam.jwd.controller.command.implementation.adminCommand;
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Car;
-import by.epam.jwd.entity.CarModel;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
 import by.epam.jwd.service.MDServiceFactory;
@@ -15,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -27,28 +25,27 @@ public class SelectCarToOrder implements Command {
         CarService carService = MDServiceFactory.getMDService().getCarService();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         SimpleDateFormat timestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
-        Map<String, String> criteriaMap = new HashMap<>();
+        Map<String, String> criteriaCarMap = new HashMap<>();
         Map<String , String> timeSearch = new HashMap<>();
         List<Car> cars = null;
-        List<Car> resCars = new ArrayList<>();
         Car car = null;
         Order order = null;
         String edit_id = request.getParameter("edit_id");
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
-        try {
-            if (edit_id != null && !("".equals(edit_id))) {
-                car = carService.readCar(edit_id);
-                order = orderService.readOrder(edit_id);
-                request.setAttribute("edit", true);
-            } else {
-                request.setAttribute("createStep2", true);
+        request.setAttribute("createStep2", true);
 
-                criteriaMap.put("load_capacity", request.getParameter("loadCapacity"));
-                criteriaMap.put("passenger_capacity", request.getParameter("passengerCapacity"));
-                criteriaMap.put("status", "active");
-                criteriaMap.put("type", request.getParameter("carType"));
-                cars = carService.findCars(criteriaMap);
+
+        if (edit_id != null && !("".equals(edit_id))) {
+            request.setAttribute("edit", true);
+        } else {
+            request.setAttribute("create", true);
+        }
+        try {
+                criteriaCarMap.put("load_capacity", request.getParameter("loadCapacity"));
+                criteriaCarMap.put("passenger_capacity", request.getParameter("passengerCapacity"));
+                criteriaCarMap.put("status", "active");
+                criteriaCarMap.put("type", request.getParameter("carType"));
 
                 order = new Order();
                 order.setRequestDate(new Date());
@@ -68,25 +65,11 @@ public class SelectCarToOrder implements Command {
                 timeSearch.put("order_status", Status.APPROVE.toString());
                 order.setClientFullName(request.getParameter("clientFullName"));
                 order.setClientPhone(request.getParameter("clientPhone"));
+                cars = carService.findFreeCars(criteriaCarMap, timeSearch);
 
-                List<Order> orders= orderService.findOrders(timeSearch);
-
-                boolean match = false;
-                for (Car c: cars) {
-                    for (Order o : orders) {
-                        if(o.getCarId() == c.getId()){
-                            match = true;
-                            break;
-                        }
-                    }
-                    if (!match) {
-                        resCars.add(c);
-                    }
-                }
-            }
 
             request.setAttribute("order", order);
-            request.setAttribute("cars", resCars);
+            request.setAttribute("cars", cars);
         } catch (ServiceException | ParseException e) {
             //TODO logger
             e.printStackTrace();

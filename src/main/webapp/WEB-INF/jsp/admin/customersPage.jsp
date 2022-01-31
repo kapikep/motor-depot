@@ -7,44 +7,54 @@
     <title>Title</title>
 </head>
 <body>
-<table>
-    <br>
+<fmt:message bundle="${loc}" key="admin.orders"/>
+<jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
+
+<c:out value="${param.message}"/>
+
+<table border="1" cellpadding="5" cellspacing="1">
     <tr>
-        <th>Company</th>
-        <th>Q1</th>
-        <th>Q2</th>
-        <th>Q3</th>
-        <th>Q4</th>
+        <th><fmt:message bundle="${loc}" key="table.user.name"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.surname"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.login"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.password"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.phone_number"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.status"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.e-mail"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.additionalInfo"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.role"/></th>
+        <th><fmt:message bundle="${loc}" key="table.edit"/></th>
     </tr>
-    <tr>
-        <td>Microsoft</td>
-        <td>20.3</td>
-        <td>30.5</td>
-        <td>23.5</td>
-        <td>40.3</td>
-    </tr>
-    <tr>
-        <td>Google</td>
-        <td>50.2</td>
-        <td>40.63</td>
-        <td>45.23</td>
-        <td>39.3</td>
-    </tr>
-    <tr>
-        <td>Apple</td>
-        <td>25.4</td>
-        <td>30.2</td>
-        <td>33.3</td>
-        <td>36.7</td>
-    </tr>
-    <tr>
-        <td>IBM</td>
-        <td>20.4</td>
-        <td>15.6</td>
-        <td>22.3</td>
-        <td>29.3</td>
-    </tr>
+
+    <c:forEach items="${requestScope.users}" var="user">
+        <tr>
+            <td><c:out value="${user.name}"/></td>
+            <td><c:out value="${user.surname}"/></td>
+            <td><c:out value="${user.login}"/></td>
+            <td><c:out value="${user.password}"/></td>
+            <td><c:out value="${user.phoneNumber}"/></td>
+            <td><c:out value="${user.status}"/></td>
+            <td><c:out value="${user.eMail}"/></td>
+            <td><c:out value="${user.additionalInfo}"/></td>
+            <td><c:out value="${user.role}"/></td>
+            <td>
+                <a href="admin?command=GoToEditCar&edit_id=${user.id}">
+                    <fmt:message bundle="${loc}" key="table.edit"/></a>
+            </td>
+        </tr>
+    </c:forEach>
+
+    <c:forEach var="i" begin="1" end="9">
+        <td></td>
+    </c:forEach>
+
+    <td>
+        <a href="?command=GoToEditCustomers">
+            <fmt:message bundle="${loc}" key="table.add"/>
+        </a>
+    </td>
 </table>
-cust page
+<fmt:message bundle="${loc}" key="table.page"/> <c:out value="${page}"/>
+<fmt:message bundle="${loc}" key="table.of"/> <c:out value="${pageCount}"/>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class CustomerController extends HttpServlet {
                 Command command = provider.getCustomerCommand(commandName);
                 command.execute(request, response);
             } else {
-                request.getRequestDispatcher(PagePath.MAIN_CUSTOMER_PAGE).forward(request, response);
+                response.sendRedirect(CommandName.CUSTOMER_COMMAND + CommandName.GO_TO_CUSTOMER_MAIN_PAGE);
             }
         }else {
             response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_SIGN_IN);

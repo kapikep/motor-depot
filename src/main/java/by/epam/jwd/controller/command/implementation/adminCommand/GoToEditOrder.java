@@ -28,20 +28,29 @@ public class GoToEditOrder implements Command {
         List<String> carTypes = null;
         Car car = null;
         Order order = null;
+        String adminName = (String) request.getSession().getAttribute("userFullName");
         String edit_id = request.getParameter("edit_id");
         try {
+            carTypes = carService.readCarTypes();
             if(edit_id != null && !("".equals(edit_id))) {
-                car = carService.readCar(edit_id);
                 order = orderService.readOrder(edit_id);
+                car = carService.readCar(Integer.toString(order.getCarId()));
+
+                if(order.getAdminName() == null){
+                    order.setAdminName(adminName);
+                }
+
                 request.setAttribute("edit", true);
+                request.setAttribute("step1", true);
             }else {
-                request.setAttribute("createStep1", true);
+                request.setAttribute("create", true);
+                request.setAttribute("step1", true);
                 order = new Order();
                 order.setRequestDate(new Date());
-                order.setAdminName((String) request.getSession().getAttribute("userFullName"));
-                carTypes = carService.readCarTypes();
-                request.setAttribute("carTypes", carTypes);
+                order.setAdminName(adminName);
             }
+
+            request.setAttribute("carTypes", carTypes);
             request.setAttribute("order", order);
             request.setAttribute("car", car);
         } catch (ServiceException e) {

@@ -35,19 +35,19 @@
         <th><fmt:message bundle="${loc}" key="table.car.status"/></th>
         <th><fmt:message bundle="${loc}" key="table.edit"/></th>
     </tr>
-    <c:forEach items="${requestScope.cars}" var="car">
+    <c:forEach items="${requestScope.cars}" var="user">
         <tr>
-            <td><c:out value="${car.modelName}"/></td>
-            <td><c:out value="${car.licencePlate}"/></td>
-            <td><c:out value="${car.color}"/></td>
-            <td><c:out value="${car.type}"/></td>
-            <td><c:out value="${car.loadCapacity}"/></td>
-            <td><c:out value="${car.passengerCapacity}"/></td>
-            <td><c:out value="${car.wheelDriveType}"/></td>
-            <td><c:out value="${car.odometr}"/> km</td>
-            <td><c:out value="${car.status}"/></td>
+            <td><c:out value="${user.modelName}"/></td>
+            <td><c:out value="${user.licencePlate}"/></td>
+            <td><c:out value="${user.color}"/></td>
+            <td><c:out value="${user.type}"/></td>
+            <td><c:out value="${user.loadCapacity}"/></td>
+            <td><c:out value="${user.passengerCapacity}"/></td>
+            <td><c:out value="${user.wheelDriveType}"/></td>
+            <td><c:out value="${user.odometr}"/> km</td>
+            <td><c:out value="${user.status}"/></td>
             <td>
-                <a href="admin?command=GoToEditCar&edit_id=${car.id}">
+                <a href="admin?command=GoToEditCar&edit_id=${user.id}">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>

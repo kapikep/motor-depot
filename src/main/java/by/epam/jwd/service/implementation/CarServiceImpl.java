@@ -11,6 +11,7 @@ import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.interf.CarService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -126,7 +127,6 @@ public class CarServiceImpl implements CarService {
         return cars;
     }
 
-
     @Override
     public List<CarModel> readCarModels() throws ServiceException {
         List<CarModel> cars;
@@ -185,10 +185,24 @@ public class CarServiceImpl implements CarService {
         return result;
     }
 
-    public List<Car> findFreeCar(Map<String, String> criteriaCar, Map<String, String> criteriaOrder) throws ServiceException{
+    @Override
+    public List<Car> findFreeCars(Map<String, String> criteriaCar, Map<String, String> criteriaOrder) throws ServiceException{
         List<Car> cars = findCars(criteriaCar);
         List<Order> orders = MDServiceFactory.getMDService().getOrderService().findOrders(criteriaOrder);
-
+        List<Car> resCars = new ArrayList<>();
+        boolean match = false;
+        for (Car c: cars) {
+            for (Order o : orders) {
+                if(o.getCarId() == c.getId()){
+                    match = true;
+                    break;
+                }
+            }
+            if (!match) {
+                resCars.add(c);
+            }
+        }
+        return resCars;
     }
 
     @Override

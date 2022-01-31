@@ -2,6 +2,7 @@ package by.epam.jwd.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class Driver extends User implements Serializable {
 
@@ -95,6 +96,19 @@ public class Driver extends User implements Serializable {
 
     public void setAttached_car_id(int attached_car_id) {
         this.attached_car_id = attached_car_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Driver)) return false;
+        Driver driver = (Driver) o;
+        return id == driver.id && drivingExperience == driver.drivingExperience && attached_car_id == driver.attached_car_id && Objects.equals(category, driver.category) && Objects.equals(dateOfEmployment, driver.dateOfEmployment) && Objects.equals(dateOfDismissal, driver.dateOfDismissal) && Objects.equals(license_plate, driver.license_plate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, category, drivingExperience, dateOfEmployment, dateOfDismissal, attached_car_id, license_plate);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class CreateOrder implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
-        String message = null;
+        String message = "Create done";
 
         if ("/welcome".equals(request.getServletPath())) {
             int countRequest = 0;
@@ -61,12 +61,10 @@ public class CreateOrder implements Command {
             try {
                 orderService.createOrder(param);
             } catch (ServiceException e) {
+                message = "Something wrong";
                 e.printStackTrace();
             }
-
-            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE);
+            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE + "&message=" + message);
         }
-
-
     }
 }

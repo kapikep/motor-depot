@@ -37,7 +37,18 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
         ADMIN_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
         ADMIN_COMMANDS.put(CommandName.GO_TO_MAIN_ADMIN_PAGE, new GoToMainAdminPage());
+        ADMIN_COMMANDS.put(CommandName.UPDATE_ORDER, new UpdateOrder());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_CUSTOMERS, new GoToEditCustomers());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_DRIVERS, new GoToEditDrivers());
+        ADMIN_COMMANDS.put(CommandName.EDIT_CUSTOMER, new EditCustomer());
+        ADMIN_COMMANDS.put(CommandName.EDIT_DRIVER, new EditDriver());
         ADMIN_COMMANDS.put(CommandName.SELECT_CAR_TO_ORDER, new SelectCarToOrder());
+
+        DRIVER_COMMANDS.put(CommandName.GO_TO_DRIVER_MAIN_PAGE, new GoToDriverMainPage());
+        DRIVER_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
+
+        CUSTOMER_COMMANDS.put(CommandName.GO_TO_CUSTOMER_MAIN_PAGE, new GoToCustomerMainPage());
+        CUSTOMER_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
     }
 
     public static CommandProvider getCommandProvider() {

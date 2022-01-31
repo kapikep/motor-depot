@@ -22,10 +22,6 @@ public class OrderServiceImpl implements OrderService {
     private final DriverDAO DRIVER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getDriverDao();
 
     @Override
-    public void createOrder(Order order) throws ServiceException {
-    }
-
-    @Override
     public void createOrder(Map<String, String> param) throws ServiceException {
         List<Driver> drivers;
         String clientId = param.get("clientId");
@@ -34,14 +30,37 @@ public class OrderServiceImpl implements OrderService {
         }
         try {
             drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
-            System.out.println(drivers);
             if(drivers.isEmpty()){
                 param.put("driverId", "1");
             }else {
                 param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
             }
             Order order = createOrderEntity(param);
-            System.out.println(order);
+            String s = param.get("editId");
+            if(s != null && !("".equals(s))){
+                order.setId(Integer.parseInt(s));
+            }
+            ORDER_DAO.updateOrder(order);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateOrder(Map<String, String> param) throws ServiceException {
+        List<Driver> drivers;
+        String clientId = param.get("clientId");
+        if (clientId == null || "".equals(clientId)) {
+            param.put("clientId", "1");
+        }
+        try {
+            drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
+            if(drivers.isEmpty()){
+                param.put("driverId", "1");
+            }else {
+                param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
+            }
+            Order order = createOrderEntity(param);
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -138,15 +157,6 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
         return orders;
-    }
-
-    @Override
-    public void updateOrder(Order order) throws ServiceException {
-        try {
-            ORDER_DAO.updateOrder(order);
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
     }
 
     @Override

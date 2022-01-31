@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
-    void createOrder(Order order) throws ServiceException;
 
     void createOrder(Map<String, String> param) throws ServiceException;
+
+    void updateOrder(Map<String, String> param) throws ServiceException;
 
     void createNotApproveOrder(String fullName, String phoneNumber, String criteria, int userId) throws ServiceException;
 
@@ -27,8 +28,6 @@ public interface OrderService {
     List<Order> readOrders(String pageStr, String limitStr) throws ServiceException;
 
     List<Order> readOrders(String page, String limit, String orderBy) throws ServiceException;
-
-    void updateOrder(Order order) throws ServiceException;
 
     void deleteOrder(int id) throws ServiceException;
 

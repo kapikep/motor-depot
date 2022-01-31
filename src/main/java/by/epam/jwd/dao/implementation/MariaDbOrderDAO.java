@@ -221,7 +221,6 @@ public class MariaDbOrderDAO implements OrderDAO {
                 }
             }
             String res = s.substring(0, s.length() - 5);
-            System.out.println(res);
             ResultSet resultSet = st.executeQuery(res);
             while (resultSet.next()) {
                 orders.add(buildOrder(resultSet));

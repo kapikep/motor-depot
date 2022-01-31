@@ -15,9 +15,9 @@ pageEncoding="UTF-8"%>
         |
         <a href="?command=GoToOrdersPage"> <fmt:message bundle="${loc}" key="admin.orders"/></a>
         |
-        <a href="?command=GoToEmployeesPage"> <fmt:message bundle="${loc}" key="admin.employees"/></a>
+        <a href="?command=GoToEmployeesPage"> <fmt:message bundle="${loc}" key="admin.drivers"/></a>
         |
-        <a href="?command=GoToCustomersPage"> <fmt:message bundle="${loc}" key="admin.customers"/></a>
+        <a href="?command=GoToCustomersPage"> <fmt:message bundle="${loc}" key="admin.users"/></a>
         |
         <a href="?command=GoToCarsPage"> <fmt:message bundle="${loc}" key="admin.cars"/></a>
     </div>

@@ -22,7 +22,6 @@ public class SignIn implements Command {
         UserService userService = MDServiceFactory.getMDService().getUserService();
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
         HttpSession session = request.getSession();
         User user = null;
 

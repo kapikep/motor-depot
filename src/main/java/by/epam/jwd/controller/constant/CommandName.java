@@ -28,16 +28,15 @@ public final class CommandName {
     public static final String ADMIN_DELETE_CAR = "DeleteCar";
     public static final String GO_TO_MAIN_ADMIN_PAGE = "GoToMainAdminPage";
     public static final String SELECT_CAR_TO_ORDER = "SelectCarToOrder";
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
+    public static final String UPDATE_ORDER = "UpdateOrder";
+    public static final String GO_TO_EDIT_DRIVERS = "GoToEditDrivers";
+    public static final String GO_TO_EDIT_CUSTOMERS = "GoToEditCustomers";
+    public static final String EDIT_CUSTOMER = "EditCustomer";
+    public static final String EDIT_DRIVER = "EditDriver";
+
+    public static final String DRIVER_COMMAND = "driver?command=";
+    public static final String GO_TO_DRIVER_MAIN_PAGE = "GoToDriverMainPage";
+
+    public static final String CUSTOMER_COMMAND = "customer?command=";
+    public static final String GO_TO_CUSTOMER_MAIN_PAGE = "GoToCustomerMainPage";
 }
