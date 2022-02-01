@@ -3,7 +3,6 @@ package by.epam.jwd.controller.servlet;
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
 import by.epam.jwd.controller.constant.CommandName;
-import by.epam.jwd.controller.constant.PagePath;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,9 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Controller
- */
 @WebServlet("/welcome")
 public class WelcomeController extends HttpServlet {
     private static final long serialVersionUID = 1L;

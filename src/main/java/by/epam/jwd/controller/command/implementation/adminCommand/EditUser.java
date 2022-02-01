@@ -5,6 +5,7 @@ import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustome
 import by.epam.jwd.controller.constant.CommandName;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
+import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +40,7 @@ public class EditUser implements Command {
         try {
             if("true".equals(request.getParameter("create"))){
                 userService.createUser(param);
-                resMessage = "Update done";
+                resMessage = "Create done";
             }
 
             if("true".equals(request.getParameter("update"))){
@@ -50,6 +51,8 @@ public class EditUser implements Command {
         } catch (ServiceException e) {
             resMessage = "Something wrong";
             log.error("Catching: ", e);
+        } catch (ValidateException e) {
+            resMessage = e.getMessage();
         }
         response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_USERS_PAGE + "&message=" + resMessage);
     }

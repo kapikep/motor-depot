@@ -12,13 +12,5 @@ pageEncoding="UTF-8"%>
     </div>
     <div style="padding: 5px;">
         <a href="customer"> <fmt:message bundle="${loc}" key="table.main"/></a>
-        |
-        <a href="?command=GoToOrdersPage"> <fmt:message bundle="${loc}" key="table.orders"/></a>
-        |
-        <a href="?command=GoToEmployeesPage"> <fmt:message bundle="${loc}" key="admin.drivers"/></a>
-        |
-        <a href="?command=GoToCustomersPage"> <fmt:message bundle="${loc}" key="table.users"/></a>
-        |
-        <a href="?command=GoToCarsPage"> <fmt:message bundle="${loc}" key="table.cars"/></a>
     </div>
 </div>

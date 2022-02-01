@@ -14,7 +14,6 @@ public interface OrderService {
 
     void updateOrder(Map<String, String> param) throws ServiceException;
 
-
     List<Order> readOrders(Map<String, String> param) throws ServiceException;
 
     void updateOrder(Order order) throws ServiceException;

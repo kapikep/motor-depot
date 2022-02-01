@@ -3,18 +3,12 @@ package by.epam.jwd.controller.servlet;
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.CommandProvider;
 import by.epam.jwd.controller.constant.CommandName;
-import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Role;
-import by.epam.jwd.service.MDServiceFactory;
-import by.epam.jwd.service.ServiceUtil;
-import by.epam.jwd.service.interf.OrderService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {

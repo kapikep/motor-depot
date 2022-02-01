@@ -8,7 +8,6 @@ import java.util.Map;
 
 public interface DriverService {
 
-
     void createDriver(Map<String, String> param) throws ServiceException;
 
     List<Driver> readDrivers() throws ServiceException;

@@ -1,7 +1,9 @@
 package by.epam.jwd.service.interf;
 
+import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.entity.User;
 import by.epam.jwd.service.ServiceException;
+import by.epam.jwd.service.ValidateException;
 
 import java.util.List;
 import java.util.Map;
@@ -10,8 +12,7 @@ public interface UserService {
 	
 	User authorization(String login, String password) throws ServiceException; //return role
 
-
-	void createUser(Map<String, String> param) throws ServiceException;
+	void createUser(Map<String, String> param) throws ServiceException, ValidateException;
 
 	List<User> readUsers() throws ServiceException;
 
