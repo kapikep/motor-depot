@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
 
 import by.epam.jwd.dao.DAOException;
 
-public final class MariaDBConnectionPool extends ConnectionPool {
+public final class MariaDBConnectionPool {
 
     private static MariaDBConnectionPool instance;
     private static BlockingQueue<Connection> connectionQueue;
