@@ -4,7 +4,7 @@
 <%@ include file="_header.jsp"%>
 <html>
 <head>
-    <title>Employees page</title>
+    <title>Drivers page</title>
 </head>
 <body>
 <br>

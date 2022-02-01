@@ -7,25 +7,20 @@
 <html>
 <head>
     <title>Edit driver page</title>
-    <fmt:message bundle="${loc}" key="table.create" var="Create"/>
-    <fmt:message bundle="${loc}" key="table.update" var="Update"/>
-    <fmt:message bundle="${loc}" key="table.delete" var="Delete"/>
-    <fmt:message bundle="${loc}" key="table.edit" var="Edit"/>
-    <fmt:message bundle="${loc}" key="car.car" var="carN"/>
-    <fmt:message bundle="${loc}" key="car.carModel" var="carModelN"/>
 </head>
 <body>
 <br><br>
+<c:out value="${param.message}"/>
 <c:if test="${create != null}">
     <fmt:message bundle="${loc}" key="table.driver.createNewDriver"/>
 </c:if>
 
 <c:if test="${edit != null}">
-    <c:out value="${Edit} "/> <c:out value="${param.edit_id}"/>
+    <fmt:message bundle="${loc}" key="table.edit"/> <c:out value="${param.edit_id}"/>
 </c:if>
 
 <form action="admin" method="get">
-    <input type="hidden" name="id" value="${car.id}">
+    <input type="hidden" name="id" value="${driver.id}">
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
             <th><fmt:message bundle="${loc}" key="table.user.name"/></th>
@@ -64,17 +59,19 @@
             <td><input type="text" name="category" value="${driver.category}" placeholder="A, B, C, D" size="1" maxlength="20"/></td>
             <td><input type="text" name="drivingExperience" value="${driver.drivingExperience}" placeholder="1" size="1" maxlength="20"/></td>
             <td><input type="datetime-local" name="dateOfEmployment"
-                       value="<fmt:formatDate value="${order.dateOfEmployment}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
+                       value="<fmt:formatDate value="${driver.dateOfEmployment}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
             <td><input type="datetime-local" name="dateOfDismissal"
-                       value="<fmt:formatDate value="${order.dateOfDismissal}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
+                       value="<fmt:formatDate value="${driver.dateOfDismissal}" pattern="yyyy-MM-dd'T'HH:mm:ss"/>"></td>
         </tr>
     </table>
     <br>
     <c:if test="${create != null}">
-        <button type="submit" name="command" value="CreateCar">${Create}</button>
+        <button type="submit" name="command" value="EditDriver"><fmt:message bundle="${loc}" key="table.create"/></button>
+        <input type="hidden" name="create" value="true">
     </c:if>
     <c:if test="${edit != null}">
-        <button type="submit" name="command" value="UpdateCar">${Update}</button>
+        <button type="submit" name="command" value="EditDriver"><fmt:message bundle="${loc}" key="table.update"/></button>
+        <input type="hidden" name="update" value="true">
     </c:if>
 </form>
 </body>

@@ -5,7 +5,12 @@ import java.util.Map;
 
 import by.epam.jwd.controller.command.implementation.*;
 import by.epam.jwd.controller.command.implementation.adminCommand.*;
+import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
+import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerMainPage;
 import by.epam.jwd.controller.command.implementation.driverCommand.GoToDriverMainPage;
+import by.epam.jwd.controller.command.implementation.driverCommand.GoToDriverOrdersPage;
+import by.epam.jwd.controller.command.implementation.driverCommand.GoToDriverEditOrder;
+import by.epam.jwd.controller.command.implementation.driverCommand.UpdateOrderByDriver;
 import by.epam.jwd.controller.constant.CommandName;
 
 public final class CommandProvider {
@@ -26,9 +31,9 @@ public final class CommandProvider {
         WELCOME_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
 
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CARS_PAGE, new GoToCarsPage());
-        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_CUSTOMERS_PAGE, new GoToCustomers());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_USERS_PAGE, new GoToUsersPage());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_ORDERS_PAGE, new GoToOrdersPage());
-        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToEmployees());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EMPLOYEES_PAGE, new GoToDriversPage());
         ADMIN_COMMANDS.put(CommandName.GO_TO_ADMIN_EDIT_ORDER, new GoToEditOrder());
         ADMIN_COMMANDS.put(CommandName.ADMIN_CREATE_CAR, new CreateCar());
         ADMIN_COMMANDS.put(CommandName.ADMIN_CREATE_CAR_MODEL, new CreateCarModel());
@@ -41,14 +46,18 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(CommandName.UPDATE_ORDER, new UpdateOrder());
         ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_USER, new GoToEditUser());
         ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_DRIVER, new GoToEditDriver());
-        ADMIN_COMMANDS.put(CommandName.EDIT_CUSTOMER, new EditUser());
+        ADMIN_COMMANDS.put(CommandName.EDIT_USER, new EditUser());
         ADMIN_COMMANDS.put(CommandName.EDIT_DRIVER, new EditDriver());
         ADMIN_COMMANDS.put(CommandName.SELECT_CAR_TO_ORDER, new SelectCarToOrder());
 
         DRIVER_COMMANDS.put(CommandName.GO_TO_DRIVER_MAIN_PAGE, new GoToDriverMainPage());
         DRIVER_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
+        DRIVER_COMMANDS.put(CommandName.GO_TO_DRIVER_ORDERS_PAGE, new GoToDriverOrdersPage());
+        DRIVER_COMMANDS.put(CommandName.GO_TO_DRIVER_EDIT_ORDER, new GoToDriverEditOrder());
+        DRIVER_COMMANDS.put(CommandName.UPDATE_ORDER_BY_DRIVER, new UpdateOrderByDriver());
 
         CUSTOMER_COMMANDS.put(CommandName.GO_TO_CUSTOMER_MAIN_PAGE, new GoToCustomerMainPage());
+        CUSTOMER_COMMANDS.put(CommandName.GO_TO_CUSTOMER_EDIT_ORDER, new GoToCustomerEditOrder());
         CUSTOMER_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
     }
 

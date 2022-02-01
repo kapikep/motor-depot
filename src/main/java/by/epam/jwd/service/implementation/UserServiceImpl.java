@@ -3,14 +3,16 @@ package by.epam.jwd.service.implementation;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.UserDao;
+import by.epam.jwd.entity.*;
 import by.epam.jwd.entity.User;
-import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.interf.UserService;
 import by.epam.jwd.service.validator.UserValidator;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	public void createUser(Map<String, String> param) throws ServiceException {
 		User user = null;
 		try {
-			//TODO validate
+			user = createUserEntity(param);
 			userDao.createUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -101,7 +103,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			User = userDao.readUser(id);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		return User;
 	}
@@ -131,7 +133,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			Users = userDao.findUsers(criteriaMap);
 		} catch (DAOException e) {
-			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		return Users;
 	}
@@ -140,10 +142,31 @@ public class UserServiceImpl implements UserService {
 	public void updateUser(Map<String, String> criteriaMap) throws ServiceException {
 		User user = null;
 		try {
-			//TODO validate
+			user = createUserEntity(criteriaMap);
 			userDao.updateUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	public User createUserEntity(Map<String, String> param) throws ServiceException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		User User = new User();
+
+		String id = param.get("id");
+		if (id != null && !("".equals(id))) {
+			User.setId(Integer.parseInt(id));
+		}
+		User.setName(param.get("name"));
+		User.setSurname(param.get("surname"));
+		User.setLogin(param.get("login"));
+		User.setPassword(param.get("password"));
+		User.setPhoneNumber(param.get("phoneNumber"));
+		User.setStatus(Status.valueOf(param.get("status")));
+		User.seteMail(param.get("eMail"));
+		User.setAdditionalInfo(param.get("additionalInfo"));
+		User.setRole(Role.valueOf(param.get("role")));
+
+		return User;
 	}
 }

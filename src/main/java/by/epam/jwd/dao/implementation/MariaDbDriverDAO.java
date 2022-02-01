@@ -11,6 +11,7 @@ import by.epam.jwd.entity.Status;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -226,7 +227,7 @@ public class MariaDbDriverDAO implements DriverDAO {
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE drivers_details SET " +
-                    "category=?, driving_experience?, date_of_employment=?, date_of_dismissal=?, attached_car_id=? WHERE id=?");
+                    "category=?, driving_experience=?, date_of_employment=?, date_of_dismissal=?, attached_car_id=? WHERE id=?");
 
             initPrepStatement(driver, ps);
             ps.setInt(6, driver.getId());
@@ -240,8 +241,18 @@ public class MariaDbDriverDAO implements DriverDAO {
     private void initPrepStatement(Driver driver, PreparedStatement ps) throws SQLException {
         ps.setString(1, driver.getCategory());
         ps.setInt(2, driver.getDrivingExperience());
-        ps.setTimestamp(3, new Timestamp(driver.getDateOfEmployment().getTime()));
-        ps.setTimestamp(4, new Timestamp(driver.getDateOfDismissal().getTime()));
+        Date dateOfEmployment = driver.getDateOfEmployment();
+        if(dateOfEmployment != null){
+            ps.setTimestamp(3, new Timestamp(driver.getDateOfEmployment().getTime()));
+        }else {
+            ps.setTimestamp(3, null);
+        }
+        Date dateOfDismissal = driver.getDateOfDismissal();
+        if(dateOfEmployment != null) {
+            ps.setTimestamp(4, new Timestamp(driver.getDateOfDismissal().getTime()));
+        }else {
+            ps.setTimestamp(4, null);
+        }
         ps.setInt(5, driver.getAttached_car_id());
     }
 
