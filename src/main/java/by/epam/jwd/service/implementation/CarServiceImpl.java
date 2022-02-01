@@ -10,6 +10,8 @@ import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.interf.CarService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CarServiceImpl implements CarService {
+    private final Logger log = LogManager.getLogger(CarServiceImpl.class);
     private final CarDAO CAR_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getCarDao();
     private final List<String> COLUMN_CAR_NAMES = Arrays.asList("id", "licence_plate", "color", "car_photo", "odometr", "status", "car_model_id");
     private final List<String> COLUMN_CAR_MODEL_NAMES = Arrays.asList("id", "model_name", "type", "load_capacity", "passenger_capacity", "wheel_drive_type");
@@ -110,10 +113,24 @@ public class CarServiceImpl implements CarService {
         try {
             car = CAR_DAO.readCar(id);
         } catch (DAOException e) {
-            e.printStackTrace();
+            log.error("Catching: ", e);
         }
         return car;
     }
+
+    @Override
+    public Car readCar(int id) throws ServiceException {
+
+        Car car = null;
+
+        try {
+            car = CAR_DAO.readCar(id);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return car;
+    }
+
 
     @Override
     public List<Car> findCars(String param, String value) throws ServiceException {
@@ -182,6 +199,18 @@ public class CarServiceImpl implements CarService {
             throw new ServiceException(e);
         }
         return result;
+    }
+
+    @Override
+    public void updateCar(Car car) throws ServiceException {
+
+        try {
+            //TODO validate
+            CAR_DAO.updateCar(car);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override

@@ -22,13 +22,15 @@ public class DriverController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
-
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession(true);
+//        session.setAttribute("role", Role.DRIVER);
+//        session.setAttribute("userId", 5);
+//        session.setAttribute("userFullName", "Boris");
 
         if(session.getAttribute("role") == Role.DRIVER) {
             if (commandName != null) {

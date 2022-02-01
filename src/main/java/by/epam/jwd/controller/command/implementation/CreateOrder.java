@@ -1,10 +1,14 @@
 package by.epam.jwd.controller.command.implementation;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.CommandName;
+import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.OrderService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreateOrder implements Command {
+
+    private final Logger log = LogManager.getLogger(CreateOrder.class);
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
@@ -31,7 +38,7 @@ public class CreateOrder implements Command {
                             request.getParameter("phone"), request.getParameter("criteria"), 1);
                 } catch (ServiceException e) {
                     message = "Something wrong, try agan";
-                    e.printStackTrace();
+                    log.error("Catching: ", e);
                 }
                 message = "The order has been created, wait for the administrator to call";
             } else {
@@ -62,7 +69,7 @@ public class CreateOrder implements Command {
                 orderService.createOrder(param);
             } catch (ServiceException e) {
                 message = "Something wrong";
-                e.printStackTrace();
+                log.error("Catching: ", e);
             }
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE + "&message=" + message);
         }

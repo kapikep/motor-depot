@@ -1,6 +1,7 @@
 package by.epam.jwd.service.interf;
 
 import by.epam.jwd.entity.Car;
+import by.epam.jwd.entity.Driver;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.ServiceException;
 
@@ -12,6 +13,11 @@ public interface OrderService {
     void createOrder(Map<String, String> param) throws ServiceException;
 
     void updateOrder(Map<String, String> param) throws ServiceException;
+
+
+    List<Order> readOrders(Map<String, String> param) throws ServiceException;
+
+    void updateOrder(Order order) throws ServiceException;
 
     void createNotApproveOrder(String fullName, String phoneNumber, String criteria, int userId) throws ServiceException;
 

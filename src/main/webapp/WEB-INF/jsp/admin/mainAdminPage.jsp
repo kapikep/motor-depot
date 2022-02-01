@@ -11,7 +11,7 @@
 <body>
 <br>
 <br>
-<fmt:message bundle="${loc}" key="admin.orders"/>
+<fmt:message bundle="${loc}" key="table.orders"/>
 
 <c:out value="${param.message}"/>
 

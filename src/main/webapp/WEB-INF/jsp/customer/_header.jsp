@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
         <br/>
     </div>
     <div style="padding: 5px;">
-        <a href="admin"> <fmt:message bundle="${loc}" key="table.main"/></a>
+        <a href="customer"> <fmt:message bundle="${loc}" key="table.main"/></a>
         |
         <a href="?command=GoToOrdersPage"> <fmt:message bundle="${loc}" key="table.orders"/></a>
         |

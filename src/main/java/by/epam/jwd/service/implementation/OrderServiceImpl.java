@@ -30,14 +30,14 @@ public class OrderServiceImpl implements OrderService {
         }
         try {
             drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
-            if(drivers.isEmpty()){
+            if (drivers.isEmpty()) {
                 param.put("driverId", "1");
-            }else {
+            } else {
                 param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
             }
             Order order = createOrderEntity(param);
             String s = param.get("editId");
-            if(s != null && !("".equals(s))){
+            if (s != null && !("".equals(s))) {
                 order.setId(Integer.parseInt(s));
             }
             ORDER_DAO.updateOrder(order);
@@ -55,12 +55,34 @@ public class OrderServiceImpl implements OrderService {
         }
         try {
             drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
-            if(drivers.isEmpty()){
+            if (drivers.isEmpty()) {
                 param.put("driverId", "1");
-            }else {
+            } else {
                 param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
             }
             Order order = createOrderEntity(param);
+            System.out.println(order);
+            ORDER_DAO.updateOrder(order);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Order> readOrders(Map<String, String> param) throws ServiceException {
+        List<Order> orders = null;
+        try {
+            orders = ORDER_DAO.findOrders(param);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return orders;
+    }
+
+    @Override
+    public void updateOrder(Order order) throws ServiceException {
+
+        try {
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -79,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
             order.setClientId(userId);
             ORDER_DAO.createNotApproveOrder(order);
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new ServiceException(e);
         }
     }
 
@@ -100,10 +122,10 @@ public class OrderServiceImpl implements OrderService {
         Order order = null;
         int id = ServiceUtil.parseInt(idStr);
 
-        try{
+        try {
             order = ORDER_DAO.readOrder(id);
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new ServiceException(e);
         }
         return order;
     }
@@ -111,10 +133,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int getOrderSize() throws ServiceException {
         int size = 0;
-        try{
+        try {
             size = ORDER_DAO.getOrderSize();
         } catch (DAOException e) {
-            e.printStackTrace();
+            throw new ServiceException(e);
         }
         return size;
     }
@@ -190,16 +212,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int getOrderPageCount(String rowLimitStr) throws ServiceException{
+    public int getOrderPageCount(String rowLimitStr) throws ServiceException {
         int size;
         int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
-        try{
+        try {
             size = ORDER_DAO.getOrderSize();
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        size = (int) Math.ceil((double) size/rowLimit);
+        size = (int) Math.ceil((double) size / rowLimit);
         return size;
     }
 
@@ -216,12 +238,12 @@ public class OrderServiceImpl implements OrderService {
         }
         return orders;
     }
-    
+
     @Override
     public Order createOrderEntity(Map<String, String> param) throws ServiceException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Order order = new Order();
-        
+
         String id = param.get("id");
         if (id != null && !("".equals(id))) {
             order.setId(Integer.parseInt(id));
@@ -231,14 +253,14 @@ public class OrderServiceImpl implements OrderService {
             String requestDateStr = param.get("requestDate");
             if (requestDateStr != null && !("".equals(requestDateStr))) {
                 order.setRequestDate(sdf.parse(requestDateStr));
-            }else {
+            } else {
                 order.setRequestDate(new Date());
             }
             String startDateStr = param.get("startDate");
             if (startDateStr != null && !("".equals(startDateStr))) {
                 order.setStartDate(sdf.parse(startDateStr));
             }
-            String endDateStr  = param.get("endDate");
+            String endDateStr = param.get("endDate");
             if (endDateStr != null && !("".equals(endDateStr))) {
                 order.setEndDate(sdf.parse(endDateStr));
             }
@@ -280,7 +302,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDriverSurname(param.get("driverSurname"));
         order.setAdminName(param.get("adminName"));
         order.setAdminSurname(param.get("adminSurname"));
-        
+
         return order;
     }
 }

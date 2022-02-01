@@ -254,28 +254,6 @@ public class MariaDbCarDAO implements CarDAO {
         return cars;
     }
 
-//    @Override
-//    public List<Car> findFreeCars(Map<String, String> criteriaMap) throws DAOException {
-//        List<Car> cars = null;
-//        List<String> strings = new ArrayList<>();
-//        try {
-//            Connection connection = CONNECTION_POOL.takeConnection();
-//            Statement st = connection.createStatement();
-//            StringBuilder s = new StringBuilder("SELECT * FROM orders JOIN cars c on c.id = orders.cars_id WHERE ");
-//            ResultSet resultSet = st.executeQuery("SELECT * FROM orders RIGHT OUTER JOIN cars c on c.id = orders.cars_id " +
-//                    "JOIN car_model cm on cm.id = c.car_model_id WHERE start_date>'2022-02-01 23:11:05.064' and end_date<'2022-04-22 23:11:00.0'");
-//            while (resultSet.next()) {
-//                System.out.println(resultSet.getString("licence_plate") + " " + resultSet.getString("id") + " " +
-//                        resultSet.getString("start_date") + " " + resultSet.getString("end_date"));
-//                strings.add(resultSet.getString("type"));
-//            }
-//            System.out.println(strings.size());
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return cars;
-//    }
-
     @Override
     public List<CarModel> readCarModels(String whereParam, String whereValue) throws DAOException {
         List<CarModel> cars = new ArrayList<>();

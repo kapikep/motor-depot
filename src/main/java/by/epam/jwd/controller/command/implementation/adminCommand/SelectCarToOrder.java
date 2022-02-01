@@ -1,6 +1,7 @@
 package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Order;
@@ -9,6 +10,8 @@ import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.OrderService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SelectCarToOrder implements Command {
+
+    private final Logger log = LogManager.getLogger(SelectCarToOrder.class);
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
@@ -71,8 +77,7 @@ public class SelectCarToOrder implements Command {
             request.setAttribute("order", order);
             request.setAttribute("cars", cars);
         } catch (ServiceException | ParseException e) {
-            //TODO logger
-            e.printStackTrace();
+            log.error("Catching: ", e);
         }
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);
     }

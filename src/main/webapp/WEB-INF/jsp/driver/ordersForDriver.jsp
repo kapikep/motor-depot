@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/jsp/_localization.jsp"%>
 <%@ include file="_header.jsp"%>
 <html>
 <head>
-    <title>Orders Page</title>
+    <title>My orders</title>
 </head>
+
 <body>
 <br>
 <form action="" method="get">
@@ -16,7 +18,7 @@
     </button>
 </form>
 
-<jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
+<jsp:include page="/WEB-INF/jsp/driver/_pagination.jsp"/>
 
 <c:out value="${param.message}"/>
 
@@ -29,8 +31,6 @@
         <th><fmt:message bundle="${loc}" key="table.order.arrivalPlace"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.startDate"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.endDate"/></th>
-        <th><fmt:message bundle="${loc}" key="table.order.totalAmount"/></th>
-        <th><fmt:message bundle="${loc}" key="table.order.paymentStatus"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.orderStatus"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.clientNumber"/></th>
@@ -48,37 +48,18 @@
             <td><c:out value="${order.arrivalPlace}"/></td>
             <td><fmt:formatDate value="${order.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td><fmt:formatDate value="${order.endDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td><c:out value="${order.totalAmount}"/></td>
-            <td><c:out value="${order.paymentStatus}"/></td>
             <td><c:out value="${order.orderStatus}"/></td>
             <td><c:out value="${order.clientFullName}"/> </td>
             <td><c:out value="${order.clientPhone}"/> </td>
             <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
-            <td>
-                <a href="admin?command=GoToCarsPage&license_plate=${order.carLicensePlate}">
-                    <c:out value="${order.carLicensePlate}"/>
-                </a>
-            </td>
+            <td><c:out value="${order.carLicensePlate}"/></td>
             <td><c:out value="${order.adminName}"/> <c:out value="${order.adminSurname}"/></td>
             <td>
-                <a href="admin?command=GoToEditOrder&edit_id=${order.id}">
+                <a href="driver?command=GoToDriverEditOrder&edit_id=${order.id}">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
     </c:forEach>
-
-    <c:forEach var="i" begin="1" end="15">
-        <td></td>
-    </c:forEach>
-
-    <td>
-        <a href="?command=GoToEditOrder">
-            <fmt:message bundle="${loc}" key="table.add"/>
-        </a>
-    </td>
 </table>
-<fmt:message bundle="${loc}" key="table.page"/> <c:out value="${page}"/>
-<fmt:message bundle="${loc}" key="table.of"/> <c:out value="${pageCount}"/>
 </body>
 </html>
-

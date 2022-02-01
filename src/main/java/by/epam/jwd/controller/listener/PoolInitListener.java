@@ -2,6 +2,8 @@ package by.epam.jwd.controller.listener;
 
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.connection_pool.MariaDBConnectionPool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -9,6 +11,7 @@ import javax.servlet.annotation.*;
 
 @WebListener
 public class PoolInitListener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
+    private final Logger log = LogManager.getLogger(PoolInitListener.class);
 
     public PoolInitListener() {
     }
@@ -18,7 +21,7 @@ public class PoolInitListener implements ServletContextListener, HttpSessionList
         try {
             MariaDBConnectionPool.initPool("db");
         } catch (DAOException e) {
-            e.printStackTrace();
+            log.error("Catching: ", e);
         }
     }
 
@@ -28,8 +31,7 @@ public class PoolInitListener implements ServletContextListener, HttpSessionList
         try {
             MariaDBConnectionPool.closeConnectionQueue();
         } catch (DAOException e) {
-            e.printStackTrace();
-            //TODO logger
+            log.error("Catching: ", e);
         }
     }
 }

@@ -251,8 +251,6 @@ public class MariaDbOrderDAO implements OrderDAO {
         return size;
     }
 
-
-
     @Override
     public void updateOrder(Order order) throws DAOException {
         try {

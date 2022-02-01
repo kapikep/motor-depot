@@ -1,11 +1,14 @@
 package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.OrderService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoToOrdersPage implements Command {
+
+    private final Logger log = LogManager.getLogger(GoToOrdersPage.class);
+
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int pageCount = 1;
         List<Order> orders = null;
@@ -26,7 +32,7 @@ public class GoToOrdersPage implements Command {
 
         if (rowLimit != null && !("".equals(rowLimit))) {
             request.getSession().setAttribute("rowLimit", rowLimit);
-        }else {
+        } else {
             rowLimit = (String) request.getSession().getAttribute("rowLimit");
         }
 
@@ -34,21 +40,17 @@ public class GoToOrdersPage implements Command {
             page = "1";
         }
 
-        if (id == null) {
-            try {
+        try {
+            if (id == null) {
                 orders = orderService.readOrders(page, rowLimit);
                 numPages = orderService.pagination(page, rowLimit);
                 pageCount = orderService.getOrderPageCount(rowLimit);
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
+            } else {
                 orders = new ArrayList<>();
                 orders.add(orderService.readOrder(id));
-            } catch (ServiceException e) {
-                e.printStackTrace();
             }
+        } catch (ServiceException e) {
+            log.error("Catching: ", e);
         }
 
         request.setAttribute("page", page);

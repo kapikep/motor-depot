@@ -1,10 +1,14 @@
 package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.CommandName;
+import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.OrderService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +18,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UpdateOrder implements Command {
-    OrderService orderService = MDServiceFactory.getMDService().getOrderService();
-    String message = "Update done";
+
+    private final Logger log = LogManager.getLogger(UpdateOrder.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        OrderService orderService = MDServiceFactory.getMDService().getOrderService();
+        String message = "Update done";
+
         Map<String, String> param = new HashMap<>();
         param.put("editId", request.getParameter("edit_id"));
         param.put("criteria", request.getParameter("criteria"));
@@ -35,13 +42,12 @@ public class UpdateOrder implements Command {
         param.put("adminName", request.getParameter("adminName"));
         param.put("carId", request.getParameter("car"));
         param.put("adminId", request.getSession().getAttribute("userId").toString());
-        System.out.println(param);
 
         try {
             orderService.updateOrder(param);
         } catch (ServiceException e) {
             message = "Something wrong";
-            e.printStackTrace();
+            log.error("Catching: ", e);
         }
 
         response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE + "&message=" + message);
