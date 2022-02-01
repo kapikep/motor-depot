@@ -31,7 +31,6 @@ public class MariaDbDriverDAO implements DriverDAO {
             userDAO.createUser(driver);
             userId = userDAO.authorization(driver.getLogin(), driver.getPassword()).getId();
             ps.setInt(6, userId);
-
             ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
         } catch (SQLException e) {
@@ -44,7 +43,9 @@ public class MariaDbDriverDAO implements DriverDAO {
         Driver driver = null;
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM drivers_details WHERE id=?");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM drivers_details " +
+                             "LEFT JOIN cars c on c.id = drivers_details.attached_car_id " +
+                             "JOIN users u on u.id = drivers_details.user_id WHERE drivers_details.id=?");
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {

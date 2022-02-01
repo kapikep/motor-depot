@@ -4,10 +4,17 @@
 <%@ include file="_header.jsp"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Users Page</title>
 </head>
 <body>
-<fmt:message bundle="${loc}" key="admin.orders"/>
+<br>
+<form action="" method="get">
+    <fmt:message bundle="${loc}" key="table.user.users"/>
+    <input name="user name" placeholder="Ivan Ivanov" type="search" maxlength="9" minlength="9">
+    <button type="submit" name="command" value=${param.command}>
+        <fmt:message bundle="${loc}" key="table.user.searchByName"/>
+    </button>
+</form>
 <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 
 <c:out value="${param.message}"/>
@@ -38,7 +45,7 @@
             <td><c:out value="${user.additionalInfo}"/></td>
             <td><c:out value="${user.role}"/></td>
             <td>
-                <a href="admin?command=GoToEditCar&edit_id=${user.id}">
+                <a href="admin?command=GoToEditUser&edit_id=${user.id}">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
@@ -49,7 +56,7 @@
     </c:forEach>
 
     <td>
-        <a href="?command=GoToEditCustomers">
+        <a href="?command=GoToEditUser">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>

@@ -11,13 +11,13 @@
 <body>
 <br>
 <form action="" method="get">
+    <fmt:message bundle="${loc}" key="admin.cars"/>
     <input name="license_plate" placeholder="6566 PE-7" type="search" maxlength="9" minlength="9">
     <button type="submit" name="command" value=${param.command}>
         <fmt:message bundle="${loc}" key="admin.searchByLicensePlate"/>
     </button>
 </form>
 
-<fmt:message bundle="${loc}" key="admin.cars"/>
 <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 
 <c:out value="${param.message}"/>

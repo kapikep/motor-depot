@@ -130,7 +130,7 @@ public class MariaDbOrderDAO implements OrderDAO {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders LEFT JOIN cars c on c.id = orders.cars_id " +
                     "LEFT JOIN users u on u.id = orders.client_id " +
                     "LEFT JOIN users u2 on u2.id = orders.driver_id " +
-                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + whereParam + "=?" +" LIMIT ? OFFSET ?");
+                    "LEFT JOIN users u3 on u3.id = orders.admin_id WHERE " + whereParam + "=? ORDER BY start_date DESC" +" LIMIT ? OFFSET ?");
             int offset = (page - 1) * limit;
             statement.setString(1, whereValue);
             statement.setInt(2, limit);
@@ -232,6 +232,7 @@ public class MariaDbOrderDAO implements OrderDAO {
         return orders;
     }
 
+
     @Override
     public int getOrderSize() throws DAOException{
         int size = 0;
@@ -249,6 +250,8 @@ public class MariaDbOrderDAO implements OrderDAO {
         }
         return size;
     }
+
+
 
     @Override
     public void updateOrder(Order order) throws DAOException {

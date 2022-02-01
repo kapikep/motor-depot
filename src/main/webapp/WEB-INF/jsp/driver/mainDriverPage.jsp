@@ -22,7 +22,8 @@
 
 <fmt:message bundle="${loc}" key="admin.orders"/>
 <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
-
+<br>
+<br>
 <c:out value="${param.message}"/>
 
 <table border="1" cellpadding="5" cellspacing="1">

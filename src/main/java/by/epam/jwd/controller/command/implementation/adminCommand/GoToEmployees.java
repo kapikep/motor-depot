@@ -46,6 +46,6 @@ public class GoToEmployees implements Command {
         request.setAttribute("pageCount", pageCount);
         request.setAttribute("numPages", numPages);
 
-        request.getRequestDispatcher(PagePath.ADMIN_EMPLOYEES_PAGE).forward(request,response);
+        request.getRequestDispatcher(PagePath.ADMIN_DRIVERS_PAGE).forward(request,response);
     }
 }

@@ -9,13 +9,14 @@
 <body>
 <br>
 <form action="" method="get">
+    <fmt:message bundle="${loc}" key="admin.orders"/>
     <input name="findId" placeholder="Order №" type="search" maxlength="9" minlength="1">
     <button type="submit" name="command" value=${param.command}>
         <fmt:message bundle="${loc}" key="table.search"/>
     </button>
 </form>
 
-<fmt:message bundle="${loc}" key="admin.orders"/>
+
 <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 
 <c:out value="${param.message}"/>

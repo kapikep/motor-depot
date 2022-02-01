@@ -37,7 +37,6 @@ public class CarServiceImpl implements CarService {
         return result;
     }
 
-
     @Override
     public boolean createCar(String licencePlate, String color, String photo, String odometrStr, String status, String carModelIdStr) throws ServiceException {
         boolean result;

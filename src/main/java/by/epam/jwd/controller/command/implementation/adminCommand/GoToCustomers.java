@@ -2,11 +2,9 @@ package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.constant.PagePath;
-import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.User;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
-import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.UserService;
 
 import javax.servlet.ServletException;
@@ -47,6 +45,6 @@ public class GoToCustomers implements Command {
         request.setAttribute("users", users);
         request.setAttribute("pageCount", pageCount);
         request.setAttribute("numPages", numPages);
-        request.getRequestDispatcher(PagePath.ADMIN_CUSTOMERS_PAGE).forward(request, response);
+        request.getRequestDispatcher(PagePath.ADMIN_USERS_PAGE).forward(request, response);
     }
 }

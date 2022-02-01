@@ -1,4 +1,4 @@
-package by.epam.jwd.controller.command.implementation;
+package by.epam.jwd.controller.command.implementation.driverCommand;
 
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.constant.PagePath;

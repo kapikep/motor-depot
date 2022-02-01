@@ -5,6 +5,7 @@ import java.util.Map;
 
 import by.epam.jwd.controller.command.implementation.*;
 import by.epam.jwd.controller.command.implementation.adminCommand.*;
+import by.epam.jwd.controller.command.implementation.driverCommand.GoToDriverMainPage;
 import by.epam.jwd.controller.constant.CommandName;
 
 public final class CommandProvider {
@@ -38,9 +39,9 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
         ADMIN_COMMANDS.put(CommandName.GO_TO_MAIN_ADMIN_PAGE, new GoToMainAdminPage());
         ADMIN_COMMANDS.put(CommandName.UPDATE_ORDER, new UpdateOrder());
-        ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_CUSTOMERS, new GoToEditCustomers());
-        ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_DRIVERS, new GoToEditDrivers());
-        ADMIN_COMMANDS.put(CommandName.EDIT_CUSTOMER, new EditCustomer());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_USER, new GoToEditUser());
+        ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_DRIVER, new GoToEditDriver());
+        ADMIN_COMMANDS.put(CommandName.EDIT_CUSTOMER, new EditUser());
         ADMIN_COMMANDS.put(CommandName.EDIT_DRIVER, new EditDriver());
         ADMIN_COMMANDS.put(CommandName.SELECT_CAR_TO_ORDER, new SelectCarToOrder());
 
