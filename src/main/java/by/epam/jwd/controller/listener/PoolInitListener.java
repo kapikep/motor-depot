@@ -22,6 +22,7 @@ public class PoolInitListener implements ServletContextListener, HttpSessionList
             MariaDBConnectionPool.initPool("db");
         } catch (DAOException e) {
             log.error("Catching: ", e);
+            throw new Error("Connection pool creation error", e);
         }
     }
 
