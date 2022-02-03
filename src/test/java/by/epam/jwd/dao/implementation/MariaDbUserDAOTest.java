@@ -20,7 +20,7 @@ public class MariaDbUserDAOTest {
     User userRes;
     int limit = 8;
     int page = 1;
-    int tableSize = 9;
+    int tableSize = 10;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -42,7 +42,7 @@ public class MariaDbUserDAOTest {
 
     @Test
     public void updateUserTest() {
-        user = new User("Ivan", "Markov", "Ivan", "driver", "+375116767755", "nan", Status.ACTIVE,
+        user = new User(8, "Ivan", "Markov", "Ivan", "driver", "+375116767755", "nan", Status.ACTIVE,
                 "mymail@gmail.com", "Borisov", Role.DRIVER);
         try{
             userDao.updateUser(user);

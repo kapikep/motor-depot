@@ -39,14 +39,16 @@ public class UserValidator {
         if (password.isEmpty()) {
             resMes = "Password is empty";
         }else if(password.length() > 20){
-            resMes = "Login is too long";
+            resMes = "Password is too long";
+        }else if((password.length() < 6)){
+            resMes = "Password less than 6 characters";
         }
         return resMes;
     }
 
     public static String phoneValidate(String phone) throws ValidateException {
         String resMes = "All ok";
-        Pattern pattern = Pattern.compile("\\+?\\d{1,15}");
+        Pattern pattern = Pattern.compile("^\\+?\\d{1,15}");
         Matcher matcher = pattern.matcher(phone);
 
         if (phone.isEmpty()) {

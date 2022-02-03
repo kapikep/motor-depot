@@ -49,12 +49,10 @@ public class EditUser implements Command {
             }
 
             if("update".equals(flag)){
-                param.put("id", request.getParameter("id"));
+                param.put("id", request.getParameter("edit_id"));
                 param.put("prevUserLogin", (String) session.getAttribute("editUserLogin"));
-                System.out.println(session.getAttribute("editUserLogin"));
                 userService.updateUser(param);
                 session.setAttribute("editUserLogin", null);
-                System.out.println(session.getAttribute("editUserLogin"));
                 resMessage = "Update done";
             }
         } catch (ServiceException e) {

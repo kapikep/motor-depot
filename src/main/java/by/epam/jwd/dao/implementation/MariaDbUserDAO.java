@@ -232,7 +232,6 @@ public class MariaDbUserDAO implements UserDao {
                     "phone_number=?, photo=?, status=?, `e-mail`=?, additionalInfo=?, roles_id=? WHERE id=?");
             initPrepStatement(user, ps);
             ps.setInt(11, user.getId());
-
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException(e);

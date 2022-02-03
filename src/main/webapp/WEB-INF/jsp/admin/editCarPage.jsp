@@ -31,7 +31,7 @@
             <td><input type="text" name="licencePlate" value="${car.licencePlate}" placeholder="7777 KC-7" size="8" maxlength="9" minlength="9"/></td>
             <td><input type="text" name="color" value="${car.color}" placeholder="blue" size="3" maxlength="9"/></td>
             <td><input type="text" name="odometr" value="${car.odometr}" placeholder="7777" size="5" maxlength="9" pattern="^[ 0-9]+$"/></td>
-            <td><input type="text" name="active" placeholder="7777 KC-7" value="${car.status}" size="4" maxlength="9"></td>
+            <td><input type="text" name="status" placeholder="active" value="${car.status}" size="4" maxlength="9"></td>
             <td>
                 <select name="carModel">
                     <c:forEach var="carModel" items="${carModels}">
