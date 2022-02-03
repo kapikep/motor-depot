@@ -68,7 +68,7 @@ public class MariaDbOrderDAOTest {
         map.put("start_date>", "2020-02-01 23:11:05.064");
         map.put("end_date<", "2022-04-22 23:11:00.0");
         try {
-            System.out.println(orderDAO.findOrders(map));
+            orderDAO.findOrders(map);
         } catch (DAOException e) {
             e.printStackTrace();
         }

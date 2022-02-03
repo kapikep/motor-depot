@@ -8,6 +8,7 @@ import by.epam.jwd.service.ValidateException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,33 +18,70 @@ public class UserValidator {
 
     private final List<String> COLUMN_CAR_NAMES = Arrays.asList("id", "name", "surname", "login", "password", "phone_number", "photo", "status", "e-mail", "additionalInfo", "roles_id");
 
-    public static boolean loginValidate (String login) throws ValidateException, DAOException {
-        List<User>users = null;
-        users = userDao.findUsers("login", login);
-        if(!users.isEmpty()){
-            throw new ValidateException("Login is exist");
+    public static String loginValidate(String login) throws ValidateException, DAOException {
+        List<User> users = null;
+        String resMes = "All ok";
+        if (login.isEmpty()) {
+            resMes = "Login is empty";
+        } else if(login.length() > 20){
+            resMes = "Login is too long";
+        }else {
+            users = userDao.findUsers("login", login);
+            if (!users.isEmpty()) {
+                resMes = users.get(0).getLogin() + " login exists";
+            }
         }
-        return true;
+        return resMes;
     }
 
-    public static void passwordValidate (String password) throws ValidateException{
-        if(password.isEmpty()){
-            throw new ValidateException("Empty password");
+    public static String passwordValidate(String password) throws ValidateException {
+        String resMes = "All ok";
+        if (password.isEmpty()) {
+            resMes = "Password is empty";
+        }else if(password.length() > 20){
+            resMes = "Login is too long";
         }
+        return resMes;
     }
 
-    public static void phoneValidate (String phone) throws ValidateException{
-
-        if(phone.isEmpty()){
-            throw new ValidateException("Empty phone");
-        }
-
+    public static String phoneValidate(String phone) throws ValidateException {
+        String resMes = "All ok";
         Pattern pattern = Pattern.compile("\\+?\\d{1,15}");
         Matcher matcher = pattern.matcher(phone);
-        if(!matcher.matches()){
-            throw new ValidateException("Incorrect phone");
+
+        if (phone.isEmpty()) {
+            resMes = "Empty phone";
+        }else if (!matcher.matches()) {
+            resMes = "Incorrect phone";
         }
+        return resMes;
     }
 
+    public static void userFieldValidate(Map<String, String> param) throws ValidateException, DAOException {
+        StringBuilder resMes = new StringBuilder();
+        for (String key : param.keySet()) {
+            String methodRes = "All ok";
+            switch (key) {
+                case ("password"):
+                    methodRes = passwordValidate(param.get(key));
+                    break;
+                case ("login"):
+                    methodRes = loginValidate(param.get(key));
+                    break;
+                case ("phoneNumber"):
+                    methodRes = phoneValidate(param.get(key));
+                    break;
+            }
 
+            if(!"All ok".equals(methodRes)){
+                resMes.append(methodRes);
+                resMes.append(" , ");
+            }
+        }
+
+        if(!resMes.toString().equals("")){
+            String res = resMes.substring(0, resMes.length() - 3);
+            throw new ValidateException(res);
+        }
+    }
 }

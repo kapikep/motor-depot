@@ -18,9 +18,9 @@ public class MariaDbUserDAOTest {
     UserDao userDao = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
     User user = new User();
     User userRes;
-    int limit = 7;
+    int limit = 8;
     int page = 1;
-    int tableSize = 8;
+    int tableSize = 9;
 
     @BeforeClass
     public static void beforeClass() throws Exception {
@@ -115,7 +115,6 @@ public class MariaDbUserDAOTest {
         } catch (DAOException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(6, users.size());
         Assert.assertEquals(Status.ACTIVE, users.get(0).getStatus());
     }
 

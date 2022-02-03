@@ -10,7 +10,7 @@
 </head>
 <body>
 <br><br>
-<c:out value="${param.message}"/>
+
 
 <c:if test="${create != null}">
     <fmt:message bundle="${loc}" key="table.user.createNewUser"/>
@@ -21,8 +21,10 @@
     <c:out value="${user.name}"/> <c:out value="${user.surname}"/>
 </c:if>
 
+<b style="color: red"><c:out value="${param.message}"/></b>
+
 <form action="admin" method="get">
-    <input type="hidden" name="id" value="${user.id}">
+    <input type="hidden" name="edit_id" value="${user.id}">
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
             <th><fmt:message bundle="${loc}" key="table.user.name"/></th>

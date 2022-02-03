@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService {
 		User user = null;
 
 			try {
-
 				user = userDao.authorization(login, password);
 			} catch (DAOException e) {
 				throw new ServiceException(e);
@@ -39,10 +38,12 @@ public class UserServiceImpl implements UserService {
 		User user = null;
 		String login = param.get("login");
 		try {
-			UserValidator.loginValidate(login);
-			UserValidator.passwordValidate(param.get("password"));
-			UserValidator.phoneValidate(param.get("phoneNumber"));
+			UserValidator.userFieldValidate(param);
+//			UserValidator.loginValidate(login);
+//			UserValidator.passwordValidate(param.get("password"));
+//			UserValidator.phoneValidate(param.get("phoneNumber"));
 			user = createUserEntity(param);
+			System.out.println("create");
 			userDao.createUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -141,9 +142,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(Map<String, String> criteriaMap) throws ServiceException {
+	public void updateUser(Map<String, String> criteriaMap) throws ServiceException, ValidateException {
 		User user = null;
 		try {
+			UserValidator.userFieldValidate(criteriaMap);
 			user = createUserEntity(criteriaMap);
 			userDao.updateUser(user);
 		} catch (DAOException e) {

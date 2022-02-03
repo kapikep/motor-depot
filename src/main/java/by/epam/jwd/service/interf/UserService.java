@@ -28,5 +28,5 @@ public interface UserService {
 
 	List<User> findUsers(Map<String, String> criteriaMap) throws ServiceException;
 
-	void updateUser(Map<String, String> criteriaMap) throws ServiceException;
+	void updateUser(Map<String, String> criteriaMap) throws ServiceException, ValidateException;
 }

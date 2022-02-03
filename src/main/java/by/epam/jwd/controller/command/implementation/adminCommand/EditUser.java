@@ -1,7 +1,6 @@
 package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
-import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.CommandName;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
@@ -26,6 +25,7 @@ public class EditUser implements Command {
         UserService userService = MDServiceFactory.getMDService().getUserService();
         Map<String, String> param = new HashMap<>();
         String resMessage = null;
+        boolean exception = false;
 
         param.put("name", request.getParameter("name"));
         param.put("surname", request.getParameter("surname"));
@@ -49,11 +49,19 @@ public class EditUser implements Command {
                 resMessage = "Update done";
             }
         } catch (ServiceException e) {
-            resMessage = "Something wrong";
+            exception = true;
+            resMessage = "Something went wrong";
             log.error("Catching: ", e);
         } catch (ValidateException e) {
+            exception = true;
             resMessage = e.getMessage();
+            System.out.println("ValidateException");
         }
-        response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_USERS_PAGE + "&message=" + resMessage);
+
+        if(exception){
+            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" + resMessage + "&edit_id=" + request.getParameter("edit_id"));
+        }else{
+            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_USERS_PAGE + "&message=" + resMessage);
+        }
     }
 }
