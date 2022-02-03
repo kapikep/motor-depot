@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class GoToEditUser implements Command {
@@ -22,16 +23,16 @@ public class GoToEditUser implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = MDServiceFactory.getMDService().getUserService();
-        User user = null;
         String edit_id = request.getParameter("edit_id");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("wrongUser");
 
         try {
-            if (edit_id != null) {
+            if (user == null && edit_id != null && !("".equals(edit_id))) {
                 user = userService.readUser(edit_id);
-                request.setAttribute("edit", true);
-            } else {
-                request.setAttribute("create", true);
+                session.setAttribute("editUserLogin", user.getLogin());
             }
+            session.setAttribute("wrongUser", null);
             request.setAttribute("user", user);
         } catch (ServiceException e) {
             log.error("Catching: ", e);

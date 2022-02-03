@@ -45,7 +45,7 @@
             <td><c:out value="${user.additionalInfo}"/></td>
             <td><c:out value="${user.role}"/></td>
             <td>
-                <a href="admin?command=GoToEditUser&edit_id=${user.id}">
+                <a href="admin?command=GoToEditUser&edit_id=${user.id}&flag=update">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
@@ -56,7 +56,7 @@
     </c:forEach>
 
     <td>
-        <a href="?command=GoToEditUser">
+        <a href="?command=GoToEditUser&flag=create">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>

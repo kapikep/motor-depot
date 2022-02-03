@@ -29,4 +29,6 @@ public interface UserService {
 	List<User> findUsers(Map<String, String> criteriaMap) throws ServiceException;
 
 	void updateUser(Map<String, String> criteriaMap) throws ServiceException, ValidateException;
+
+	User createUserEntity(Map<String, String> param) throws ServiceException;
 }

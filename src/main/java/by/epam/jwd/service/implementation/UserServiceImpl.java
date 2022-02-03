@@ -39,11 +39,7 @@ public class UserServiceImpl implements UserService {
 		String login = param.get("login");
 		try {
 			UserValidator.userFieldValidate(param);
-//			UserValidator.loginValidate(login);
-//			UserValidator.passwordValidate(param.get("password"));
-//			UserValidator.phoneValidate(param.get("phoneNumber"));
 			user = createUserEntity(param);
-			System.out.println("create");
 			userDao.createUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -153,8 +149,8 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
 	public User createUserEntity(Map<String, String> param) throws ServiceException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 		User User = new User();
 
 		String id = param.get("id");

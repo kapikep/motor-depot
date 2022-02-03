@@ -11,12 +11,11 @@
 <body>
 <br><br>
 
-
-<c:if test="${create != null}">
+<c:if test="${param.flag == 'create'}">
     <fmt:message bundle="${loc}" key="table.user.createNewUser"/>
 </c:if>
 
-<c:if test="${edit != null}">
+<c:if test="${param.flag == 'update'}">
     <fmt:message bundle="${loc}" key="table.edit"/>
     <c:out value="${user.name}"/> <c:out value="${user.surname}"/>
 </c:if>
@@ -72,13 +71,13 @@
         </tr>
     </table>
     <br>
-    <c:if test="${create != null}">
+    <c:if test="${param.flag == 'create'}">
         <button type="submit" name="command" value="EditUser"><fmt:message bundle="${loc}" key="table.create"/></button>
-        <input type="hidden" name="create" value="true">
+        <input type="hidden" name="flag" value="create">
     </c:if>
-    <c:if test="${edit != null}">
+    <c:if test="${param.flag == 'update'}">
         <button type="submit" name="command" value="EditUser"><fmt:message bundle="${loc}" key="table.update"/></button>
-        <input type="hidden" name="update" value="true">
+        <input type="hidden" name="flag" value="update">
     </c:if>
 </form>
 </body>

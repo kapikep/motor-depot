@@ -66,7 +66,9 @@ public class UserValidator {
                     methodRes = passwordValidate(param.get(key));
                     break;
                 case ("login"):
-                    methodRes = loginValidate(param.get(key));
+                    if(!param.get(key).equals(param.get("prevUserLogin"))){
+                        methodRes = loginValidate(param.get(key));
+                    }
                     break;
                 case ("phoneNumber"):
                     methodRes = phoneValidate(param.get(key));
