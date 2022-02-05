@@ -10,21 +10,26 @@ import by.epam.jwd.service.ValidateException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserValidator {
 
     private static final UserDao userDao = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
+    private static final ResourceBundle bundle = ResourceBundle.getBundle("local");
 
 
     public static String idValidate(String id) throws ValidateException {
         String resMes = "All ok";
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(id);
 
-        if (id.length() > 20) {
+        if(!(matcher.matches())){
+            resMes = "Id not digit";
+        } else if (id.length() > 20) {
             resMes = "Id is to long";
         }
-
         return resMes;
     }
 
@@ -58,7 +63,7 @@ public class UserValidator {
 
     public static String phoneValidate(String phone) throws ValidateException {
         String resMes = "All ok";
-        Pattern pattern = Pattern.compile("^\\+?\\d{1,15}");
+        Pattern pattern = Pattern.compile("\\+?\\d{1,15}");
         Matcher matcher = pattern.matcher(phone);
 
         if (phone.isEmpty()) {
@@ -71,25 +76,31 @@ public class UserValidator {
 
     public static String nameValidate(String name) throws ValidateException {
         String resMes = "All ok";
+        Pattern pattern = Pattern.compile("([A-Z]|[А-Я])([a-z]|[а-я])+");
+        Matcher matcher = pattern.matcher(name);
 
         if (name.isEmpty()) {
             resMes = "Name is empty";
         } else if (name.length() > 20) {
             resMes = "Name is too long";
+        } else if (!matcher.matches()){
+            resMes = "Incorrect name";
         }
-
         return resMes;
     }
 
     public static String surnameValidate(String surname) throws ValidateException {
         String resMes = "All ok";
+        Pattern pattern = Pattern.compile("([A-Z]|[А-Я])([a-z]|[а-я])+");
+        Matcher matcher = pattern.matcher(surname);
 
         if (surname.isEmpty()) {
             resMes = "Surname is empty";
         } else if (surname.length() > 20) {
             resMes = "Surname is too long";
+        } else if (!matcher.matches()){
+            resMes = "Incorrect Surname";
         }
-
         return resMes;
     }
 
@@ -129,11 +140,14 @@ public class UserValidator {
 
     public static String eMailValidate(String eMail) throws ValidateException {
         String resMes = "All ok";
+        Pattern pattern = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
+        Matcher matcher = pattern.matcher(eMail);
 
         if (eMail.length() > 20) {
             resMes = "eMail is too long";
+        }else if (!eMail.isEmpty() && !matcher.matches()){
+            resMes = "Incorrect email";
         }
-
         return resMes;
     }
 
@@ -143,11 +157,8 @@ public class UserValidator {
         if (additInfo.length() > 150) {
             resMes = "Additional info is too long";
         }
-
         return resMes;
     }
-
-
 
     public static void userFieldValidate(Map<String, String> param) throws ValidateException, DAOException {
         StringBuilder resMes = new StringBuilder();

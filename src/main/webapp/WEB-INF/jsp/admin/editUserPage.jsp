@@ -37,11 +37,11 @@
             <th><fmt:message bundle="${loc}" key="table.user.role"/></th>
         </tr>
         <tr>
-            <td><input type="text" name="name" value="${user.name}" placeholder="Ivan" size="3" maxlength="13"/></td>
-            <td><input type="text" name="surname" value="${user.surname}" placeholder="Ivanov" size="3" maxlength="13"/></td>
+            <td><input type="text" name="name" value="${user.name}" placeholder="Ivan" size="4" maxlength="13"/></td>
+            <td><input type="text" name="surname" value="${user.surname}" placeholder="Ivanov" size="5" maxlength="13"/></td>
             <td><input type="text" name="login" value="${user.login}" placeholder="Login" size="3" maxlength="13"/></td>
             <td><input type="text" name="password" value="${user.password}" placeholder="At least 6 characters" size="6" maxlength="13"/></td>
-            <td><input type="text" name="phoneNumber" value="${user.phoneNumber}" placeholder="+375291234567" size="6" maxlength="13"/></td>
+            <td><input type="text" name="phoneNumber" value="${user.phoneNumber}" placeholder="+375291234567" size="8" maxlength="13"/></td>
             <td><select name="status">
                 <c:forEach var="s" items="${Status.values()}">
                     <c:choose>

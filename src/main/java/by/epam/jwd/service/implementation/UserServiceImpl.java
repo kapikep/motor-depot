@@ -120,13 +120,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findUsers(Map<String, String> criteriaMap) throws ServiceException {
-		if("".equals(criteriaMap.get("load_capacity"))){
-			criteriaMap.put("load_capacity", ">1");
-		}
-
-		if("".equals(criteriaMap.get("passenger_capacity"))){
-			criteriaMap.put("passenger_capacity", ">1");
-		}
 
 		List<User> Users = null;
 		try {

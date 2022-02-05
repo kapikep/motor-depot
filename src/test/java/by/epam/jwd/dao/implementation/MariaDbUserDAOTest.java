@@ -50,7 +50,6 @@ public class MariaDbUserDAOTest {
         } catch (DAOException e) {
             e.printStackTrace();
         }
-        System.out.println(Status.valueOf("kok"));
         Assert.assertEquals(user.getAdditionalInfo(), userRes.getAdditionalInfo());
     }
 

@@ -16,7 +16,6 @@ public final class MariaDBConnectionPool {
     private static BlockingQueue<Connection> connectionQueue;
     private static BlockingQueue<Connection> givenAwayConQueue;
 
-
     private MariaDBConnectionPool() {
     }
 
