@@ -11,6 +11,7 @@
 <body>
 <br><br>
 <c:out value="${param.message}"/>
+
 <c:if test="${create != null}">
     <fmt:message bundle="${loc}" key="table.driver.createNewDriver"/>
 </c:if>

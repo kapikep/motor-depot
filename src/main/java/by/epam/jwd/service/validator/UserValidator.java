@@ -9,6 +9,7 @@ import by.epam.jwd.entity.User;
 import by.epam.jwd.service.ValidateException;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -17,8 +18,6 @@ import java.util.regex.Pattern;
 public class UserValidator {
 
     private static final UserDao userDao = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
-    private static final ResourceBundle bundle = ResourceBundle.getBundle("local");
-
 
     public static String idValidate(String id) throws ValidateException {
         String resMes = "All ok";
@@ -28,7 +27,7 @@ public class UserValidator {
         if(!(matcher.matches())){
             resMes = "Id not digit";
         } else if (id.length() > 20) {
-            resMes = "Id is to long";
+            resMes = "Id is too long";
         }
         return resMes;
     }
@@ -37,13 +36,13 @@ public class UserValidator {
         List<User> users = null;
         String resMes = "All ok";
         if (login.isEmpty()) {
-            resMes = "Login is empty";
+            resMes = "loginEmpty";
         } else if (login.length() > 20) {
-            resMes = "Login is too long";
+            resMes = "loginLong";
         } else {
             users = userDao.findUsers("login", login);
             if (!users.isEmpty()) {
-                resMes = users.get(0).getLogin() + " login exists";
+                resMes = "loginExists";
             }
         }
         return resMes;
@@ -52,11 +51,11 @@ public class UserValidator {
     public static String passwordValidate(String password) throws ValidateException {
         String resMes = "All ok";
         if (password.isEmpty()) {
-            resMes = "Password is empty";
+            resMes = "passEmpty";
         } else if (password.length() > 20) {
-            resMes = "Password is too long";
+            resMes = "passLong";
         } else if ((password.length() < 6)) {
-            resMes = "Password less than 6 chidaracters";
+            resMes = "passLess";
         }
         return resMes;
     }
@@ -67,9 +66,9 @@ public class UserValidator {
         Matcher matcher = pattern.matcher(phone);
 
         if (phone.isEmpty()) {
-            resMes = "Empty phone";
+            resMes = "phoneEmpty";
         } else if (!matcher.matches()) {
-            resMes = "Incorrect phone";
+            resMes = "incorrectPhone";
         }
         return resMes;
     }
@@ -80,11 +79,11 @@ public class UserValidator {
         Matcher matcher = pattern.matcher(name);
 
         if (name.isEmpty()) {
-            resMes = "Name is empty";
+            resMes = "nameEmpty";
         } else if (name.length() > 20) {
-            resMes = "Name is too long";
+            resMes = "nameLong";
         } else if (!matcher.matches()){
-            resMes = "Incorrect name";
+            resMes = "incorrectName";
         }
         return resMes;
     }
@@ -95,11 +94,11 @@ public class UserValidator {
         Matcher matcher = pattern.matcher(surname);
 
         if (surname.isEmpty()) {
-            resMes = "Surname is empty";
+            resMes = "surnameEmpty";
         } else if (surname.length() > 20) {
-            resMes = "Surname is too long";
+            resMes = "surnameLong";
         } else if (!matcher.matches()){
-            resMes = "Incorrect Surname";
+            resMes = "incorrectSurname";
         }
         return resMes;
     }
@@ -144,9 +143,9 @@ public class UserValidator {
         Matcher matcher = pattern.matcher(eMail);
 
         if (eMail.length() > 20) {
-            resMes = "eMail is too long";
+            resMes = "eMailLong";
         }else if (!eMail.isEmpty() && !matcher.matches()){
-            resMes = "Incorrect email";
+            resMes = "incorrectEmail";
         }
         return resMes;
     }
@@ -155,13 +154,22 @@ public class UserValidator {
         String resMes = "All ok";
 
         if (additInfo.length() > 150) {
-            resMes = "Additional info is too long";
+            resMes = "additInfoLong";
         }
         return resMes;
     }
 
     public static void userFieldValidate(Map<String, String> param) throws ValidateException, DAOException {
         StringBuilder resMes = new StringBuilder();
+        StringBuilder locResMes = new StringBuilder();
+        Locale locale;
+
+        if (param.get("locale") != null){
+            locale = new Locale(param.get("locale"));
+        }else {
+            locale = new Locale("en");
+        }
+
         for (String key : param.keySet()) {
             String methodRes = "All ok";
             switch (key) {
@@ -199,12 +207,19 @@ public class UserValidator {
                     break;
                 case ("prevUserLogin"):
                     break;
+                case ("locale"):
+                    break;
                 default:
                     methodRes = "Incorrect parameter " + key;
                     break;
             }
 
             if (!"All ok".equals(methodRes)) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("localization.validatorMessages", locale);
+                if(resourceBundle.containsKey(methodRes)){
+                    locResMes.append(resourceBundle.getString(methodRes));
+                    locResMes.append(" , ");
+                }
                 resMes.append(methodRes);
                 resMes.append(" , ");
             }
@@ -212,7 +227,8 @@ public class UserValidator {
 
         if (!resMes.toString().equals("")) {
             String res = resMes.substring(0, resMes.length() - 3);
-            throw new ValidateException(res);
+            String locRes = locResMes.substring(0, locResMes.length() - 3);
+            throw new ValidateException(res, locRes);
         }
     }
 }

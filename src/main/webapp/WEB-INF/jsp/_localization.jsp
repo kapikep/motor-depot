@@ -17,8 +17,9 @@
     <input type="hidden" name="command" value="ChangeLocalization">
     <input type="hidden" name="prev_command" value="${param.command}">
     <input type="hidden" name="edit_id" value="${param.edit_id}">
+    <input type="hidden" name="flag" value="${param.flag}">
             <button type="submit" name="locale" value="ru">${ru_button}</button>
-            <button type="submit" name="locale" value="eng">${en_button}</button>
+            <button type="submit" name="locale" value="en">${en_button}</button>
 </form>
 </body>
 </html>

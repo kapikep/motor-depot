@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class EditUser implements Command {
 
@@ -24,6 +26,7 @@ public class EditUser implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ResourceBundle bundle = (ResourceBundle) request.getSession().getAttribute("bundle");
         UserService userService = MDServiceFactory.getMDService().getUserService();
         Map<String, String> param = new HashMap<>();
         HttpSession session = request.getSession();
@@ -41,40 +44,45 @@ public class EditUser implements Command {
         param.put("eMail", request.getParameter("eMail"));
         param.put("additionalInfo", request.getParameter("additionalInfo"));
         param.put("role", request.getParameter("role"));
+        param.put("locale", (String) request.getSession().getAttribute("locale"));
 
         try {
-            if("create".equals(flag)){
+            if ("create".equals(flag)) {
                 userService.createUser(param);
-                resMessage = "Create done";
+                resMessage = bundle.getString("message.createDone");
             }
 
-            if("update".equals(flag)){
+            if ("update".equals(flag)) {
                 param.put("id", request.getParameter("edit_id"));
                 param.put("prevUserLogin", (String) session.getAttribute("editUserLogin"));
                 userService.updateUser(param);
                 session.setAttribute("editUserLogin", null);
-                resMessage = "Update done";
+                resMessage = bundle.getString("message.updateDone");
             }
         } catch (ServiceException e) {
             exception = true;
-            resMessage = "Something went wrong";
+            resMessage = bundle.getString("message.somethingWrong");
             log.error("Catching: ", e);
         } catch (ValidateException e) {
             exception = true;
-            resMessage = e.getMessage();
+            resMessage = e.getLocalizedMessage();
         }
 
-        if(exception){
+        if (exception) {
             try {
                 user = userService.createUserEntity(param);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
             session.setAttribute("wrongUser", user);
+//            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
+//                    resMessage + "&edit_id=" + request.getParameter("edit_id") + "&flag=" + flag);
+
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
-                    resMessage + "&edit_id=" + request.getParameter("edit_id") + "&flag=" + flag);
-        }else{
-            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_USERS_PAGE + "&message=" + resMessage);
+                    URLEncoder.encode(resMessage, "UTF-8") + "&edit_id=" + request.getParameter("edit_id") + "&flag=" + flag);
+        } else {
+            System.out.println(resMessage);
+            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_USERS_PAGE + "&message=" + URLEncoder.encode(resMessage, "UTF-8"));
         }
     }
 }

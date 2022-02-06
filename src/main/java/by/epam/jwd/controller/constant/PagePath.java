@@ -22,7 +22,7 @@ public final class PagePath {
     public static final String ADMIN_CARS_PAGE = DEFAULT_PATH + "admin/carsPage.jsp";
     public static final String ADMIN_ORDERS_PAGE = DEFAULT_PATH + "admin/ordersPage.jsp";
     public static final String ADMIN_DRIVERS_PAGE = DEFAULT_PATH + "admin/driversPage.jsp";
-    public static final String ADMIN_USERS_PAGE = DEFAULT_PATH + "admin/userPage.jsp";
+    public static final String ADMIN_USERS_PAGE = DEFAULT_PATH + "admin/usersPage.jsp";
     public static final String ADMIN_EDIT_CAR_PAGE = DEFAULT_PATH + "admin/editCarPage.jsp";
     public static final String ADMIN_EDIT_ORDER_PAGE = DEFAULT_PATH + "admin/editOrderPage.jsp";
     public static final String ADMIN_EDIT_DRIVER_PAGE = DEFAULT_PATH + "admin/editDriverPage.jsp";

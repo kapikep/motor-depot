@@ -4,7 +4,22 @@ public class ValidateException extends Exception{
 
     private static final long serialVersionUID = 1L;
 
-    public ValidateException() {
+    private String localizedMessage;
+
+    public ValidateException() { }
+
+    @Override
+    public String getLocalizedMessage() {
+        return localizedMessage;
+    }
+
+    public void setLocalizedMessage(String localizedMessage) {
+        this.localizedMessage = localizedMessage;
+    }
+
+    public ValidateException(String message, String localizedMessage) {
+        super(message);
+        this.localizedMessage = localizedMessage;
     }
 
     public ValidateException(String message) {
