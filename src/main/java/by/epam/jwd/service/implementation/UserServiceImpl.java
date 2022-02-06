@@ -11,7 +11,6 @@ import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.UserService;
 import by.epam.jwd.service.validator.UserValidator;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -22,23 +21,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User authorization(String login, String password) throws ServiceException {
-		User user = null;
+		User user;
 
 			try {
 				user = userDao.authorization(login, password);
 			} catch (DAOException e) {
 				throw new ServiceException(e);
 			}
-
 		return user;
 	}
 
 	@Override
 	public void createUser(Map<String, String> param) throws ServiceException, ValidateException {
-		User user = null;
-		String login = param.get("login");
+		User user;
+
 		try {
-			UserValidator.userFieldValidate(param);
+			UserValidator.userFieldValueValidate(param);
 			user = createUserEntity(param);
 			userDao.createUser(user);
 		} catch (DAOException e) {
@@ -131,11 +129,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(Map<String, String> criteriaMap) throws ServiceException, ValidateException {
-		User user = null;
+	public void updateUser(Map<String, String> param) throws ServiceException, ValidateException {
+		User user;
 		try {
-			UserValidator.userFieldValidate(criteriaMap);
-			user = createUserEntity(criteriaMap);
+			UserValidator.userFieldValidate(param);
+		}catch (ValidateException e){
+			//e.printStackTrace();
+			//System.out.println(e.getMessage());
+		}
+		try {
+			UserValidator.userFieldValueValidate(param);
+			user = createUserEntity(param);
 			userDao.updateUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);

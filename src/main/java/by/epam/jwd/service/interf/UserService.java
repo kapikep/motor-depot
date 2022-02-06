@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface UserService {
 	
-	User authorization(String login, String password) throws ServiceException; //return role
+	User authorization(String login, String password) throws ServiceException;
 
 	void createUser(Map<String, String> param) throws ServiceException, ValidateException;
 

@@ -8,16 +8,15 @@ import by.epam.jwd.entity.Status;
 import by.epam.jwd.entity.User;
 import by.epam.jwd.service.ValidateException;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserValidator {
 
     private static final UserDao userDao = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
+    private static final List<String> paramFields = Arrays.asList("id" , "name", "surname", "login", "password",
+            "phoneNumber", "status", "eMail", "additionalInfo", "role", "locale");
 
     public static String idValidate(String id) throws ValidateException {
         String resMes = "All ok";
@@ -159,7 +158,16 @@ public class UserValidator {
         return resMes;
     }
 
-    public static void userFieldValidate(Map<String, String> param) throws ValidateException, DAOException {
+    public static void userFieldValidate(Map<String, String> param) throws ValidateException {
+
+        for (String key : param.keySet()) {
+            if(!paramFields.contains(key)){
+                throw new ValidateException(key + " - field not exist");
+            }
+        }
+    }
+
+    public static void userFieldValueValidate(Map<String, String> param) throws ValidateException, DAOException {
         StringBuilder resMes = new StringBuilder();
         StringBuilder locResMes = new StringBuilder();
         Locale locale;
@@ -209,9 +217,9 @@ public class UserValidator {
                     break;
                 case ("locale"):
                     break;
-                default:
-                    methodRes = "Incorrect parameter " + key;
-                    break;
+//                default:
+//                    methodRes = "Incorrect parameter " + key;
+//                    break;
             }
 
             if (!"All ok".equals(methodRes)) {
@@ -227,7 +235,10 @@ public class UserValidator {
 
         if (!resMes.toString().equals("")) {
             String res = resMes.substring(0, resMes.length() - 3);
-            String locRes = locResMes.substring(0, locResMes.length() - 3);
+            String locRes = "";
+            if(!locResMes.toString().equals("")){
+                locRes = locResMes.substring(0, locResMes.length() - 3);
+            }
             throw new ValidateException(res, locRes);
         }
     }

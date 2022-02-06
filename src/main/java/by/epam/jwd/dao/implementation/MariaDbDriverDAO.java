@@ -242,18 +242,20 @@ public class MariaDbDriverDAO implements DriverDAO {
         ps.setString(1, driver.getCategory());
         ps.setInt(2, driver.getDrivingExperience());
         Date dateOfEmployment = driver.getDateOfEmployment();
+
         if(dateOfEmployment != null){
             ps.setTimestamp(3, new Timestamp(driver.getDateOfEmployment().getTime()));
         }else {
             ps.setTimestamp(3, null);
         }
+
         Date dateOfDismissal = driver.getDateOfDismissal();
-        if(dateOfEmployment != null) {
+        if(dateOfDismissal != null) {
             ps.setTimestamp(4, new Timestamp(driver.getDateOfDismissal().getTime()));
         }else {
             ps.setTimestamp(4, null);
         }
-        ps.setInt(5, driver.getAttached_car_id());
+        ps.setInt(5, driver.getAttachedCarId());
     }
 
     private Driver buildDriver(ResultSet rs) throws SQLException {

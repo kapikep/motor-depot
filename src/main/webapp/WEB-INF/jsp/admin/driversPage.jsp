@@ -15,10 +15,9 @@
         <fmt:message bundle="${loc}" key="table.driver.searchByName"/>
     </button>
 </form>
-
 <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 
-<c:out value="${param.message}"/>
+<b style="color: red"><c:out value="${param.message}"/></b>
 
 <table border="1" cellpadding="5" cellspacing="1">
     <tr>
@@ -52,7 +51,7 @@
             <td><fmt:formatDate value="${driver.dateOfEmployment}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td><fmt:formatDate value="${driver.dateOfDismissal}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>
-                <a href="admin?command=GoToEditDriver&edit_id=${driver.id}">
+                <a href="admin?command=GoToEditDriver&edit_id=${driver.id}&flag=update">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
@@ -63,7 +62,7 @@
     </c:forEach>
 
     <td>
-        <a href="?command=GoToEditDriver">
+        <a href="?command=GoToEditDriver&flag=create">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>

@@ -6,9 +6,9 @@ import javax.servlet.annotation.*;
 import java.util.ResourceBundle;
 
 @WebListener
-public class LocalozationListener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
+public class LocalizationListener implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
 
-    public LocalozationListener() {
+    public LocalizationListener() {
     }
 
     @Override

@@ -74,14 +74,12 @@ public class EditUser implements Command {
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
+
             session.setAttribute("wrongUser", user);
-//            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
-//                    resMessage + "&edit_id=" + request.getParameter("edit_id") + "&flag=" + flag);
 
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
                     URLEncoder.encode(resMessage, "UTF-8") + "&edit_id=" + request.getParameter("edit_id") + "&flag=" + flag);
         } else {
-            System.out.println(resMessage);
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_USERS_PAGE + "&message=" + URLEncoder.encode(resMessage, "UTF-8"));
         }
     }

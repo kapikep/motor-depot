@@ -4,9 +4,12 @@ import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.command.implementation.driverCommand.UpdateOrderByDriver;
 import by.epam.jwd.controller.constant.PagePath;
+import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Driver;
+import by.epam.jwd.entity.User;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
+import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.DriverService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +17,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 public class GoToEditDriver implements Command {
 
@@ -22,21 +27,26 @@ public class GoToEditDriver implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DriverService DriverService = MDServiceFactory.getMDService().getDriverService();
-        Driver driver = null;
+        DriverService driverService = MDServiceFactory.getMDService().getDriverService();
+        CarService carService = MDServiceFactory.getMDService().getCarService();
         String edit_id = request.getParameter("edit_id");
+        HttpSession session = request.getSession();
+        List<Car> cars = null;
+        Driver driver = (Driver) session.getAttribute("wrongDriver");
 
         try {
-            if (edit_id != null) {
-                driver = DriverService.readDriver(edit_id);
-                request.setAttribute("edit", true);
-            } else {
-                request.setAttribute("create", true);
+            if (driver == null && edit_id != null && !("".equals(edit_id))) {
+                driver = driverService.readDriver(edit_id);
+                session.setAttribute("editUserLogin", driver.getLogin());
             }
-            request.setAttribute("driver", driver);
+            cars =  carService.readCars();
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }
+
+        session.setAttribute("wrongDriver", null);
+        request.setAttribute("driver", driver);
+        request.setAttribute("cars", cars);
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_DRIVER_PAGE).forward(request, response);
     }
 }

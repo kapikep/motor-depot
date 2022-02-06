@@ -20,10 +20,10 @@ public class UserValidatorTest {
     }
 
     @Test
-    public void userFieldValidate() {
+    public void userFieldValueValidate() {
         Map<String, String> map = Map.of("password", "", "login", "", "name", "");
         try {
-            UserValidator.userFieldValidate(map);
+            UserValidator.userFieldValueValidate(map);
         } catch (ValidateException e) {
             System.out.println(e.getMessage());
         } catch (DAOException e) {
