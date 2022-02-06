@@ -59,7 +59,6 @@ public class EditDriver implements Command {
             if("update".equals(flag)){
                 param.put("id", request.getParameter("id"));
                 param.put("prevUserLogin", (String) session.getAttribute("editUserLogin"));
-                System.out.println(param);
                 driverService.updateDriver(param);
                 session.setAttribute("editUserLogin", null);
                 resMessage = bundle.getString("message.updateDone");

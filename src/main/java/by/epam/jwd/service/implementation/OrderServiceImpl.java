@@ -61,7 +61,6 @@ public class OrderServiceImpl implements OrderService {
                 param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
             }
             Order order = createOrderEntity(param);
-            System.out.println(order);
             ORDER_DAO.updateOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);

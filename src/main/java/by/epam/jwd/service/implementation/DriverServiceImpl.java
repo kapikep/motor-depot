@@ -14,6 +14,7 @@ import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.DriverService;
 import by.epam.jwd.service.interf.UserService;
+import by.epam.jwd.service.validator.DriverValidator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -123,11 +124,11 @@ public class DriverServiceImpl implements DriverService {
     public void updateDriver(Map<String, String> param) throws ServiceException, ValidateException {
         Driver driver;
         try {
+            DriverValidator.driverFieldValueValidate(param);
             driver = createDriverEntity(param);
             DRIVER_DAO.updateDriver(driver);
             param.put("id", param.get("userId"));
             param.put("role", Role.DRIVER.toString());
-            System.out.println(param.get("prevUserLogin"));
             USER_SERVICE.updateUser(param);
         } catch (DAOException e) {
             throw new ServiceException(e);

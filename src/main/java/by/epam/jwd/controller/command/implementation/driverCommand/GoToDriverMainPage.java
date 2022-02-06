@@ -30,7 +30,6 @@ public class GoToDriverMainPage implements Command {
         try {
             map.put("driver_id", Integer.toString(userId));
             map.put("start_date>", new Date().toString());
-            System.out.println(new Date());
             orders = orderService.readOrders(map);
         } catch (ServiceException e) {
             log.error("Catching: ", e);
