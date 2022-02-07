@@ -33,19 +33,13 @@ public class SelectCarToOrder implements Command {
         SimpleDateFormat timestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
         Map<String, String> criteriaCarMap = new HashMap<>();
         Map<String , String> timeSearch = new HashMap<>();
-        List<Car> cars = null;
-        Car car = null;
-        Order order = null;
+        List<Car> cars;
+        Order order;
         String edit_id = request.getParameter("edit_id");
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
         request.setAttribute("createStep2", true);
 
-        if (edit_id != null && !("".equals(edit_id))) {
-            request.setAttribute("edit", true);
-        } else {
-            request.setAttribute("create", true);
-        }
         try {
                 criteriaCarMap.put("load_capacity", request.getParameter("loadCapacity"));
                 criteriaCarMap.put("passenger_capacity", request.getParameter("passengerCapacity"));
@@ -58,6 +52,7 @@ public class SelectCarToOrder implements Command {
                 order.setCriteria(request.getParameter("criteria"));
                 order.setDepartPlace(request.getParameter("departPlace"));
                 order.setArrivalPlace(request.getParameter("arrivalPlace"));
+
                 if(startDateStr != null && !("".equals(startDateStr))){
                     order.setStartDate(sdf.parse(startDateStr));
                     timeSearch.put("start_date>", timestamp.format(order.getStartDate()));
@@ -71,7 +66,6 @@ public class SelectCarToOrder implements Command {
                 order.setClientFullName(request.getParameter("clientFullName"));
                 order.setClientPhone(request.getParameter("clientPhone"));
                 cars = carService.findFreeCars(criteriaCarMap, timeSearch);
-
 
             request.setAttribute("order", order);
             request.setAttribute("cars", cars);
