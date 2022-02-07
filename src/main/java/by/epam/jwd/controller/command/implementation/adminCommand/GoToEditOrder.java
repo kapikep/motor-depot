@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,9 +30,10 @@ public class GoToEditOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
         UserService userService = MDServiceFactory.getMDService().getUserService();
+        SimpleDateFormat sdfTimestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
         String edit_id = request.getParameter("edit_id");
         HttpSession session = request.getSession();
-        Order order = (Order) session.getAttribute("wrongInputOrder");
+        Order order = (Order) session.getAttribute("enteredOrder");
         String adminName = (String) session.getAttribute("userFullName");
         User user = null;
         List<Order> orders = null;
@@ -42,7 +44,7 @@ public class GoToEditOrder implements Command {
         try {
             if(order == null && edit_id != null && !("".equals(edit_id))) {
                 order = orderService.readOrder(edit_id);
-                cars.add(carService.readCar(Integer.toString(order.getCarId())));
+                cars.add(carService.readCar(order.getCarId()));
 
                 if(order.getClientId() != 0){
                     user = userService.readUser(order.getClientId());
@@ -53,19 +55,22 @@ public class GoToEditOrder implements Command {
                 }
             }else {
                 order = new Order();
-                order.setRequestDate(new Date());
+                order.setStartDate(new Timestamp(new Date().getTime()));
+                order.setEndDate(new Timestamp(new Date().getTime()));
+                order.setRequestDate(new Timestamp(new Date().getTime()));
                 order.setAdminName(adminName);
             }
 
             carTypes = carService.readCarTypes();
-            request.setAttribute("step", "1");
-            request.setAttribute("carTypes", carTypes);
-            request.setAttribute("user", user);
-            request.setAttribute("order", order);
-            request.setAttribute("cars", cars);
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }
+
+        request.setAttribute("step", "1");
+        request.setAttribute("carTypes", carTypes);
+        request.setAttribute("user", user);
+        request.setAttribute("order", order);
+        request.setAttribute("cars", cars);
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);
     }
 

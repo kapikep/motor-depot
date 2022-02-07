@@ -1,9 +1,7 @@
 package by.epam.jwd.controller.command.implementation;
 
 import by.epam.jwd.controller.command.Command;
-import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.CommandName;
-import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.OrderService;
@@ -70,6 +68,8 @@ public class CreateOrder implements Command {
             } catch (ServiceException e) {
                 message = "Something wrong";
                 log.error("Catching: ", e);
+            } catch (by.epam.jwd.service.ValidateException e) {
+                e.printStackTrace();
             }
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE + "&message=" + message);
         }

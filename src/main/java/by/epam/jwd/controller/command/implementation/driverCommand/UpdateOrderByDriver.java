@@ -6,6 +6,7 @@ import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
+import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.OrderService;
 import org.apache.logging.log4j.LogManager;
@@ -66,6 +67,8 @@ public class UpdateOrderByDriver implements Command {
             } catch (ServiceException e) {
                 message = "Something wrong";
                 log.error("Catching: ", e);
+            } catch (ValidateException e) {
+                e.printStackTrace();
             }
         response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_ORDERS_PAGE + "&message=" + message);
     }

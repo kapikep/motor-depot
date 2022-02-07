@@ -1,18 +1,17 @@
 package by.epam.jwd.service.interf;
 
-import by.epam.jwd.entity.Car;
-import by.epam.jwd.entity.Driver;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.ServiceException;
+import by.epam.jwd.service.ValidateException;
 
 import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
 
-    void createOrder(Map<String, String> param) throws ServiceException;
+    void createOrder(Map<String, String> param) throws ServiceException, ValidateException;
 
-    void updateOrder(Map<String, String> param) throws ServiceException;
+    void updateOrder(Map<String, String> param) throws ServiceException, ValidateException;
 
     List<Order> readOrders(Map<String, String> param) throws ServiceException;
 

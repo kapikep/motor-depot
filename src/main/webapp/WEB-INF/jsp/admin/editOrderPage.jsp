@@ -38,6 +38,7 @@
         <tr>
             <td><textarea name="criteria" rows="4" cols="20">${order.criteria}</textarea></td>
             <td><fmt:formatDate value="${order.requestDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <input type="hidden" name="requestDate" value="${order.requestDate}">
             <td><textarea name="departPlace" rows="4" cols="8">${order.departPlace}</textarea></td>
             <td><textarea name="arrivalPlace" rows="4" cols="8">${order.arrivalPlace}</textarea></td>
             <td><input type="datetime-local" name="startDate"
@@ -164,21 +165,9 @@
             <input type="hidden" name="edit_id" value="${order.id}">
         </c:if>
         <input type="hidden" name="flag" value="${param.flag}">
-        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
+        <input type="hidden" name="searchCars" value="true">
+        <button type="submit" name="command" value="SelectCarToOrder" ><fmt:message bundle="${loc}"
                                                                                    key="table.next"/></button>
-    </c:if>
-
-    <c:if test="${createStep2 != null}">
-        <fmt:message bundle="${loc}" key="table.order.selectCar"/> <br>
-
-        <c:forEach var="c" items="${cars}">
-            <input type="radio" checked name="car" value="${c.id}"/><c:out value="${c}"/><br>
-            <br>
-        </c:forEach>
-        <c:if test="${param.flag == 'create'}">
-            <button type="submit" name="command" value="CreateOrder"><fmt:message bundle="${loc}"
-                                                                                  key="table.create"/></button>
-        </c:if>
     </c:if>
 
 </form>

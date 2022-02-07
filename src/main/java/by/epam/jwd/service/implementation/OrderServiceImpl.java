@@ -9,6 +9,7 @@ import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
+import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.OrderService;
 
 import java.text.ParseException;
@@ -22,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
     private final DriverDAO DRIVER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getDriverDao();
 
     @Override
-    public void createOrder(Map<String, String> param) throws ServiceException {
+    public void createOrder(Map<String, String> param) throws ServiceException, ValidateException {
         List<Driver> drivers;
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
@@ -47,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(Map<String, String> param) throws ServiceException {
+    public void updateOrder(Map<String, String> param) throws ServiceException, ValidateException {
         List<Driver> drivers;
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
