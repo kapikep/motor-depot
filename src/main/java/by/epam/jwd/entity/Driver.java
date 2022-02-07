@@ -110,8 +110,6 @@ public class Driver extends User implements Serializable {
         this.license_plate = license_plate;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
