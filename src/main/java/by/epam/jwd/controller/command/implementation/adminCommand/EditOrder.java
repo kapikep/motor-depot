@@ -33,12 +33,14 @@ public class EditOrder implements Command {
         String resMessage = null;
         boolean exception = false;
         String flag = request.getParameter("flag");
+
         Order order = null;
 
-        param.put("editId", request.getParameter("edit_id"));
+        param.put("id", request.getParameter("editId"));
         param.put("criteria", request.getParameter("criteria"));
         param.put("departPlace", request.getParameter("departPlace"));
         param.put("arrivalPlace", request.getParameter("arrivalPlace"));
+        param.put("requestDate", request.getParameter("requestDate"));
         param.put("startDate", request.getParameter("startDate"));
         param.put("endDate", request.getParameter("endDate"));
         param.put("distance", request.getParameter("distance"));
@@ -49,7 +51,7 @@ public class EditOrder implements Command {
         param.put("clientPhone", request.getParameter("clientPhone"));
         param.put("adminName", request.getParameter("adminName"));
         param.put("carId", request.getParameter("car"));
-        param.put("adminId", request.getSession().getAttribute("userId").toString());
+        param.put("adminId", session.getAttribute("userId").toString());
 
         try {
             if ("create".equals(flag)) {
@@ -58,8 +60,6 @@ public class EditOrder implements Command {
             }
 
             if ("update".equals(flag)) {
-                param.put("id", request.getParameter("edit_id"));
-                param.put("prevUserLogin", (String) session.getAttribute("editUserLogin"));
                 orderService.updateOrder(param);
                 session.setAttribute("enteredOrder", null);
                 resMessage = bundle.getString("message.updateDone");

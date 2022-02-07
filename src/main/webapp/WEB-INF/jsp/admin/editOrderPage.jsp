@@ -18,10 +18,12 @@
     </c:if>
 
     <c:if test="${param.flag == 'update'}">
-        <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.edit_id}"/>
+        <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.editId}"/>
         <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}" key="table.update"/></button>
+        <input type="hidden" name="editId" value="${order.id}">
     </c:if>
     <input type="hidden" name="flag" value="${param.flag}">
+    <b style="color: red"><c:out value="${param.message}"/></b>
     <br>
     <%--Order information table--%>
     <table border="1" cellpadding="5" cellspacing="1">
@@ -173,9 +175,6 @@
     <fmt:message bundle="${loc}" key="table.car.passengerCap"/>
     <input type="text" name="passengerCapacity" value="" size="3" maxlength="6" minlength="1"/>
     <br>
-    <c:if test="${param.flag == 'update'}">
-        <input type="hidden" name="edit_id" value="${order.id}">
-    </c:if>
     <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
                                                                                key="table.next"/></button>
 </form>

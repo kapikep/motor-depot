@@ -31,7 +31,6 @@ public class SelectCustomerToOrder implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         UserService userService = MDServiceFactory.getMDService().getUserService();
-        CarService carService = MDServiceFactory.getMDService().getCarService();
         String searchName = request.getParameter("searchName");
         String searchSurname = request.getParameter("searchSurname");
         Map<String, String> userParam = new HashMap<>();
@@ -41,10 +40,11 @@ public class SelectCustomerToOrder implements Command {
 
         Order order = null;
 
-        param.put("editId", request.getParameter("edit_id"));
+        param.put("id", request.getParameter("editId"));
         param.put("criteria", request.getParameter("criteria"));
         param.put("departPlace", request.getParameter("departPlace"));
         param.put("arrivalPlace", request.getParameter("arrivalPlace"));
+        param.put("requestDate", request.getParameter("requestDate"));
         param.put("startDate", request.getParameter("startDate"));
         param.put("endDate", request.getParameter("endDate"));
         param.put("distance", request.getParameter("distance"));
@@ -57,15 +57,15 @@ public class SelectCustomerToOrder implements Command {
         param.put("carId", request.getParameter("car"));
         param.put("adminId", request.getSession().getAttribute("userId").toString());
 
-        if(searchName != null && !"".equals(searchName)) {
+        if (searchName != null && !"".equals(searchName)) {
             userParam.put("name", searchName);
         }
 
-        if(searchSurname != null && !"".equals(searchSurname)) {
+        if (searchSurname != null && !"".equals(searchSurname)) {
             userParam.put("surname", searchSurname);
         }
 
-        if(!userParam.isEmpty()){
+        if (!userParam.isEmpty()) {
             try {
                 userParam.put("roles_id", Integer.toString(Role.CUSTOMER.getId()));
                 users = userService.findUsers(userParam);
@@ -80,7 +80,7 @@ public class SelectCustomerToOrder implements Command {
             e.printStackTrace();
         }
 
-        if(users.isEmpty()){
+        if (users.isEmpty()) {
             users.add(new User());
         }
 

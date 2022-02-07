@@ -37,15 +37,14 @@ public class SelectCarToOrder implements Command {
         HttpSession session = request.getSession();
         List<Car> cars = null;
         Order order = new Order();
-
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
 
-
-        param.put("editId", request.getParameter("edit_id"));
+        param.put("id", request.getParameter("editId"));
         param.put("criteria", request.getParameter("criteria"));
         param.put("departPlace", request.getParameter("departPlace"));
         param.put("arrivalPlace", request.getParameter("arrivalPlace"));
+        param.put("requestDate", request.getParameter("requestDate"));
         param.put("startDate", request.getParameter("startDate"));
         param.put("endDate", request.getParameter("endDate"));
         param.put("distance", request.getParameter("distance"));
@@ -75,7 +74,7 @@ public class SelectCarToOrder implements Command {
             timeSearch.put("order_status", Status.APPROVE.toString());
             cars = carService.findFreeCars(criteriaCarMap, timeSearch);
             order = orderService.createOrderEntity(param);
-            order.setRequestDate(sdfTimestamp.parse(request.getParameter("requestDate")));
+            //order.setRequestDate(sdfTimestamp.parse(request.getParameter("requestDate")));
         } catch (ServiceException | ParseException e) {
             log.error("Catching: ", e);
         }

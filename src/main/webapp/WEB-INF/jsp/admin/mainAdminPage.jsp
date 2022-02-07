@@ -36,7 +36,7 @@
             <td><c:out value="${order.clientFullName}"/> </td>
             <td><c:out value="${order.clientPhone}"/> </td>
             <td>
-                <a href="admin?command=GoToEditOrder&edit_id=${order.id}&flag=update">
+                <a href="admin?command=GoToEditOrder&editId=${order.id}&flag=update">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>

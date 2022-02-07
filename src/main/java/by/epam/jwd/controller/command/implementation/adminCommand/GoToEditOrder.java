@@ -30,7 +30,7 @@ public class GoToEditOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         UserService userService = MDServiceFactory.getMDService().getUserService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
-        String edit_id = request.getParameter("edit_id");
+        String edit_id = request.getParameter("editId");
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("enteredOrder");
         String adminName = (String) session.getAttribute("userFullName");
@@ -58,12 +58,11 @@ public class GoToEditOrder implements Command {
                 order.setAdminName(adminName);
             }
             carTypes = carService.readCarTypes();
+            if(users.isEmpty()){
+                users.add(userService.readUser(1));
+            }
         } catch (ServiceException e) {
             log.error("Catching: ", e);
-        }
-
-        if(users.isEmpty()){
-            users.add(new User());
         }
 
         session.setAttribute("users", users);

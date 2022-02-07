@@ -12,6 +12,7 @@ import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.OrderService;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -242,6 +243,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrderEntity(Map<String, String> param) throws ServiceException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat sdfTimestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
         Order order = new Order();
 
         String id = param.get("id");
@@ -252,7 +254,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             String requestDateStr = param.get("requestDate");
             if (requestDateStr != null && !("".equals(requestDateStr))) {
-                order.setRequestDate(sdf.parse(requestDateStr));
+                order.setRequestDate(new Timestamp(sdfTimestamp.parse(requestDateStr).getTime()));
             }
             String startDateStr = param.get("startDate");
             if (startDateStr != null && !("".equals(startDateStr))) {

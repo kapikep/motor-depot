@@ -213,13 +213,6 @@ public class UserValidator {
                 case ("phoneNumber"):
                     methodRes = phoneValidate(param.get(key));
                     break;
-                case ("prevUserLogin"):
-                    break;
-                case ("locale"):
-                    break;
-//                default:
-//                    methodRes = "Incorrect parameter " + key;
-//                    break;
             }
 
             if (!"All ok".equals(methodRes)) {

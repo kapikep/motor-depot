@@ -44,34 +44,5 @@ public class CreateOrder implements Command {
             }
             response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_MAIN_PAGE + "&message=" + message);
         }
-
-        if ("/admin".equals(request.getServletPath())) {
-
-            Map<String, String> param = new HashMap<>();
-            param.put("criteria", request.getParameter("criteria"));
-            param.put("departPlace", request.getParameter("departPlace"));
-            param.put("arrivalPlace", request.getParameter("arrivalPlace"));
-            param.put("startDate", request.getParameter("startDate"));
-            param.put("endDate", request.getParameter("endDate"));
-            param.put("distance", request.getParameter("distance"));
-            param.put("totalAmount", request.getParameter("totalAmount"));
-            param.put("paymentStatus", request.getParameter("paymentStatus"));
-            param.put("status", request.getParameter("status"));
-            param.put("clientFullName", request.getParameter("clientFullName"));
-            param.put("clientPhone", request.getParameter("clientPhone"));
-            param.put("adminName", request.getParameter("adminName"));
-            param.put("carId", request.getParameter("car"));
-            param.put("adminId", request.getSession().getAttribute("userId").toString());
-
-            try {
-                orderService.createOrder(param);
-            } catch (ServiceException e) {
-                message = "Something wrong";
-                log.error("Catching: ", e);
-            } catch (by.epam.jwd.service.ValidateException e) {
-                e.printStackTrace();
-            }
-            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE + "&message=" + message);
-        }
     }
 }
