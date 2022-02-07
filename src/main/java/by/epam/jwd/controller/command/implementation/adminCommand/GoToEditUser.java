@@ -1,7 +1,6 @@
 package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
-import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.PagePath;
 import by.epam.jwd.entity.User;
 import by.epam.jwd.service.MDServiceFactory;
@@ -25,14 +24,14 @@ public class GoToEditUser implements Command {
         UserService userService = MDServiceFactory.getMDService().getUserService();
         String edit_id = request.getParameter("edit_id");
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("wrongUser");
+        User user = (User) session.getAttribute("wrongInputUser");
 
         try {
             if (user == null && edit_id != null && !("".equals(edit_id))) {
                 user = userService.readUser(edit_id);
                 session.setAttribute("editUserLogin", user.getLogin());
             }
-            session.setAttribute("wrongUser", null);
+            session.setAttribute("wrongInputUser", null);
             request.setAttribute("user", user);
         } catch (ServiceException e) {
             log.error("Catching: ", e);

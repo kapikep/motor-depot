@@ -35,14 +35,7 @@ public class EditUser implements Command {
         String flag = request.getParameter("flag");
         User user = null;
 
-        param.put("name", request.getParameter("name"));
-        param.put("surname", request.getParameter("surname"));
-        param.put("login", request.getParameter("login"));
-        param.put("password", request.getParameter("password"));
-        param.put("phoneNumber", request.getParameter("phoneNumber"));
-        param.put("status", request.getParameter("status"));
-        param.put("eMail", request.getParameter("eMail"));
-        param.put("additionalInfo", request.getParameter("additionalInfo"));
+        buildUserParam(request, param);
         param.put("role", request.getParameter("role"));
         param.put("locale", (String) request.getSession().getAttribute("locale"));
 
@@ -75,12 +68,23 @@ public class EditUser implements Command {
                 e.printStackTrace();
             }
 
-            session.setAttribute("wrongUser", user);
+            session.setAttribute("wrongInputUser", user);
 
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
                     URLEncoder.encode(resMessage, "UTF-8") + "&edit_id=" + request.getParameter("edit_id") + "&flag=" + flag);
         } else {
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_USERS_PAGE + "&message=" + URLEncoder.encode(resMessage, "UTF-8"));
         }
+    }
+
+    static void buildUserParam(HttpServletRequest request, Map<String, String> param) {
+        param.put("name", request.getParameter("name"));
+        param.put("surname", request.getParameter("surname"));
+        param.put("login", request.getParameter("login"));
+        param.put("password", request.getParameter("password"));
+        param.put("phoneNumber", request.getParameter("phoneNumber"));
+        param.put("status", request.getParameter("status"));
+        param.put("eMail", request.getParameter("eMail"));
+        param.put("additionalInfo", request.getParameter("additionalInfo"));
     }
 }

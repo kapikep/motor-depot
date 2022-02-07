@@ -43,7 +43,7 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
         ADMIN_COMMANDS.put(CommandName.CREATE_ORDER, new CreateOrder());
         ADMIN_COMMANDS.put(CommandName.GO_TO_MAIN_ADMIN_PAGE, new GoToMainAdminPage());
-        ADMIN_COMMANDS.put(CommandName.UPDATE_ORDER, new UpdateOrder());
+        ADMIN_COMMANDS.put(CommandName.EDIT_ORDER, new EditOrder());
         ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_USER, new GoToEditUser());
         ADMIN_COMMANDS.put(CommandName.GO_TO_EDIT_DRIVER, new GoToEditDriver());
         ADMIN_COMMANDS.put(CommandName.EDIT_USER, new EditUser());

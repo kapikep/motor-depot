@@ -1,9 +1,7 @@
 package by.epam.jwd.controller.command.implementation.adminCommand;
 
 import by.epam.jwd.controller.command.Command;
-import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.CommandName;
-import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.OrderService;
@@ -17,9 +15,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UpdateOrder implements Command {
+public class EditOrder implements Command {
 
-    private final Logger log = LogManager.getLogger(UpdateOrder.class);
+    private final Logger log = LogManager.getLogger(EditOrder.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

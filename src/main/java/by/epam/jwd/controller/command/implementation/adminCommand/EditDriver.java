@@ -35,14 +35,7 @@ public class EditDriver implements Command {
         String flag = request.getParameter("flag");
         Driver driver = null;
 
-        param.put("name", request.getParameter("name"));
-        param.put("surname", request.getParameter("surname"));
-        param.put("login", request.getParameter("login"));
-        param.put("password", request.getParameter("password"));
-        param.put("phoneNumber", request.getParameter("phoneNumber"));
-        param.put("status", request.getParameter("status"));
-        param.put("eMail", request.getParameter("eMail"));
-        param.put("additionalInfo", request.getParameter("additionalInfo"));
+        EditUser.buildUserParam(request, param);
         param.put("category", request.getParameter("category"));
         param.put("drivingExperience", request.getParameter("drivingExperience"));
         param.put("dateOfEmployment", request.getParameter("dateOfEmployment"));
