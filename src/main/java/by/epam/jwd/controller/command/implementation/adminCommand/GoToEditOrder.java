@@ -30,16 +30,11 @@ public class GoToEditOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         UserService userService = MDServiceFactory.getMDService().getUserService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
-        SimpleDateFormat sdfTimestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
         String edit_id = request.getParameter("edit_id");
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("enteredOrder");
         String adminName = (String) session.getAttribute("userFullName");
-        User user = null;
-        List<Order> orders = null;
-        List<CarModel> carModels = null;
         List<String> carTypes = null;
-        Car car = null;
         List<Car> cars = new ArrayList<>();
         List<User> users = new ArrayList<>();
 
@@ -71,42 +66,11 @@ public class GoToEditOrder implements Command {
             users.add(new User());
         }
 
-        request.setAttribute("step", "1");
-        request.setAttribute("carTypes", carTypes);
-        request.setAttribute("user", user);
-        request.setAttribute("users", users);
+        session.setAttribute("users", users);
+        session.setAttribute("cars", cars);
+        session.setAttribute("carTypes", carTypes);
         request.setAttribute("order", order);
-        request.setAttribute("cars", cars);
+
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);
-    }
-
-    private List<Car> searchCar(HttpServletRequest request, HttpServletResponse response){
-        CarService carService = MDServiceFactory.getMDService().getCarService();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-        SimpleDateFormat timestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
-        Map<String, String> criteriaCarMap = new HashMap<>();
-        Map<String , String> timeSearch = new HashMap<>();
-        String startDateStr = request.getParameter("startDate");
-        String endDateStr = request.getParameter("endDate");
-        List<Car> cars = null;
-        try {
-            criteriaCarMap.put("load_capacity", request.getParameter("loadCapacity"));
-            criteriaCarMap.put("passenger_capacity", request.getParameter("passengerCapacity"));
-            criteriaCarMap.put("status", "active");
-            criteriaCarMap.put("type", request.getParameter("carType"));
-
-            if(startDateStr != null && !("".equals(startDateStr))){
-                timeSearch.put("start_date>", timestamp.format(startDateStr));
-            }
-            if(endDateStr != null && !("".equals(endDateStr))){
-                timeSearch.put("end_date<", timestamp.format(endDateStr));
-            }
-
-            timeSearch.put("order_status", Status.APPROVE.toString());
-            cars = carService.findFreeCars(criteriaCarMap, timeSearch);
-        } catch (ServiceException e) {
-            log.error("Catching: ", e);
-        }
-        return cars;
     }
 }

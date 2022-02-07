@@ -253,8 +253,6 @@ public class OrderServiceImpl implements OrderService {
             String requestDateStr = param.get("requestDate");
             if (requestDateStr != null && !("".equals(requestDateStr))) {
                 order.setRequestDate(sdf.parse(requestDateStr));
-            } else {
-                order.setRequestDate(new Date());
             }
             String startDateStr = param.get("startDate");
             if (startDateStr != null && !("".equals(startDateStr))) {

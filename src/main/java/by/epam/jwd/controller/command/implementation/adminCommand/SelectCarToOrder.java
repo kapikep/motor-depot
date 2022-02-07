@@ -28,22 +28,16 @@ public class SelectCarToOrder implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
-        UserService userService = MDServiceFactory.getMDService().getUserService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
         SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         SimpleDateFormat sdfTimestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
         Map<String, String> criteriaCarMap = new HashMap<>();
         Map<String, String> timeSearch = new HashMap<>();
         Map<String, String> param = new HashMap<>();
-        Map<String, String> userParam = new HashMap<>();
-        List<String> carTypes = null;
         HttpSession session = request.getSession();
         List<Car> cars = null;
-        List<User> users = new ArrayList<>();
         Order order = new Order();
-        String searchName = request.getParameter("searchName");
-        String searchSurname = request.getParameter("searchSurname");
-        String edit_id = request.getParameter("edit_id");
+
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
 
@@ -64,58 +58,31 @@ public class SelectCarToOrder implements Command {
         param.put("carId", request.getParameter("car"));
         param.put("adminId", request.getSession().getAttribute("userId").toString());
 
-        if("true".equals(request.getParameter("searchCars"))) {
-            try {
-                criteriaCarMap.put("load_capacity", request.getParameter("loadCapacity"));
-                criteriaCarMap.put("passenger_capacity", request.getParameter("passengerCapacity"));
-                criteriaCarMap.put("status", "active");
-                criteriaCarMap.put("type", request.getParameter("carType"));
+        try {
+            criteriaCarMap.put("load_capacity", request.getParameter("loadCapacity"));
+            criteriaCarMap.put("passenger_capacity", request.getParameter("passengerCapacity"));
+            criteriaCarMap.put("status", "active");
+            criteriaCarMap.put("type", request.getParameter("carType"));
 
-                if (startDateStr != null && !("".equals(startDateStr))) {
-                    timeSearch.put("start_date>", sdfTimestamp.format(sdfDateTime.parse(startDateStr)));
-                }
-
-                if (endDateStr != null && !("".equals(endDateStr))) {
-                    timeSearch.put("end_date<", sdfTimestamp.format(sdfDateTime.parse(endDateStr)));
-                }
-
-                timeSearch.put("order_status", Status.APPROVE.toString());
-                cars = carService.findFreeCars(criteriaCarMap, timeSearch);
-                order = orderService.createOrderEntity(param);
-                order.setRequestDate(sdfTimestamp.parse(request.getParameter("requestDate")));
-                carTypes = carService.readCarTypes();
-                session.setAttribute("criteriaCarMap", criteriaCarMap);
-                session.setAttribute("timeSearch", timeSearch);
-            } catch (ServiceException | ParseException e) {
-                log.error("Catching: ", e);
+            if (startDateStr != null && !("".equals(startDateStr))) {
+                timeSearch.put("start_date>", sdfTimestamp.format(sdfDateTime.parse(startDateStr)));
             }
-        }
 
-        if(searchName != null && !"".equals(searchName)) {
-            userParam.put("name", searchName);
-        }
-
-        if(searchSurname != null && !"".equals(searchSurname)) {
-            userParam.put("surname", searchSurname);
-        }
-
-        if(!userParam.isEmpty()){
-            try {
-                userParam.put("roles_id", Integer.toString(Role.CUSTOMER.getId()));
-                users = userService.findUsers(userParam);
-            } catch (ServiceException e) {
-                log.error("Catching: ", e);
+            if (endDateStr != null && !("".equals(endDateStr))) {
+                timeSearch.put("end_date<", sdfTimestamp.format(sdfDateTime.parse(endDateStr)));
             }
+
+            timeSearch.put("order_status", Status.APPROVE.toString());
+            cars = carService.findFreeCars(criteriaCarMap, timeSearch);
+            order = orderService.createOrderEntity(param);
+            order.setRequestDate(sdfTimestamp.parse(request.getParameter("requestDate")));
+        } catch (ServiceException | ParseException e) {
+            log.error("Catching: ", e);
         }
 
-        if(users.isEmpty()){
-            users.add(new User());
-        }
-
-        request.setAttribute("carTypes", carTypes);
-        request.setAttribute("users", users);
+        session.setAttribute("cars", cars);
         request.setAttribute("order", order);
-        request.setAttribute("cars", cars);
+
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);
     }
 }

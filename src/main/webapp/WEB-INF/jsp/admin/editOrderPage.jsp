@@ -11,16 +11,19 @@
 <body>
 <br>
 <br>
-<c:if test="${param.flag == 'create'}">
-    <fmt:message bundle="${loc}" key="table.order.createNewOrder"/>
-</c:if>
-
-<c:if test="${param.flag == 'update'}">
-    <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.edit_id}"/>
-</c:if>
-<%--Order information table--%>
-<br>
 <form action="admin" method="get">
+    <c:if test="${param.flag == 'create'}">
+        <fmt:message bundle="${loc}" key="table.order.createNewOrder"/>
+        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}" key="table.create"/></button>
+    </c:if>
+
+    <c:if test="${param.flag == 'update'}">
+        <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.edit_id}"/>
+        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}" key="table.update"/></button>
+    </c:if>
+    <input type="hidden" name="flag" value="${param.flag}">
+    <br>
+    <%--Order information table--%>
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
             <th><fmt:message bundle="${loc}" key="table.order.criteria"/></th>
@@ -76,11 +79,11 @@
             <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.phoneNumber"/></th>
         </tr>
-            <tr>
-                <td><textarea name="clientFullName" rows="4" cols="20">${order.clientFullName}</textarea></td>
-                <td><input type="text" name="clientPhone" value="${order.clientPhone}" size="8" maxlength="30"
-                           minlength="5"/>
-            </tr>
+        <tr>
+            <td><textarea name="clientFullName" rows="4" cols="20">${order.clientFullName}</textarea></td>
+            <td><input type="text" name="clientPhone" value="${order.clientPhone}" size="8" maxlength="30"
+                       minlength="5"/>
+        </tr>
     </table>
     <br>
 
@@ -109,7 +112,7 @@
         </c:forEach>
     </table>
     <br>
-    <fmt:message bundle="${loc}" key="table.order.searchClient"/><br>
+    <%--Search client--%>
     <fmt:message bundle="${loc}" key="table.user.name"/>
     <input type="text" name="searchName" placeholder="Ivan" size="10" maxlength="13"/><br>
     <fmt:message bundle="${loc}" key="table.user.surname"/>
@@ -153,38 +156,29 @@
         </c:forEach>
     </table>
     <br>
-    <%--Update button--%>
-    <c:if test="${param.flag == 'update'}">
-        <c:if test="${step == '1'}">
-            <input type="hidden" name="car" value="${car.id}">
-        </c:if>
-        <button type="submit" name="command" value="UpdateOrder"><fmt:message bundle="${loc}"
-                                                                              key="table.update"/></button>
-        <br><br>
-    </c:if>
-    <%--Select car param--%>
-        <fmt:message bundle="${loc}" key="table.order.selectCarModel"/>
 
-        <select name="carType">
-            <c:forEach var="carType" items="${carTypes}">
-                <option value="${carType}"><c:out value="${carType}"/></option>
-            </c:forEach>
-        </select>
-        <br>
-        <br>
-        <fmt:message bundle="${loc}" key="table.car.loadCap"/>
-        <input type="text" name="loadCapacity" value="" size="8" maxlength="6" minlength="1"/>
-        <br>
-        <fmt:message bundle="${loc}" key="table.car.passengerCap"/>
-        <input type="text" name="passengerCapacity" value="" size="3" maxlength="6" minlength="1"/>
-        <br>
-        <c:if test="${param.flag == 'update'}">
-            <input type="hidden" name="edit_id" value="${order.id}">
-        </c:if>
-        <input type="hidden" name="flag" value="${param.flag}">
-        <input type="hidden" name="searchCars" value="true">
-        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
-                                                                                   key="table.next"/></button>
+    <%--Select car param--%>
+    <fmt:message bundle="${loc}" key="table.order.selectCarModel"/>
+
+    <select name="carType">
+        <c:forEach var="carType" items="${carTypes}">
+            <option value="${carType}"><c:out value="${carType}"/></option>
+        </c:forEach>
+    </select>
+    <br>
+    <br>
+    <fmt:message bundle="${loc}" key="table.car.loadCap"/>
+    <input type="text" name="loadCapacity" value="" size="8" maxlength="6" minlength="1"/>
+    <br>
+    <fmt:message bundle="${loc}" key="table.car.passengerCap"/>
+    <input type="text" name="passengerCapacity" value="" size="3" maxlength="6" minlength="1"/>
+    <br>
+    <c:if test="${param.flag == 'update'}">
+        <input type="hidden" name="edit_id" value="${order.id}">
+    </c:if>
+    <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
+                                                                               key="table.next"/></button>
 </form>
+<br>
 </body>
 </html>
