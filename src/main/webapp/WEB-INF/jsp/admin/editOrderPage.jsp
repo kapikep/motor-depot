@@ -70,36 +70,54 @@
     </table>
     <br>
     <%--Client information table--%>
-    <fmt:message bundle="${loc}" key="table.order.clientInformation"/>
+    <fmt:message bundle="${loc}" key="table.order.clientLeftInformation"/>
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
             <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.phoneNumber"/></th>
+        </tr>
+            <tr>
+                <td><textarea name="clientFullName" rows="4" cols="20">${order.clientFullName}</textarea></td>
+                <td><input type="text" name="clientPhone" value="${order.clientPhone}" size="8" maxlength="30"
+                           minlength="5"/>
+            </tr>
+    </table>
+    <br>
+
+    <%--Client information from database--%>
+    <fmt:message bundle="${loc}" key="table.order.clientInformation"/>
+    <table border="1" cellpadding="5" cellspacing="1">
+        <tr>
+            <th><fmt:message bundle="${loc}" key="table.select"/></th>
+            <th><fmt:message bundle="${loc}" key="table.user.name"/></th>
+            <th><fmt:message bundle="${loc}" key="table.user.surname"/></th>
+            <th><fmt:message bundle="${loc}" key="table.user.phoneNumber"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.additionalInfo"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.status"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.e-mail"/></th>
-            <th><fmt:message bundle="${loc}" key="table.order.searchClient"/></th>
         </tr>
-        <tr>
-            <td><textarea name="clientFullName" rows="4" cols="20">${order.clientFullName}</textarea></td>
-            <td><input type="text" name="clientPhone" value="${order.clientPhone}" size="8" maxlength="30"
-                       minlength="5"/>
-            <td><c:out value="${user.additionalInfo}"/></td>
-            <td><c:out value="${user.status}"/></td>
-            <td><c:out value="${user.eMail}"/></td>
-            <td>
-                <fmt:message bundle="${loc}" key="table.user.name"/> <input type="text" name="name" value="${user.name}"
-                                                                            placeholder="Ivan" size="9" maxlength="13"/><br>
-                <fmt:message bundle="${loc}" key="table.user.surname"/><input type="text" name="surname"
-                                                                              value="${user.surname}"
-                                                                              placeholder="Ivanov" size="7"
-                                                                              maxlength="13"/><br>
-                <button type="submit" name="command" value=${param.command}>
-                    <fmt:message bundle="${loc}" key="table.search"/>
-                </button>
-            </td>
-        </tr>
+        <c:forEach var="user" items="${users}">
+            <tr>
+                <td><input type="radio" checked name="selectUser" value="${user.id}"/><c:out value="${c}"/></td>
+                <td><c:out value="${user.name}"/></td>
+                <td><c:out value="${user.surname}"/></td>
+                <td><c:out value="${user.phoneNumber}"/></td>
+                <td><c:out value="${user.additionalInfo}"/></td>
+                <td><c:out value="${user.status}"/></td>
+                <td><c:out value="${user.eMail}"/></td>
+            </tr>
+        </c:forEach>
     </table>
+    <br>
+    <fmt:message bundle="${loc}" key="table.order.searchClient"/><br>
+    <fmt:message bundle="${loc}" key="table.user.name"/>
+    <input type="text" name="searchName" placeholder="Ivan" size="10" maxlength="13"/><br>
+    <fmt:message bundle="${loc}" key="table.user.surname"/>
+    <input type="text" name="searchSurname" placeholder="Ivanov" size="7" maxlength="13"/>
+    <button type="submit" name="command" value="SelectCustomerToOrder">
+        <fmt:message bundle="${loc}" key="table.search"/>
+    </button>
+    <br>
     <br>
     <%--Car information table--%>
     <fmt:message bundle="${loc}" key="table.driver.attachedCar"/>
@@ -120,7 +138,7 @@
 
         <c:forEach var="car" items="${cars}">
             <tr>
-                <td><input type="radio" checked name="car" value="${c.id}"/><c:out value="${c}"/></td>
+                <td><input type="radio" checked name="selectCar" value="${c.id}"/><c:out value="${c}"/></td>
                 <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
                 <td><c:out value="${car.modelName}"/></td>
                 <td><c:out value="${car.licencePlate}"/></td>
@@ -145,7 +163,6 @@
         <br><br>
     </c:if>
     <%--Select car param--%>
-    <c:if test="${step == '1'}">
         <fmt:message bundle="${loc}" key="table.order.selectCarModel"/>
 
         <select name="carType">
@@ -166,10 +183,8 @@
         </c:if>
         <input type="hidden" name="flag" value="${param.flag}">
         <input type="hidden" name="searchCars" value="true">
-        <button type="submit" name="command" value="SelectCarToOrder" ><fmt:message bundle="${loc}"
+        <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
                                                                                    key="table.next"/></button>
-    </c:if>
-
 </form>
 </body>
 </html>

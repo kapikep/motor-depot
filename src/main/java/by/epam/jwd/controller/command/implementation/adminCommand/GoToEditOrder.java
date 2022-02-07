@@ -28,8 +28,8 @@ public class GoToEditOrder implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
-        CarService carService = MDServiceFactory.getMDService().getCarService();
         UserService userService = MDServiceFactory.getMDService().getUserService();
+        CarService carService = MDServiceFactory.getMDService().getCarService();
         SimpleDateFormat sdfTimestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
         String edit_id = request.getParameter("edit_id");
         HttpSession session = request.getSession();
@@ -41,13 +41,15 @@ public class GoToEditOrder implements Command {
         List<String> carTypes = null;
         Car car = null;
         List<Car> cars = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+
         try {
             if(order == null && edit_id != null && !("".equals(edit_id))) {
                 order = orderService.readOrder(edit_id);
                 cars.add(carService.readCar(order.getCarId()));
 
                 if(order.getClientId() != 0){
-                    user = userService.readUser(order.getClientId());
+                    users.add(userService.readUser(order.getClientId()));
                 }
 
                 if(order.getAdminName() == null){
@@ -60,15 +62,19 @@ public class GoToEditOrder implements Command {
                 order.setRequestDate(new Timestamp(new Date().getTime()));
                 order.setAdminName(adminName);
             }
-
             carTypes = carService.readCarTypes();
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }
 
+        if(users.isEmpty()){
+            users.add(new User());
+        }
+
         request.setAttribute("step", "1");
         request.setAttribute("carTypes", carTypes);
         request.setAttribute("user", user);
+        request.setAttribute("users", users);
         request.setAttribute("order", order);
         request.setAttribute("cars", cars);
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);

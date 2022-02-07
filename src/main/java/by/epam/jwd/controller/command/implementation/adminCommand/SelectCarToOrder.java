@@ -3,13 +3,12 @@ package by.epam.jwd.controller.command.implementation.adminCommand;
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.PagePath;
-import by.epam.jwd.entity.Car;
-import by.epam.jwd.entity.Order;
-import by.epam.jwd.entity.Status;
+import by.epam.jwd.entity.*;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.OrderService;
+import by.epam.jwd.service.interf.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,15 +28,21 @@ public class SelectCarToOrder implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
+        UserService userService = MDServiceFactory.getMDService().getUserService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
         SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         SimpleDateFormat sdfTimestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
         Map<String, String> criteriaCarMap = new HashMap<>();
         Map<String, String> timeSearch = new HashMap<>();
         Map<String, String> param = new HashMap<>();
+        Map<String, String> userParam = new HashMap<>();
+        List<String> carTypes = null;
         HttpSession session = request.getSession();
         List<Car> cars = null;
+        List<User> users = new ArrayList<>();
         Order order = new Order();
+        String searchName = request.getParameter("searchName");
+        String searchSurname = request.getParameter("searchSurname");
         String edit_id = request.getParameter("edit_id");
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
@@ -78,6 +83,7 @@ public class SelectCarToOrder implements Command {
                 cars = carService.findFreeCars(criteriaCarMap, timeSearch);
                 order = orderService.createOrderEntity(param);
                 order.setRequestDate(sdfTimestamp.parse(request.getParameter("requestDate")));
+                carTypes = carService.readCarTypes();
                 session.setAttribute("criteriaCarMap", criteriaCarMap);
                 session.setAttribute("timeSearch", timeSearch);
             } catch (ServiceException | ParseException e) {
@@ -85,9 +91,29 @@ public class SelectCarToOrder implements Command {
             }
         }
 
-        if("true".equals(request.getParameter("searchCars"))) {
-
+        if(searchName != null && !"".equals(searchName)) {
+            userParam.put("name", searchName);
         }
+
+        if(searchSurname != null && !"".equals(searchSurname)) {
+            userParam.put("surname", searchSurname);
+        }
+
+        if(!userParam.isEmpty()){
+            try {
+                userParam.put("roles_id", Integer.toString(Role.CUSTOMER.getId()));
+                users = userService.findUsers(userParam);
+            } catch (ServiceException e) {
+                log.error("Catching: ", e);
+            }
+        }
+
+        if(users.isEmpty()){
+            users.add(new User());
+        }
+
+        request.setAttribute("carTypes", carTypes);
+        request.setAttribute("users", users);
         request.setAttribute("order", order);
         request.setAttribute("cars", cars);
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);

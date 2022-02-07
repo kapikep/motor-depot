@@ -49,6 +49,7 @@ public final class CommandProvider {
         ADMIN_COMMANDS.put(CommandName.EDIT_USER, new EditUser());
         ADMIN_COMMANDS.put(CommandName.EDIT_DRIVER, new EditDriver());
         ADMIN_COMMANDS.put(CommandName.SELECT_CAR_TO_ORDER, new SelectCarToOrder());
+        ADMIN_COMMANDS.put(CommandName.SELECT_CUSTOMER_TO_ORDER, new SelectCustomerToOrder());
 
         DRIVER_COMMANDS.put(CommandName.GO_TO_DRIVER_MAIN_PAGE, new GoToDriverMainPage());
         DRIVER_COMMANDS.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());

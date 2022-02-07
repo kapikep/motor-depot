@@ -12,7 +12,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MariaDbUserDAOTest {
     UserDao userDao = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
@@ -121,8 +123,10 @@ public class MariaDbUserDAOTest {
     @Test
     public void findUsersTest1() {
         List<User> users = null;
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "Vadim");
         try {
-            users = userDao.findUsers("roles_id", "2" );
+            users = userDao.findUsers(map);
         } catch (DAOException e) {
             e.printStackTrace();
         }

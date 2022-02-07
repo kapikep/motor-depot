@@ -96,16 +96,16 @@ public class MariaDbCarDAOTest {
         Assert.assertTrue(result);
     }
 
-    @Test
-    public void updateCarTest() {
-        Boolean result = false;
-        try {
-            result = carDAO.updateCar(carUpd);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertTrue(result);
-    }
+//    @Test
+//    public void updateCarTest() {
+//        Boolean result = false;
+//        try {
+//            result = carDAO.updateCar(carUpd);
+//        } catch (DAOException e) {
+//            e.printStackTrace();
+//        }
+//        Assert.assertTrue(result);
+//    }
 
     @Test
     public void readCarTest() {
