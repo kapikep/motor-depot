@@ -3,7 +3,6 @@ package by.epam.jwd.service.validator;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.service.ValidateException;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,7 +69,6 @@ public class DriverValidator {
                 resMes = "incorrectDateOfDism";
             }
         }
-
         return resMes;
     }
 

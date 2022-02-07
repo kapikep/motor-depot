@@ -28,10 +28,14 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void createDriver(Map<String, String> param) throws ServiceException, ValidateException {
-        Driver driver = null;
+        Driver driver;
         try {
+            DriverValidator.driverFieldValueValidate(param);
             driver = createDriverEntity(param);
             DRIVER_DAO.createDriver(driver);
+            param.put("id", param.get("userId"));
+            param.put("role", Role.DRIVER.toString());
+            USER_SERVICE.createUser(param);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

@@ -54,6 +54,7 @@ public class EditDriver implements Command {
         try {
             if("create".equals(flag)){
                 driverService.createDriver(param);
+                resMessage = bundle.getString("message.createDone");
             }
 
             if("update".equals(flag)){
