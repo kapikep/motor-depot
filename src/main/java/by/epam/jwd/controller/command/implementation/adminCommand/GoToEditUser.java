@@ -37,7 +37,6 @@ public class GoToEditUser implements Command {
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }
-
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_USER_PAGE).forward(request, response);
     }
 }

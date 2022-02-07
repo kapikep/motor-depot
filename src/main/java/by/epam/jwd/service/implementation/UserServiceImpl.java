@@ -106,6 +106,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public User readUser(int id) throws ServiceException {
+		User User = null;
+		try {
+			User = userDao.readUser(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return User;
+	}
+
+	@Override
 	public List<User> findUsers(String param, String value) throws ServiceException {
 		List<User> Users;
 		try {

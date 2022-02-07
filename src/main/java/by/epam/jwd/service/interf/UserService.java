@@ -24,6 +24,8 @@ public interface UserService {
 
 	User readUser(String idStr) throws ServiceException;
 
+	User readUser(int id) throws ServiceException;
+
 	List<User> findUsers(String param, String value) throws ServiceException;
 
 	List<User> findUsers(Map<String, String> criteriaMap) throws ServiceException;

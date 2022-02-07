@@ -13,7 +13,7 @@
 <br>
 <fmt:message bundle="${loc}" key="table.orders"/>
 
-<c:out value="${param.message}"/>
+<b style="color: red"><c:out value="${param.message}"/></b>
 
 <table border="1" cellpadding="5" cellspacing="1">
     <tr>
@@ -36,7 +36,7 @@
             <td><c:out value="${order.clientFullName}"/> </td>
             <td><c:out value="${order.clientPhone}"/> </td>
             <td>
-                <a href="admin?command=GoToEditOrder&edit_id=${order.id}">
+                <a href="admin?command=GoToEditOrder&edit_id=${order.id}&flag=update">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
@@ -46,7 +46,7 @@
     </c:forEach>
 
     <td>
-        <a href="?command=GoToEditOrder" style="padding: 10px;">
+        <a href="?command=GoToEditOrder&flag=create" style="padding: 10px;">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>

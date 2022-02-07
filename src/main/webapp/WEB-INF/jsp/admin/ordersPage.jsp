@@ -18,7 +18,7 @@
 
 <jsp:include page="/WEB-INF/jsp/_pagination.jsp"/>
 
-<c:out value="${param.message}"/>
+<b style="color: red"><c:out value="${param.message}"/></b>
 
 <table border="1" cellpadding="5" cellspacing="1">
     <tr>
@@ -61,7 +61,7 @@
             </td>
             <td><c:out value="${order.adminName}"/> <c:out value="${order.adminSurname}"/></td>
             <td>
-                <a href="admin?command=GoToEditOrder&edit_id=${order.id}">
+                <a href="admin?command=GoToEditOrder&edit_id=${order.id}&flag=update">
                     <fmt:message bundle="${loc}" key="table.edit"/></a>
             </td>
         </tr>
@@ -72,7 +72,7 @@
     </c:forEach>
 
     <td>
-        <a href="?command=GoToEditOrder">
+        <a href="?command=GoToEditOrder&flag=create">
             <fmt:message bundle="${loc}" key="table.add"/>
         </a>
     </td>

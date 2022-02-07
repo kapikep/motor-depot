@@ -41,7 +41,6 @@ public class SelectCarToOrder implements Command {
         String endDateStr = request.getParameter("endDate");
         request.setAttribute("createStep2", true);
 
-
         if (edit_id != null && !("".equals(edit_id))) {
             request.setAttribute("edit", true);
         } else {

@@ -30,7 +30,7 @@
             <th><fmt:message bundle="${loc}" key="table.user.surname"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.login"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.password"/></th>
-            <th><fmt:message bundle="${loc}" key="table.user.phone_number"/></th>
+            <th><fmt:message bundle="${loc}" key="table.user.phoneNumber"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.status"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.e-mail"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.additionalInfo"/></th>
