@@ -40,22 +40,7 @@ public class SelectCarToOrder implements Command {
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
 
-        param.put("id", request.getParameter("editId"));
-        param.put("criteria", request.getParameter("criteria"));
-        param.put("departPlace", request.getParameter("departPlace"));
-        param.put("arrivalPlace", request.getParameter("arrivalPlace"));
-        param.put("requestDate", request.getParameter("requestDate"));
-        param.put("startDate", request.getParameter("startDate"));
-        param.put("endDate", request.getParameter("endDate"));
-        param.put("distance", request.getParameter("distance"));
-        param.put("totalAmount", request.getParameter("totalAmount"));
-        param.put("paymentStatus", request.getParameter("paymentStatus"));
-        param.put("status", request.getParameter("status"));
-        param.put("clientFullName", request.getParameter("clientFullName"));
-        param.put("clientPhone", request.getParameter("clientPhone"));
-        param.put("adminName", (String) session.getAttribute("userFullName"));
-        param.put("carId", request.getParameter("car"));
-        param.put("adminId", request.getSession().getAttribute("userId").toString());
+        EditOrder.fillingOrderParamMap(request, param, session);
 
         try {
             criteriaCarMap.put("load_capacity", request.getParameter("loadCapacity"));

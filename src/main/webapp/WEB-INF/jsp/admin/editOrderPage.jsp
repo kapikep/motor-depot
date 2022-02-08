@@ -103,7 +103,7 @@
         </tr>
         <c:forEach var="user" items="${users}">
             <tr>
-                <td><input type="radio" checked name="selectUser" value="${user.id}"/><c:out value="${c}"/></td>
+                <td><input type="radio" checked name="selectedUser" value="${user.id}"/><c:out value="${c}"/></td>
                 <td><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.surname}"/></td>
                 <td><c:out value="${user.phoneNumber}"/></td>
@@ -143,7 +143,7 @@
 
         <c:forEach var="car" items="${cars}">
             <tr>
-                <td><input type="radio" checked name="selectCar" value="${c.id}"/><c:out value="${c}"/></td>
+                <td><input type="radio" checked name="selectedCar" value="${c.id}"/><c:out value="${c}"/></td>
                 <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
                 <td><c:out value="${car.modelName}"/></td>
                 <td><c:out value="${car.licencePlate}"/></td>

@@ -142,12 +142,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUser(Map<String, String> param) throws ServiceException, ValidateException {
 		User user;
-		try {
-			UserValidator.userFieldValidate(param);
-		}catch (ValidateException e){
-			//e.printStackTrace();
-			//System.out.println(e.getMessage());
-		}
+
 		try {
 			UserValidator.userFieldValueValidate(param);
 			user = createUserEntity(param);

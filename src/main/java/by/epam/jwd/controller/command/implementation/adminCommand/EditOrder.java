@@ -36,22 +36,7 @@ public class EditOrder implements Command {
 
         Order order = null;
 
-        param.put("id", request.getParameter("editId"));
-        param.put("criteria", request.getParameter("criteria"));
-        param.put("departPlace", request.getParameter("departPlace"));
-        param.put("arrivalPlace", request.getParameter("arrivalPlace"));
-        param.put("requestDate", request.getParameter("requestDate"));
-        param.put("startDate", request.getParameter("startDate"));
-        param.put("endDate", request.getParameter("endDate"));
-        param.put("distance", request.getParameter("distance"));
-        param.put("totalAmount", request.getParameter("totalAmount"));
-        param.put("paymentStatus", request.getParameter("paymentStatus"));
-        param.put("status", request.getParameter("status"));
-        param.put("clientFullName", request.getParameter("clientFullName"));
-        param.put("clientPhone", request.getParameter("clientPhone"));
-        param.put("adminName", request.getParameter("adminName"));
-        param.put("carId", request.getParameter("car"));
-        param.put("adminId", session.getAttribute("userId").toString());
+        fillingOrderParamMap(request, param, session);
 
         try {
             if ("create".equals(flag)) {
@@ -83,9 +68,29 @@ public class EditOrder implements Command {
             session.setAttribute("enteredOrder", order);
 
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
-                    URLEncoder.encode(resMessage, "UTF-8") + "&edit_id=" + request.getParameter("edit_id") + "&flag=" + flag);
+                    URLEncoder.encode(resMessage, "UTF-8") + "&editId=" + request.getParameter("edit_id") + "&flag=" + flag);
         } else {
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE + "&message=" + URLEncoder.encode(resMessage, "UTF-8"));
         }
+    }
+
+    static void fillingOrderParamMap(HttpServletRequest request, Map<String, String> param, HttpSession session) {
+        param.put("id", request.getParameter("editId"));
+        param.put("criteria", request.getParameter("criteria"));
+        param.put("departPlace", request.getParameter("departPlace"));
+        param.put("arrivalPlace", request.getParameter("arrivalPlace"));
+        param.put("requestDate", request.getParameter("requestDate"));
+        param.put("startDate", request.getParameter("startDate"));
+        param.put("endDate", request.getParameter("endDate"));
+        param.put("distance", request.getParameter("distance"));
+        param.put("totalAmount", request.getParameter("totalAmount"));
+        param.put("paymentStatus", request.getParameter("paymentStatus"));
+        param.put("status", request.getParameter("status"));
+        param.put("clientFullName", request.getParameter("clientFullName"));
+        param.put("clientPhone", request.getParameter("clientPhone"));
+        param.put("adminName", (String) session.getAttribute("userFullName"));
+        param.put("adminId", session.getAttribute("userId").toString());
+        param.put("clientId", request.getParameter("selectedUser"));
+        param.put("carId", request.getParameter("selectedCar"));
     }
 }

@@ -36,26 +36,10 @@ public class SelectCustomerToOrder implements Command {
         Map<String, String> userParam = new HashMap<>();
         Map<String, String> param = new HashMap<>();
         HttpSession session = request.getSession();
+        Order order = null;
         List<User> users = new ArrayList<>();
 
-        Order order = null;
-
-        param.put("id", request.getParameter("editId"));
-        param.put("criteria", request.getParameter("criteria"));
-        param.put("departPlace", request.getParameter("departPlace"));
-        param.put("arrivalPlace", request.getParameter("arrivalPlace"));
-        param.put("requestDate", request.getParameter("requestDate"));
-        param.put("startDate", request.getParameter("startDate"));
-        param.put("endDate", request.getParameter("endDate"));
-        param.put("distance", request.getParameter("distance"));
-        param.put("totalAmount", request.getParameter("totalAmount"));
-        param.put("paymentStatus", request.getParameter("paymentStatus"));
-        param.put("status", request.getParameter("status"));
-        param.put("clientFullName", request.getParameter("clientFullName"));
-        param.put("clientPhone", request.getParameter("clientPhone"));
-        param.put("adminName", (String) session.getAttribute("userFullName"));
-        param.put("carId", request.getParameter("car"));
-        param.put("adminId", request.getSession().getAttribute("userId").toString());
+        EditOrder.fillingOrderParamMap(request, param, session);
 
         if (searchName != null && !"".equals(searchName)) {
             userParam.put("name", searchName);

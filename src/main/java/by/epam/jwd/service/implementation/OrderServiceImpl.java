@@ -11,6 +11,7 @@ import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.OrderService;
+import by.epam.jwd.service.validator.OrderValidator;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -37,12 +38,13 @@ public class OrderServiceImpl implements OrderService {
             } else {
                 param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
             }
+            OrderValidator.orderFieldValueValidate(param);
             Order order = createOrderEntity(param);
             String s = param.get("editId");
             if (s != null && !("".equals(s))) {
                 order.setId(Integer.parseInt(s));
             }
-            ORDER_DAO.updateOrder(order);
+            ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

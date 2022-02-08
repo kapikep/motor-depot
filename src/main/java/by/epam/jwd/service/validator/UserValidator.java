@@ -15,8 +15,6 @@ import java.util.regex.Pattern;
 public class UserValidator {
 
     private static final UserDao userDao = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
-    private static final List<String> paramFields = Arrays.asList("id" , "name", "surname", "login", "password",
-            "phoneNumber", "status", "eMail", "additionalInfo", "role", "locale");
 
     public static String idValidate(String id) throws ValidateException {
         String resMes = "All ok";
@@ -156,15 +154,6 @@ public class UserValidator {
             resMes = "additInfoLong";
         }
         return resMes;
-    }
-
-    public static void userFieldValidate(Map<String, String> param) throws ValidateException {
-
-        for (String key : param.keySet()) {
-            if(!paramFields.contains(key)){
-                throw new ValidateException(key + " - field not exist");
-            }
-        }
     }
 
     public static void userFieldValueValidate(Map<String, String> param) throws ValidateException, DAOException {
