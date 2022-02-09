@@ -105,13 +105,13 @@ public class UserValidator {
 
         if (status.isEmpty()) {
             resMes = "Status is empty";
-        } else if (status.length() > 10) {
+        } else if (status.length() > 20) {
             resMes = "Status is too long";
         } else {
             try {
                 Status.valueOf(status);
             } catch (IllegalArgumentException e) {
-                throw new ValidateException("Illegal status");
+                resMes = "Illegal status";
             }
         }
         return resMes;

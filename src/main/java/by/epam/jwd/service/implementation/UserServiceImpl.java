@@ -16,15 +16,14 @@ import java.util.Map;
 
 public class UserServiceImpl implements UserService {
 	
-	private final MotorDepotDAOFactory motorDepotDAO = MotorDepotDAOFactory.getMotorDepotDAOFactory();
-    private final UserDao userDao = motorDepotDAO.getUserDao();
+    private final UserDao USER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
 
 	@Override
 	public User authorization(String login, String password) throws ServiceException {
 		User user;
 
 			try {
-				user = userDao.authorization(login, password);
+				user = USER_DAO.authorization(login, password);
 			} catch (DAOException e) {
 				throw new ServiceException(e);
 			}
@@ -38,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			UserValidator.userFieldValueValidate(param);
 			user = createUserEntity(param);
-			userDao.createUser(user);
+			USER_DAO.createUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> readUsers() throws ServiceException {
 		List<User> Users;
 		try {
-			Users = userDao.readUsers();
+			Users = USER_DAO.readUsers();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
 		int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
 		try {
-			size = userDao.getUsersSize();
+			size = USER_DAO.getUsersSize();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -86,7 +85,7 @@ public class UserServiceImpl implements UserService {
 		int rowLimit = ServiceUtil.parseInt(rowLimitStr, 10);
 
 		try {
-			Users = userDao.readUsers(page, rowLimit);
+			Users = USER_DAO.readUsers(page, rowLimit);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -98,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		User User = null;
 		int id = ServiceUtil.parseInt(idStr);
 		try {
-			User = userDao.readUser(id);
+			User = USER_DAO.readUser(id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -109,7 +108,7 @@ public class UserServiceImpl implements UserService {
 	public User readUser(int id) throws ServiceException {
 		User User = null;
 		try {
-			User = userDao.readUser(id);
+			User = USER_DAO.readUser(id);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -120,7 +119,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> findUsers(String param, String value) throws ServiceException {
 		List<User> Users;
 		try {
-			Users = userDao.findUsers(param, value);
+			Users = USER_DAO.findUsers(param, value);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -132,7 +131,7 @@ public class UserServiceImpl implements UserService {
 
 		List<User> Users = null;
 		try {
-			Users = userDao.findUsers(criteriaMap);
+			Users = USER_DAO.findUsers(criteriaMap);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -146,7 +145,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			UserValidator.userFieldValueValidate(param);
 			user = createUserEntity(param);
-			userDao.updateUser(user);
+			USER_DAO.updateUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -172,4 +171,14 @@ public class UserServiceImpl implements UserService {
 
 		return User;
 	}
+
+	@Override
+	public void deleteUser(int id) throws ServiceException {
+		try {
+			USER_DAO.deleteUser(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
 }
+

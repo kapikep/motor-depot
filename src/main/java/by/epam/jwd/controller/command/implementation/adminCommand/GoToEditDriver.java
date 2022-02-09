@@ -29,14 +29,14 @@ public class GoToEditDriver implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DriverService driverService = MDServiceFactory.getMDService().getDriverService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
-        String edit_id = request.getParameter("edit_id");
+        String editId = request.getParameter("edit_id");
         HttpSession session = request.getSession();
         List<Car> cars = null;
         Driver driver = (Driver) session.getAttribute("wrongDriver");
 
         try {
-            if (driver == null && edit_id != null && !("".equals(edit_id))) {
-                driver = driverService.readDriver(edit_id);
+            if (driver == null && editId != null && !("".equals(editId))) {
+                driver = driverService.readDriver(editId);
                 session.setAttribute("editUserLogin", driver.getLogin());
             }
             cars =  carService.readCars();

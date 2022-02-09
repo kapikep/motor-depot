@@ -30,7 +30,7 @@ public class EditOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         Map<String, String> param = new HashMap<>();
         HttpSession session = request.getSession();
-        String resMessage = null;
+        String resMessage = bundle.getString("message.somethingWrong");
         boolean exception = false;
         String flag = request.getParameter("flag");
         Order order = null;
@@ -40,11 +40,12 @@ public class EditOrder implements Command {
         try {
             if ("create".equals(flag)) {
                 orderService.createOrder(param);
+                session.setAttribute("wrongEnteredOrder", null);
                 resMessage = bundle.getString("message.createDone");
             }
             if ("update".equals(flag)) {
                 orderService.updateOrder(param);
-                session.setAttribute("enteredOrder", null);
+                session.setAttribute("wrongEnteredOrder", null);
                 resMessage = bundle.getString("message.updateDone");
             }
         } catch (ServiceException e) {
@@ -53,6 +54,8 @@ public class EditOrder implements Command {
             log.error("Catching: ", e);
         } catch (ValidateException e) {
             exception = true;
+            log.debug("Catching: ", e);
+            System.out.println(e.getMessage());
             resMessage = e.getLocalizedMessage();
         }
         if (exception) {
@@ -61,9 +64,12 @@ public class EditOrder implements Command {
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
-            session.setAttribute("enteredOrder", order);
-            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
-                    URLEncoder.encode(resMessage, "UTF-8") + "&editId=" + request.getParameter("edit_id") + "&flag=" + flag);
+            if(resMessage == null){
+                resMessage = bundle.getString("message.somethingWrong");
+            }//TODO add to other
+            session.setAttribute("wrongEnteredOrder", order);
+            response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_EDIT_ORDER + "&message=" +
+                    URLEncoder.encode(resMessage, "UTF-8") + "&editId=" + request.getParameter("editId") + "&flag=" + flag);
         } else {
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_MAIN_ADMIN_PAGE + "&message=" + URLEncoder.encode(resMessage, "UTF-8"));
         }
@@ -85,7 +91,8 @@ public class EditOrder implements Command {
         param.put("clientPhone", request.getParameter("clientPhone"));
         param.put("adminName", request.getParameter("adminName"));
         param.put("adminSurname", request.getParameter("adminSurname"));
-        param.put("adminId", session.getAttribute("userId").toString());
+        param.put("driverId", request.getParameter("driverId"));
+        param.put("adminId", request.getParameter("adminId"));
         param.put("clientId", request.getParameter("selectedUser"));
         param.put("carId", request.getParameter("selectedCar"));
     }

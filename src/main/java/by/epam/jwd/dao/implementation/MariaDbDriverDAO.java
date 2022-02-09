@@ -27,11 +27,8 @@ public class MariaDbDriverDAO implements DriverDAO {
             Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement("INSERT INTO drivers_details " +
                     "(category, driving_experience, date_of_employment, date_of_dismissal, attached_car_id, user_id)" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?)");
+                    "VALUES(?, ?, ?, ?, ?, ?)");
             initPrepStatement(driver, ps);
-            userDAO.createUser(driver);
-            userId = userDAO.authorization(driver.getLogin(), driver.getPassword()).getId();
-            ps.setInt(6, userId);
             ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
         } catch (SQLException e) {
@@ -150,7 +147,7 @@ public class MariaDbDriverDAO implements DriverDAO {
 
     @Override
     public List<Driver> findDrivers(String whereParam, String whereValue) throws DAOException {
-        List<Driver> Drivers = new ArrayList<>();
+        List<Driver> drivers = new ArrayList<>();
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM drivers_details " +
@@ -159,13 +156,13 @@ public class MariaDbDriverDAO implements DriverDAO {
             ps.setString(1, whereValue);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                Drivers.add(buildDriver(resultSet));
+                drivers.add(buildDriver(resultSet));
             }
             CONNECTION_POOL.returnConnection(connection, ps, resultSet);
         } catch (SQLException e) {
             throw new DAOException(e);
         }
-        return Drivers;
+        return drivers;
     }
 
     @Override
@@ -256,6 +253,7 @@ public class MariaDbDriverDAO implements DriverDAO {
             ps.setTimestamp(4, null);
         }
         ps.setInt(5, driver.getAttachedCarId());
+        ps.setInt(6, driver.getUserId());
     }
 
     private Driver buildDriver(ResultSet rs) throws SQLException {

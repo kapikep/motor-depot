@@ -30,4 +30,5 @@ public interface UserDao {
 
 	void updateUser(User user) throws DAOException;
 
+	void deleteUser(int id) throws DAOException;
 }

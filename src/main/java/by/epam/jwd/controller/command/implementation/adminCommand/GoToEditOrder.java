@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class GoToEditOrder implements Command {
@@ -32,42 +30,48 @@ public class GoToEditOrder implements Command {
         CarService carService = MDServiceFactory.getMDService().getCarService();
         String editId = request.getParameter("editId");
         HttpSession session = request.getSession();
-        Order order = (Order) session.getAttribute("enteredOrder");
-        String adminName = (String) session.getAttribute("userFullName");
+        Order order = (Order) session.getAttribute("wrongEnteredOrder");
         List<String> carTypes = null;
         List<Car> cars = new ArrayList<>();
         List<User> users = new ArrayList<>();
 
         try {
-            //edit order
-            if (order == null && editId != null && !("".equals(editId))) {
-                order = orderService.readOrder(editId);
-                cars.add(carService.readCar(order.getCarId()));
+            if (order == null) {
+                //edit order
+                if (editId != null && !("".equals(editId)) && !("null".equals(editId))) {
+                    order = orderService.readOrder(editId);
+                    cars.add(carService.readCar(order.getCarId()));
 
-                if (order.getClientId() != 0) {
-                    users.add(userService.readUser(order.getClientId()));
+                    if (order.getClientId() != 0) {
+                        users.add(userService.readUser(order.getClientId()));
+                    } else {
+                        users.add(userService.readUser(1));
+                    }
+
+                } else {
+                    //create Order
+                    order = new Order();
+                    order.setStartDate(new Timestamp(new Date().getTime()));
+                    order.setEndDate(new Timestamp(new Date().getTime()));
+                    order.setRequestDate(new Timestamp(new Date().getTime()));
+                    users.add(userService.readUser(1));
                 }
+
                 if (order.getAdminId() == 0) {
-                    order.setAdminId(Integer.parseInt((String)session.getAttribute("userId")));
-                    order.setAdminName(adminName);
+                    order.setAdminId((int) session.getAttribute("userId"));
+                    order.setAdminName((String) session.getAttribute("userFullName"));
                 }
-            } else {
-                //create Order
-                order = new Order();
-                order.setStartDate(new Timestamp(new Date().getTime()));
-                order.setEndDate(new Timestamp(new Date().getTime()));
-                order.setRequestDate(new Timestamp(new Date().getTime()));
-                order.setAdminName(adminName);
+                carTypes = carService.readCarTypes();
+                session.setAttribute("carTypes", carTypes);
+                session.setAttribute("users", users);
+                session.setAttribute("drivers", null);
+                session.setAttribute("cars", cars);
             }
-            carTypes = carService.readCarTypes();
-            users.add(userService.readUser(1));
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }
 
-        session.setAttribute("users", users);
-        session.setAttribute("cars", cars);
-        session.setAttribute("carTypes", carTypes);
+        session.setAttribute("wrongEnteredOrder", null);
         request.setAttribute("order", order);
 
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);

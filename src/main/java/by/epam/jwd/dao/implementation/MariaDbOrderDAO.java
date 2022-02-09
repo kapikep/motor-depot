@@ -289,11 +289,10 @@ public class MariaDbOrderDAO implements OrderDAO {
     @Override
     public void deleteOrder(int id) throws DAOException {
         try {
-            int count;
             Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE id=?");
             ps.setInt(1, id);
-            count = ps.executeUpdate();
+            ps.executeUpdate();
             CONNECTION_POOL.returnConnection(connection, ps);
         } catch (SQLException e) {
             throw new DAOException(e);

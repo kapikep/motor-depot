@@ -3,10 +3,13 @@ package by.epam.jwd.controller.command.implementation.adminCommand;
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.command.implementation.customerCommand.GoToCustomerEditOrder;
 import by.epam.jwd.controller.constant.PagePath;
+import by.epam.jwd.dao.MotorDepotDAOFactory;
+import by.epam.jwd.dao.interf.DriverDAO;
 import by.epam.jwd.entity.*;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.interf.CarService;
+import by.epam.jwd.service.interf.DriverService;
 import by.epam.jwd.service.interf.OrderService;
 import by.epam.jwd.service.interf.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +30,7 @@ public class SelectCarToOrder implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        DriverService driverService = MDServiceFactory.getMDService().getDriverService();
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
         SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -37,6 +41,8 @@ public class SelectCarToOrder implements Command {
         HttpSession session = request.getSession();
         List<Car> cars = null;
         Order order = new Order();
+        List<Driver> drivers = new ArrayList<>();
+        List<Driver> driversForCar = null;
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
 
@@ -56,15 +62,21 @@ public class SelectCarToOrder implements Command {
                 timeSearch.put("end_date<", sdfTimestamp.format(sdfDateTime.parse(endDateStr)));
             }
 
-            timeSearch.put("order_status", Status.APPROVE.toString());
+            timeSearch.put("order_status", Status.APPROVE.toString());;
             cars = carService.findFreeCars(criteriaCarMap, timeSearch);
             order = orderService.createOrderEntity(param);
-            //order.setRequestDate(sdfTimestamp.parse(request.getParameter("requestDate")));
+            for (Car car : cars) {
+                driversForCar = driverService.findDrivers("attached_car_id", Integer.toString(car.getId()));
+                if(!driversForCar.isEmpty()){
+                    drivers.add(driversForCar.get(0));
+                }
+            }
         } catch (ServiceException | ParseException e) {
             log.error("Catching: ", e);
         }
 
         session.setAttribute("cars", cars);
+        session.setAttribute("drivers", drivers);
         request.setAttribute("order", order);
 
         request.getRequestDispatcher(PagePath.ADMIN_EDIT_ORDER_PAGE).forward(request, response);

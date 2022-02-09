@@ -29,6 +29,7 @@
         <th><fmt:message bundle="${loc}" key="table.user.status"/></th>
         <th><fmt:message bundle="${loc}" key="table.user.e-mail"/></th>
         <th><fmt:message bundle="${loc}" key="table.user.additionalInfo"/></th>
+        <th><fmt:message bundle="${loc}" key="table.car.license"/></th>
         <th><fmt:message bundle="${loc}" key="table.driver.category"/></th>
         <th><fmt:message bundle="${loc}" key="table.driver.drivingExperience"/></th>
         <th><fmt:message bundle="${loc}" key="table.driver.dateOfEmployment"/></th>
@@ -46,6 +47,9 @@
             <td><c:out value="${driver.status}"/></td>
             <td><c:out value="${driver.eMail}"/></td>
             <td><c:out value="${driver.additionalInfo}"/></td>
+            <td><a href="admin?command=GoToCarsPage&license_plate=${driver.licensePlate}">
+                <c:out value="${driver.licensePlate}"/>
+            </a></td>
             <td><c:out value="${driver.category}"/></td>
             <td><c:out value="${driver.drivingExperience}"/></td>
             <td><fmt:formatDate value="${driver.dateOfEmployment}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -57,7 +61,7 @@
         </tr>
     </c:forEach>
 
-    <c:forEach var="i" begin="1" end="12">
+    <c:forEach var="i" begin="1" end="13">
         <td></td>
     </c:forEach>
 

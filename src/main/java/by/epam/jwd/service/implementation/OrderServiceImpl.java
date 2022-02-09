@@ -26,26 +26,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createOrder(Map<String, String> param) throws ServiceException, ValidateException {
-        List<Driver> drivers;
+        System.out.println(param);
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
             param.put("clientId", "1");
         }
         try {
-            drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
-            if (drivers.isEmpty()) {
-                param.put("driverId", "1");
-            } else {
-                param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
-            }
+            findDrivers(param);
 
             OrderValidator.orderFieldValueValidate(param);
             Order order = createOrderEntity(param);
-            String s = param.get("editId");
-
-            if (s != null && !("".equals(s))) {
-                order.setId(Integer.parseInt(s));
-            }
 
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
@@ -55,22 +45,31 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(Map<String, String> param) throws ServiceException, ValidateException {
-        List<Driver> drivers;
+        System.out.println(param);
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
             param.put("clientId", "1");
         }
         try {
-            drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
-            if (drivers.isEmpty()) {
-                param.put("driverId", "1");
-            } else {
-                param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
-            }
+            findDrivers(param);
+            OrderValidator.orderFieldValueValidate(param);
             Order order = createOrderEntity(param);
+            System.out.println(order);
             ORDER_DAO.updateOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
+        }
+    }
+
+    private void findDrivers(Map<String, String> param) throws ValidateException, DAOException {
+        List<Driver> drivers;
+        if("All ok".equals(OrderValidator.carIdValidate(param.get("carId")))){
+            drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
+            if (drivers.isEmpty()) {
+                throw new ValidateException("There is no attached driver", "There is no attached driver");
+            } else {
+                param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
+            }
         }
     }
 

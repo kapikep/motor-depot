@@ -14,12 +14,14 @@
 <form action="admin" method="get">
     <c:if test="${param.flag == 'create'}">
         <fmt:message bundle="${loc}" key="table.order.createNewOrder"/>
-        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}" key="table.create"/></button>
+        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}"
+                                                                            key="table.create"/></button>
     </c:if>
 
     <c:if test="${param.flag == 'update'}">
         <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.editId}"/>
-        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}" key="table.update"/></button>
+        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}"
+                                                                            key="table.update"/></button>
         <input type="hidden" name="editId" value="${order.id}">
     </c:if>
     <input type="hidden" name="flag" value="${param.flag}">
@@ -72,6 +74,7 @@
             </select></td>
             <input type="hidden" name="adminName" value="${order.adminName}">
             <input type="hidden" name="adminSurname" value="${order.adminSurname}">
+            <input type="hidden" name="adminId" value="${order.adminId}">
             <td><c:out value="${order.adminName}"/> <c:out value="${order.adminSurname}"/></td>
         </tr>
     </table>
@@ -105,7 +108,7 @@
         </tr>
         <c:forEach var="user" items="${users}">
             <tr>
-                <td><input type="radio" checked name="selectedUser" value="${user.id}"/><c:out value="${c}"/></td>
+                <td><input type="radio" checked name="selectedUser" value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
                 <td><c:out value="${user.surname}"/></td>
                 <td><c:out value="${user.phoneNumber}"/></td>
@@ -143,10 +146,19 @@
             <th><fmt:message bundle="${loc}" key="table.car.status"/></th>
         </tr>
 
-        <c:forEach var="car" items="${cars}">
+        <c:forEach var="car" items="${cars}" varStatus="i">
             <tr>
-                <td><input type="radio" checked name="selectedCar" value="${c.id}"/><c:out value="${c}"/></td>
-                <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
+                <td><input type="radio" checked name="selectedCar" value="${car.id}"/></td>
+                <td>
+                    <c:choose>
+                        <c:when test="${drivers != null}">
+                            <c:out value="${drivers[i.index].name}"/> <c:out value="${drivers[i.index].surname}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
                 <td><c:out value="${car.modelName}"/></td>
                 <td><c:out value="${car.licencePlate}"/></td>
                 <td><c:out value="${car.color}"/></td>

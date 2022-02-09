@@ -154,11 +154,11 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> findCars(Map<String, String> criteriaMap) throws ServiceException {
         if("".equals(criteriaMap.get("load_capacity"))){
-            criteriaMap.put("load_capacity", ">1");
+            criteriaMap.put("load_capacity", ">0");
         }
 
         if("".equals(criteriaMap.get("passenger_capacity"))){
-            criteriaMap.put("passenger_capacity", ">1");
+            criteriaMap.put("passenger_capacity", ">0");
         }
 
         List<Car> cars = null;

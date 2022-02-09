@@ -33,4 +33,6 @@ public interface UserService {
 	void updateUser(Map<String, String> criteriaMap) throws ServiceException, ValidateException;
 
 	User createUserEntity(Map<String, String> param) throws ServiceException;
+
+	void deleteUser(int id) throws ServiceException;
 }

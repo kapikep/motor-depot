@@ -19,7 +19,7 @@ public class DriverValidator {
     public static String categoryValidate(String category) {
         String resMes = "All ok";
 
-        if (category.length() > 20) {
+        if (category.length() > 100) {
             resMes = "categoryLong";
         }
         return resMes;
@@ -30,7 +30,7 @@ public class DriverValidator {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(drEx);
 
-        if (!(matcher.matches())) {
+        if (!(matcher.matches()) || drEx.equals("0")) {
             resMes = "incorrectDrivingExp";
         } else if (drEx.length() > 20) {
             resMes = "drivingExpLong";
@@ -53,14 +53,14 @@ public class DriverValidator {
         Date dismDate = null;
         Date emplDate = null;
 
-        try {
-            emplDate = sdf.parse(emplDateStr);
-        } catch (ParseException e) {
-            resMes = "incorrectDateOfEmployment";
-        }
-
-        if(dismDateStr != null && !"".equals(dismDateStr)) {
+        if(dismDateStr != null && !"".equals(dismDateStr)
+        && emplDateStr != null && !"".equals(emplDateStr)) {
             try {
+                try {
+                    emplDate = sdf.parse(emplDateStr);
+                } catch (ParseException ignored) {
+
+                }
                 dismDate = sdf.parse(dismDateStr);
                 if (dismDate.before(emplDate)) {
                     resMes = "incorrectDateOfDismBefEmpl";
@@ -73,6 +73,7 @@ public class DriverValidator {
     }
 
     public static void driverFieldValueValidate(Map<String, String> param) throws ValidateException, DAOException {
+        UserValidator.userFieldValueValidate(param);
         StringBuilder resMes = new StringBuilder();
         StringBuilder locResMes = new StringBuilder();
         Locale locale;

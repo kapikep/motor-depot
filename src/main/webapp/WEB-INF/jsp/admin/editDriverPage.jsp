@@ -66,8 +66,7 @@
             <td><input type="text" name="eMail" value="${driver.eMail}" placeholder="name@email.com" size="6"
                        maxlength="20"/></td>
             <td><textarea name="additionalInfo" rows="4" cols="10">${driver.additionalInfo}</textarea></td>
-            <td><input type="text" name="category" value="${driver.category}" placeholder="A, B, C, D" size="1"
-                       maxlength="20"/></td>
+            <td><textarea name="category" rows="4" cols="10">${driver.category}</textarea></td>
             <td><input type="text" name="drivingExperience" value="${driver.drivingExperience}" placeholder="1" size="1"
                        maxlength="20"/></td>
             <td><input type="datetime-local" name="dateOfEmployment"
