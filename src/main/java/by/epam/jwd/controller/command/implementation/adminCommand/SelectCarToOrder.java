@@ -46,7 +46,7 @@ public class SelectCarToOrder implements Command {
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
 
-        EditOrder.fillingOrderParamMap(request, param, session);
+        EditOrder.fillingOrderParamMap(request, param);
 
         try {
             criteriaCarMap.put("load_capacity", request.getParameter("loadCapacity"));

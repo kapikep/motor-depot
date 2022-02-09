@@ -30,5 +30,7 @@ public interface OrderDAO {
 
     void updateOrder(Order order) throws DAOException;
 
+    void blockOrder(Order order) throws DAOException;
+
     void deleteOrder(int id) throws DAOException;
 }

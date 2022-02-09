@@ -17,7 +17,9 @@ public interface OrderService {
 
     void updateOrder(Order order) throws ServiceException;
 
-    void createNotApproveOrder(String fullName, String phoneNumber, String criteria, int userId) throws ServiceException;
+    void blockOrder(String id) throws ServiceException;
+
+    void createNotApproveOrder(Map<String, String> param) throws ServiceException;
 
     Order readOrder(String id) throws ServiceException;
 

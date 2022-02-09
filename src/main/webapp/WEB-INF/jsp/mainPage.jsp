@@ -15,7 +15,7 @@
         ${role}
     </c:if>
 </div>
-<c:out value="${param.message}"/>
+<b><c:out value="${param.message}"/></b>
 <h2><fmt:message bundle="${loc}" key="welcome.deport"/></h2>
 <p><fmt:message bundle="${loc}" key="welcome.ourCont"/> +375291111111</p>
 <p> <a href="welcome?command=GoToWelcomeCreateOrder"> <fmt:message bundle="${loc}" key="welcome.createOrder"/> </a> </p>

@@ -47,12 +47,9 @@ public class GoToEditOrder implements Command {
                     } else {
                         users.add(userService.readUser(1));
                     }
-
                 } else {
                     //create Order
                     order = new Order();
-                    order.setStartDate(new Timestamp(new Date().getTime()));
-                    order.setEndDate(new Timestamp(new Date().getTime()));
                     order.setRequestDate(new Timestamp(new Date().getTime()));
                     users.add(userService.readUser(1));
                 }

@@ -39,7 +39,7 @@ public class SelectCustomerToOrder implements Command {
         Order order = null;
         List<User> users = new ArrayList<>();
 
-        EditOrder.fillingOrderParamMap(request, param, session);
+        EditOrder.fillingOrderParamMap(request, param);
 
         if (searchName != null && !"".equals(searchName)) {
             userParam.put("name", searchName);

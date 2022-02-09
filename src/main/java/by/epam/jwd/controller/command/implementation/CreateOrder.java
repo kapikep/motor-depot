@@ -1,6 +1,7 @@
 package by.epam.jwd.controller.command.implementation;
 
 import by.epam.jwd.controller.command.Command;
+import by.epam.jwd.controller.command.implementation.adminCommand.EditOrder;
 import by.epam.jwd.controller.constant.CommandName;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
@@ -22,27 +23,26 @@ public class CreateOrder implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
-        String message = "Create done";
+        Map<String, String> param = new HashMap<>();
+        String message;
 
-        if ("/welcome".equals(request.getServletPath())) {
-            int countRequest = 0;
-            if (request.getSession().getAttribute("countRequest") != null) {
-                countRequest = (int) request.getSession().getAttribute("countRequest");
-            }
-            request.getSession().setAttribute("countRequest", ++countRequest);
-            if (countRequest < 2) {
-                try {
-                    orderService.createNotApproveOrder(request.getParameter("fullName"),
-                            request.getParameter("phone"), request.getParameter("criteria"), 1);
-                } catch (ServiceException e) {
-                    message = "Something wrong, try agan";
-                    log.error("Catching: ", e);
-                }
-                message = "The order has been created, wait for the administrator to call";
-            } else {
-                message = "To much requests";
-            }
-            response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_MAIN_PAGE + "&message=" + message);
+        int countRequest = 0;
+        if (request.getSession().getAttribute("countRequest") != null) {
+            countRequest = (int) request.getSession().getAttribute("countRequest");
         }
+        request.getSession().setAttribute("countRequest", ++countRequest);
+        if (countRequest < 2) {
+            try {
+                EditOrder.fillingOrderParamMap(request, param);
+                orderService.createNotApproveOrder(param);
+                message = "The order has been created, wait for the administrator to call";
+            } catch (ServiceException e) {
+                message = "Something wrong, try agan";
+                log.error("Catching: ", e);
+            }
+        } else {
+            message = "To much requests";
+        }
+        response.sendRedirect(CommandName.WELCOME_COMMAND + CommandName.GO_TO_MAIN_PAGE + "&message=" + message);
     }
 }

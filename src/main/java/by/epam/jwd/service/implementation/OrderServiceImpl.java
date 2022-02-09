@@ -4,12 +4,15 @@ import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.DriverDAO;
 import by.epam.jwd.dao.interf.OrderDAO;
+import by.epam.jwd.dao.interf.UserDao;
 import by.epam.jwd.entity.Driver;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
+import by.epam.jwd.entity.User;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.ValidateException;
+import by.epam.jwd.service.interf.DriverService;
 import by.epam.jwd.service.interf.OrderService;
 import by.epam.jwd.service.validator.OrderValidator;
 
@@ -23,10 +26,10 @@ import java.util.Map;
 public class OrderServiceImpl implements OrderService {
     private final OrderDAO ORDER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getOrderDao();
     private final DriverDAO DRIVER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getDriverDao();
+    private final UserDao USER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
 
     @Override
     public void createOrder(Map<String, String> param) throws ServiceException, ValidateException {
-        System.out.println(param);
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
             param.put("clientId", "1");
@@ -36,7 +39,6 @@ public class OrderServiceImpl implements OrderService {
 
             OrderValidator.orderFieldValueValidate(param);
             Order order = createOrderEntity(param);
-
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -45,10 +47,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(Map<String, String> param) throws ServiceException, ValidateException {
-        System.out.println(param);
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
             param.put("clientId", "1");
+        }else {
+            //User user = USER_DAO.readUser();
+            param.put("clientPhone", param.get("clientPhone"));
         }
         try {
             findDrivers(param);
@@ -86,7 +90,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(Order order) throws ServiceException {
-
         try {
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
@@ -95,15 +98,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createNotApproveOrder(String fullName, String phoneNumber, String criteria, int userId) throws ServiceException {
+    public void blockOrder(String id) throws ServiceException {
         Order order = new Order();
+        order.setId(ServiceUtil.parseInt(id));
+        order.setOrderStatus(Status.BLOCK.toString());
         try {
-            order.setClientFullName(fullName);
-            order.setClientPhone(phoneNumber);
-            order.setCriteria(criteria);
+            ORDER_DAO.blockOrder(order);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void createNotApproveOrder(Map<String, String> param) throws ServiceException {
+        Order order;
+        try {
+            order = createOrderEntity(param);
             order.setOrderStatus(Status.NOT_APPROVE.toString());
             order.setRequestDate(new Date());
-            order.setClientId(userId);
+            order.setClientId(1);
             ORDER_DAO.createNotApproveOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);

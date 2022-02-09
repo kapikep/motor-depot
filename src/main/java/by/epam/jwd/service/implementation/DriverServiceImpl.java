@@ -117,24 +117,24 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public List<Driver> findDrivers(String param, String value) throws ServiceException {
-        List<Driver> Drivers;
+        List<Driver> drivers;
         try {
-            Drivers = DRIVER_DAO.findDrivers(param, value);
+            drivers = DRIVER_DAO.findDrivers(param, value);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        return Drivers;
+        return drivers;
     }
 
     @Override
     public List<Driver> findDrivers(Map<String, String> criteriaMap) throws ServiceException {
-        List<Driver> Drivers;
+        List<Driver> drivers;
         try {
-            Drivers = DRIVER_DAO.findDrivers(criteriaMap);
+            drivers = DRIVER_DAO.findDrivers(criteriaMap);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        return Drivers;
+        return drivers;
     }
 
     @Override

@@ -267,6 +267,20 @@ public class MariaDbOrderDAO implements OrderDAO {
         }
     }
 
+    @Override
+    public void blockOrder(Order order) throws DAOException {
+        try {
+            Connection connection = CONNECTION_POOL.takeConnection();
+            PreparedStatement ps = connection.prepareStatement( "UPDATE orders SET order_status=? WHERE id=?");
+            ps.setString(1, order.getOrderStatus());
+            ps.setInt(2, order.getId());
+            ps.executeUpdate();
+            CONNECTION_POOL.returnConnection(connection, ps);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
     private void initPrepStatement(Order order, PreparedStatement ps) throws SQLException {
         ps.setString(1, order.getCriteria());
         ps.setTimestamp(2, new Timestamp(order.getRequestDate().getTime()));

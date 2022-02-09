@@ -3,6 +3,7 @@ package by.epam.jwd.controller.command.implementation.adminCommand;
 import by.epam.jwd.controller.command.Command;
 import by.epam.jwd.controller.constant.CommandName;
 import by.epam.jwd.entity.Order;
+import by.epam.jwd.entity.Status;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ValidateException;
@@ -35,7 +36,7 @@ public class EditOrder implements Command {
         String flag = request.getParameter("flag");
         Order order = null;
 
-        fillingOrderParamMap(request, param, session);
+        fillingOrderParamMap(request, param);
 
         try {
             if ("create".equals(flag)) {
@@ -44,8 +45,13 @@ public class EditOrder implements Command {
                 resMessage = bundle.getString("message.createDone");
             }
             if ("update".equals(flag)) {
-                orderService.updateOrder(param);
-                session.setAttribute("wrongEnteredOrder", null);
+                if(Status.BLOCK.toString().equals(request.getParameter("status")) &&
+                        !"".equals(request.getParameter("editId"))){
+                    orderService.blockOrder(request.getParameter("editId"));
+                }else {
+                    orderService.updateOrder(param);
+                    session.setAttribute("wrongEnteredOrder", null);
+                }
                 resMessage = bundle.getString("message.updateDone");
             }
         } catch (ServiceException e) {
@@ -75,7 +81,7 @@ public class EditOrder implements Command {
         }
     }
 
-    static void fillingOrderParamMap(HttpServletRequest request, Map<String, String> param, HttpSession session) {
+    public static void fillingOrderParamMap(HttpServletRequest request, Map<String, String> param) {
         param.put("id", request.getParameter("editId"));
         param.put("criteria", request.getParameter("criteria"));
         param.put("requestDate", request.getParameter("requestDate"));
