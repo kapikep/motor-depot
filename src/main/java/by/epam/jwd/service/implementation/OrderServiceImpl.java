@@ -38,12 +38,15 @@ public class OrderServiceImpl implements OrderService {
             } else {
                 param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
             }
+
             OrderValidator.orderFieldValueValidate(param);
             Order order = createOrderEntity(param);
             String s = param.get("editId");
+
             if (s != null && !("".equals(s))) {
                 order.setId(Integer.parseInt(s));
             }
+
             ORDER_DAO.createOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);

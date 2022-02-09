@@ -33,7 +33,6 @@ public class EditOrder implements Command {
         String resMessage = null;
         boolean exception = false;
         String flag = request.getParameter("flag");
-
         Order order = null;
 
         fillingOrderParamMap(request, param, session);
@@ -43,7 +42,6 @@ public class EditOrder implements Command {
                 orderService.createOrder(param);
                 resMessage = bundle.getString("message.createDone");
             }
-
             if ("update".equals(flag)) {
                 orderService.updateOrder(param);
                 session.setAttribute("enteredOrder", null);
@@ -57,16 +55,13 @@ public class EditOrder implements Command {
             exception = true;
             resMessage = e.getLocalizedMessage();
         }
-
         if (exception) {
             try {
                 order = orderService.createOrderEntity(param);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
-
             session.setAttribute("enteredOrder", order);
-
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_EDIT_USER + "&message=" +
                     URLEncoder.encode(resMessage, "UTF-8") + "&editId=" + request.getParameter("edit_id") + "&flag=" + flag);
         } else {
@@ -77,9 +72,9 @@ public class EditOrder implements Command {
     static void fillingOrderParamMap(HttpServletRequest request, Map<String, String> param, HttpSession session) {
         param.put("id", request.getParameter("editId"));
         param.put("criteria", request.getParameter("criteria"));
+        param.put("requestDate", request.getParameter("requestDate"));
         param.put("departPlace", request.getParameter("departPlace"));
         param.put("arrivalPlace", request.getParameter("arrivalPlace"));
-        param.put("requestDate", request.getParameter("requestDate"));
         param.put("startDate", request.getParameter("startDate"));
         param.put("endDate", request.getParameter("endDate"));
         param.put("distance", request.getParameter("distance"));
@@ -88,7 +83,8 @@ public class EditOrder implements Command {
         param.put("status", request.getParameter("status"));
         param.put("clientFullName", request.getParameter("clientFullName"));
         param.put("clientPhone", request.getParameter("clientPhone"));
-        param.put("adminName", (String) session.getAttribute("userFullName"));
+        param.put("adminName", request.getParameter("adminName"));
+        param.put("adminSurname", request.getParameter("adminSurname"));
         param.put("adminId", session.getAttribute("userId").toString());
         param.put("clientId", request.getParameter("selectedUser"));
         param.put("carId", request.getParameter("selectedCar"));

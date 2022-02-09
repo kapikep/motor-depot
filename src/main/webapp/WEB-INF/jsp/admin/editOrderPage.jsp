@@ -70,6 +70,8 @@
                     </c:choose>
                 </c:forEach>
             </select></td>
+            <input type="hidden" name="adminName" value="${order.adminName}">
+            <input type="hidden" name="adminSurname" value="${order.adminSurname}">
             <td><c:out value="${order.adminName}"/> <c:out value="${order.adminSurname}"/></td>
         </tr>
     </table>
@@ -176,7 +178,7 @@
     <input type="text" name="passengerCapacity" value="" size="3" maxlength="6" minlength="1"/>
     <br>
     <button type="submit" name="command" value="SelectCarToOrder"><fmt:message bundle="${loc}"
-                                                                               key="table.next"/></button>
+                                                                               key="table.search"/></button>
 </form>
 <br>
 </body>

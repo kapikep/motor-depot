@@ -30,7 +30,7 @@ public class GoToEditOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         UserService userService = MDServiceFactory.getMDService().getUserService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
-        String edit_id = request.getParameter("editId");
+        String editId = request.getParameter("editId");
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("enteredOrder");
         String adminName = (String) session.getAttribute("userFullName");
@@ -39,18 +39,20 @@ public class GoToEditOrder implements Command {
         List<User> users = new ArrayList<>();
 
         try {
-            if(order == null && edit_id != null && !("".equals(edit_id))) {
-                order = orderService.readOrder(edit_id);
+            //edit order
+            if (order == null && editId != null && !("".equals(editId))) {
+                order = orderService.readOrder(editId);
                 cars.add(carService.readCar(order.getCarId()));
 
-                if(order.getClientId() != 0){
+                if (order.getClientId() != 0) {
                     users.add(userService.readUser(order.getClientId()));
                 }
-
-                if(order.getAdminName() == null){
+                if (order.getAdminId() == 0) {
+                    order.setAdminId(Integer.parseInt((String)session.getAttribute("userId")));
                     order.setAdminName(adminName);
                 }
-            }else {
+            } else {
+                //create Order
                 order = new Order();
                 order.setStartDate(new Timestamp(new Date().getTime()));
                 order.setEndDate(new Timestamp(new Date().getTime()));
@@ -58,9 +60,7 @@ public class GoToEditOrder implements Command {
                 order.setAdminName(adminName);
             }
             carTypes = carService.readCarTypes();
-            if(users.isEmpty()){
-                users.add(userService.readUser(1));
-            }
+            users.add(userService.readUser(1));
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }

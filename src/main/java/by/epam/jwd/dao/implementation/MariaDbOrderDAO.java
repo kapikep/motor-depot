@@ -305,7 +305,6 @@ public class MariaDbOrderDAO implements OrderDAO {
                 rs.getString("arrival_place"), rs.getTimestamp("start_date"), rs.getTimestamp("end_date"), rs.getString("order_status"),
                 rs.getInt("travel_distance"), rs.getInt("total_amount"), rs.getString("payment_status"), rs.getInt("client_id"),
                 rs.getString("client_full_name"), rs.getString("client_phone"), rs.getInt("cars_id"), rs.getString("licence_plate"), rs.getInt("driver_id"),
-                rs.getString("u2.name"), rs.getString("u2.surname"), rs.getInt("admin_id"),
-                rs.getString("u3.name"), rs.getString("u3.surname"));
+                rs.getString("u2.name"), rs.getString("u2.surname"), rs.getInt("admin_id"), rs.getString("u3.name"), rs.getString("u3.surname"));
     }
 }
