@@ -16,7 +16,7 @@ public class OrderValidator {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
-    public static String idValidate(String id) throws ValidateException {
+    public static String idValidate(String id) {
         String resMes = "All ok";
         if (id != null) {
             Pattern pattern = Pattern.compile("\\d+");
@@ -31,7 +31,7 @@ public class OrderValidator {
         return resMes;
     }
 
-    public static String carIdValidate(String id) throws ValidateException {
+    public static String carIdValidate(String id) {
         String resMes = "All ok";
         if (id != null) {
             Pattern pattern = Pattern.compile("\\d+");
@@ -49,7 +49,7 @@ public class OrderValidator {
         return resMes;
     }
 
-    public static String clientIdValidate(String id) throws ValidateException {
+    public static String clientIdValidate(String id) {
         String resMes = "All ok";
 
         if (id != null) {
@@ -67,7 +67,7 @@ public class OrderValidator {
         return resMes;
     }
 
-    public static String driverIdValidate(String id) throws ValidateException {
+    public static String driverIdValidate(String id) {
         String resMes = "All ok";
 
         if (id != null) {
@@ -85,7 +85,7 @@ public class OrderValidator {
         return resMes;
     }
 
-    public static String adminIdValidate(String id) throws ValidateException {
+    public static String adminIdValidate(String id) {
         String resMes = "All ok";
 
         if (id != null) {
@@ -103,7 +103,7 @@ public class OrderValidator {
         return resMes;
     }
 
-    public static String criteriaValidate(String criteria) throws ValidateException {
+    public static String criteriaValidate(String criteria) {
         String resMes = "All ok";
 
         if (criteria.isEmpty()) {
@@ -114,7 +114,7 @@ public class OrderValidator {
         return resMes;
     }
 
-    public static String phoneValidate(String phone, String clientId) throws ValidateException {
+    public static String phoneValidate(String phone, String clientId) {
         String resMes = "All ok";
         Pattern pattern = Pattern.compile("\\+?\\d{1,15}");
         Matcher matcher = pattern.matcher(phone);
@@ -129,24 +129,20 @@ public class OrderValidator {
         return resMes;
     }
 
-    public static String clientNameValidate(String name, String clientId) throws ValidateException {
+    public static String contactDetailsValidate(String name, String clientId) {
         String resMes = "All ok";
-        Pattern pattern = Pattern.compile("([A-Z]|[А-Я])([a-z]|[а-я]){2,15} ([A-Z]|[А-Я])([a-z]|[а-я]){2,15}");
-        Matcher matcher = pattern.matcher(name);
 
         if ("1".equals(clientId)) {
             if(name.isEmpty()){
                 resMes = "nameEmpty";
             } else if (name.length() > 20) {
                 resMes = "nameLong";
-            } else if (!matcher.matches()) {
-                resMes = "incorrectName";
             }
         }
         return resMes;
     }
 
-    public static String nameValidate(String name) throws ValidateException {
+    public static String nameValidate(String name) {
         String resMes = "All ok";
 
         if (name.isEmpty()) {
@@ -224,8 +220,8 @@ public class OrderValidator {
                 case ("status"):
                     methodRes = UserValidator.statusValidate(param.get(key));
                     break;
-                case ("clientFullName"):
-                    methodRes = clientNameValidate(param.get(key), param.get("clientId"));
+                case ("contactDetails"):
+                    methodRes = contactDetailsValidate(param.get(key), param.get("clientId"));
                     break;
                 case ("clientPhone"):
                     methodRes = phoneValidate(param.get(key), param.get("clientId"));

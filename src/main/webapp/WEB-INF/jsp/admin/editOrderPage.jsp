@@ -83,11 +83,11 @@
     <fmt:message bundle="${loc}" key="table.order.clientLeftInformation"/>
     <table border="1" cellpadding="5" cellspacing="1">
         <tr>
-            <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
+            <th><fmt:message bundle="${loc}" key="table.order.contactDetails"/></th>
             <th><fmt:message bundle="${loc}" key="table.user.phoneNumber"/></th>
         </tr>
         <tr>
-            <td><textarea name="clientFullName" rows="4" cols="20">${order.clientFullName}</textarea></td>
+            <td><textarea name="contactDetails" rows="4" cols="20">${order.contactDetails}</textarea></td>
             <td><input type="text" name="clientPhone" value="${order.clientPhone}" size="8" maxlength="30"
                        minlength="5"/>
         </tr>

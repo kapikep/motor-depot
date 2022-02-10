@@ -54,7 +54,7 @@ public class UpdateOrderByDriver implements Command {
         param.put("totalAmount", Integer.toString(order.getTotalAmount()));
         param.put("paymentStatus", order.getPaymentStatus());
         param.put("status", request.getParameter("status"));
-        param.put("clientFullName", order.getClientFullName());
+        param.put("contactDetails", order.getContactDetails());
         param.put("clientPhone", order.getClientPhone());
         param.put("adminName", order.getAdminName());
         param.put("carId", Integer.toString(order.getCarId()));

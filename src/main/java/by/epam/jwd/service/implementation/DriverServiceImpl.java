@@ -3,11 +3,9 @@ package by.epam.jwd.service.implementation;
 import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.DriverDAO;
-import by.epam.jwd.dao.interf.UserDao;
 import by.epam.jwd.entity.Driver;
 import by.epam.jwd.entity.Role;
 import by.epam.jwd.entity.Status;
-import by.epam.jwd.entity.User;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
@@ -15,7 +13,7 @@ import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.DriverService;
 import by.epam.jwd.service.interf.UserService;
 import by.epam.jwd.service.validator.DriverValidator;
-import by.epam.jwd.service.validator.UserValidator;
+import by.epam.jwd.service.validator.OrderValidator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,9 +29,7 @@ public class DriverServiceImpl implements DriverService {
     public void createDriver(Map<String, String> param) throws ServiceException, ValidateException {
         Driver driver;
         Integer userId = null;
-        System.out.println(userId);
         try {
-            System.out.println("Map" + param);
             DriverValidator.driverFieldValueValidate(param);
             param.put("role", Role.DRIVER.toString());
             USER_SERVICE.createUser(param);
@@ -42,10 +38,7 @@ public class DriverServiceImpl implements DriverService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-
         driver = createDriverEntity(param);
-        System.out.println(driver);
-
         try {
             DRIVER_DAO.createDriver(driver);
         } catch (DAOException e) {
@@ -124,6 +117,19 @@ public class DriverServiceImpl implements DriverService {
             throw new ServiceException(e);
         }
         return drivers;
+    }
+
+    @Override
+    public void findDriversByCar(Map<String, String> param) throws ValidateException, DAOException {
+        List<Driver> drivers;
+        if("All ok".equals(OrderValidator.carIdValidate(param.get("carId")))){
+            drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
+            if (drivers.isEmpty()) {
+                throw new ValidateException("There is no attached driver", "There is no attached driver");
+            } else {
+                param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
+            }
+        }
     }
 
     @Override

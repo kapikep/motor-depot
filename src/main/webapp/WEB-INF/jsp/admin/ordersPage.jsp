@@ -32,8 +32,8 @@
         <th><fmt:message bundle="${loc}" key="table.order.totalAmount"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.paymentStatus"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.orderStatus"/></th>
-        <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
-        <th><fmt:message bundle="${loc}" key="table.order.clientNumber"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.contactDetails"/></th>
+        <th><fmt:message bundle="${loc}" key="table.user.phoneNumber"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.driverFullName"/></th>
         <th><fmt:message bundle="${loc}" key="table.car.license"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.adminFullName"/></th>
@@ -51,7 +51,7 @@
             <td><c:out value="${order.totalAmount}"/></td>
             <td><c:out value="${order.paymentStatus}"/></td>
             <td><c:out value="${order.orderStatus}"/></td>
-            <td><c:out value="${order.clientFullName}"/> </td>
+            <td><c:out value="${order.contactDetails}"/> </td>
             <td><c:out value="${order.clientPhone}"/> </td>
             <td><c:out value="${order.driverName}"/> <c:out value="${order.driverSurname}"/></td>
             <td>

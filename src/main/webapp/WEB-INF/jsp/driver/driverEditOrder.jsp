@@ -26,7 +26,7 @@
             <th><fmt:message bundle="${loc}" key="table.order.endDate"/></th>
             <th><fmt:message bundle="${loc}" key="table.order.distance"/></th>
             <th><fmt:message bundle="${loc}" key="table.order.orderStatus"/></th>
-            <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
+            <th><fmt:message bundle="${loc}" key="table.order.contactDetails"/></th>
             <th><fmt:message bundle="${loc}" key="table.order.clientNumber"/></th>
             <th><fmt:message bundle="${loc}" key="table.car.status"/> <fmt:message bundle="${loc}" key="car.car"/></th>
             <th><fmt:message bundle="${loc}" key="table.order.adminFullName"/></th>
@@ -53,7 +53,7 @@
                     </c:choose>
                 </c:forEach>
             </select></td>
-            <td><c:out value="${order.clientFullName}"/></td>
+            <td><c:out value="${order.contactDetails}"/></td>
             <td><c:out value="${order.clientPhone}"/></td>
             <td><textarea name="carStatus" rows="4" cols="8">${car.status}</textarea></td>
             <td><c:out value="${order.adminName}"/> <c:out value="${order.adminSurname}"/></td>

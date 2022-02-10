@@ -13,9 +13,9 @@ public class MDServiceFactory {
 
     private static final MDServiceFactory INSTANCE = new MDServiceFactory();
     private static final CarService CAR_SERVICE = new CarServiceImpl();
-    private static final OrderService ORDER_SERVICE = new OrderServiceImpl();
     private static final UserService USER_SERVICE = new UserServiceImpl();
     private static final DriverService DRIVER_SERVICE = new DriverServiceImpl();
+    private static final OrderService ORDER_SERVICE = new OrderServiceImpl();
 
     private MDServiceFactory(){}
 

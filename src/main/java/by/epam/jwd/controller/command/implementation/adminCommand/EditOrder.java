@@ -60,8 +60,8 @@ public class EditOrder implements Command {
             log.error("Catching: ", e);
         } catch (ValidateException e) {
             exception = true;
-            log.debug("Catching: ", e);
-            System.out.println(e.getMessage());
+            //log.debug("Catching: ", e);
+            //System.out.println(e.getMessage());
             resMessage = e.getLocalizedMessage();
         }
         if (exception) {
@@ -93,7 +93,7 @@ public class EditOrder implements Command {
         param.put("totalAmount", request.getParameter("totalAmount"));
         param.put("paymentStatus", request.getParameter("paymentStatus"));
         param.put("status", request.getParameter("status"));
-        param.put("clientFullName", request.getParameter("clientFullName"));
+        param.put("contactDetails", request.getParameter("contactDetails"));
         param.put("clientPhone", request.getParameter("clientPhone"));
         param.put("adminName", request.getParameter("adminName"));
         param.put("adminSurname", request.getParameter("adminSurname"));

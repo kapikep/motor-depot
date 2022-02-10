@@ -20,7 +20,7 @@ public class MariaDbOrderDAO implements OrderDAO {
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (criteria, request_date, depart_place, arrival_place, start_date, end_date, " +
-                    "order_status, travel_distance, total_amount, payment_status, client_full_name, client_phone, client_id, cars_id, driver_id, admin_id)" +
+                    "order_status, travel_distance, total_amount, payment_status, contact_details, client_phone, client_id, cars_id, driver_id, admin_id)" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             initPrepStatement(order, ps);
             ps.executeUpdate();
@@ -35,14 +35,14 @@ public class MariaDbOrderDAO implements OrderDAO {
         try {
             Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement("INSERT INTO orders (criteria, request_date, depart_place, arrival_place, " +
-                    "order_status, client_full_name, client_phone, client_id)" +
+                    "order_status, contact_details, client_phone, client_id)" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, order.getCriteria());
             ps.setTimestamp(2, new Timestamp(order.getRequestDate().getTime()));
             ps.setString(3, order.getDepartPlace());
             ps.setString(4, order.getArrivalPlace());
             ps.setString(5, Status.NOT_APPROVE.toString());
-            ps.setString(6, order.getClientFullName());
+            ps.setString(6, order.getContactDetails());
             ps.setString(7, order.getClientPhone());
             ps.setInt(8, order.getClientId());
             ps.executeUpdate();
@@ -257,7 +257,7 @@ public class MariaDbOrderDAO implements OrderDAO {
             Connection connection = CONNECTION_POOL.takeConnection();
             PreparedStatement ps = connection.prepareStatement( "UPDATE orders SET " +
                     "criteria=?, request_date=?, depart_place=?, arrival_place=?, start_date=?, end_date=?, order_status=?, travel_distance=?, " +
-                    "total_amount=?, payment_status=?, client_full_name=?, client_phone=?, client_id=?, cars_id=?, driver_id=?, admin_id=? WHERE id=?");
+                    "total_amount=?, payment_status=?, contact_details=?, client_phone=?, client_id=?, cars_id=?, driver_id=?, admin_id=? WHERE id=?");
             initPrepStatement(order, ps);
             ps.setInt(17, order.getId());
             ps.executeUpdate();
@@ -292,7 +292,7 @@ public class MariaDbOrderDAO implements OrderDAO {
         ps.setInt(8, order.getDistance());
         ps.setInt(9, order.getTotalAmount());
         ps.setString(10, order.getPaymentStatus());
-        ps.setString(11, order.getClientFullName());
+        ps.setString(11, order.getContactDetails());
         ps.setString(12, order.getClientPhone());
         ps.setInt(13, order.getClientId());
         ps.setInt(14, order.getCarId());
@@ -317,7 +317,7 @@ public class MariaDbOrderDAO implements OrderDAO {
         return new Order(rs.getInt("id"), rs.getString("criteria"), rs.getTimestamp("request_date"), rs.getString("depart_place"),
                 rs.getString("arrival_place"), rs.getTimestamp("start_date"), rs.getTimestamp("end_date"), rs.getString("order_status"),
                 rs.getInt("travel_distance"), rs.getInt("total_amount"), rs.getString("payment_status"), rs.getInt("client_id"),
-                rs.getString("client_full_name"), rs.getString("client_phone"), rs.getInt("cars_id"), rs.getString("licence_plate"), rs.getInt("driver_id"),
+                rs.getString("contact_details"), rs.getString("client_phone"), rs.getInt("cars_id"), rs.getString("licence_plate"), rs.getInt("driver_id"),
                 rs.getString("u2.name"), rs.getString("u2.surname"), rs.getInt("admin_id"), rs.getString("u3.name"), rs.getString("u3.surname"));
     }
 }

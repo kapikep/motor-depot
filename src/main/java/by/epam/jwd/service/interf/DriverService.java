@@ -1,5 +1,6 @@
 package by.epam.jwd.service.interf;
 
+import by.epam.jwd.dao.DAOException;
 import by.epam.jwd.entity.Driver;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ValidateException;
@@ -22,6 +23,8 @@ public interface DriverService {
     Driver readDriver(String idStr) throws ServiceException;
 
     List<Driver> findDrivers(String param, String value) throws ServiceException;
+
+    void findDriversByCar(Map<String, String> param) throws ValidateException, DAOException;
 
     List<Driver> findDrivers(Map<String, String> criteriaMap) throws ServiceException;
 

@@ -22,7 +22,7 @@
         <th><fmt:message bundle="${loc}" key="table.order.requestDate"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.startDate"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.orderStatus"/></th>
-        <th><fmt:message bundle="${loc}" key="table.order.clientFullName"/></th>
+        <th><fmt:message bundle="${loc}" key="table.order.contactDetails"/></th>
         <th><fmt:message bundle="${loc}" key="table.order.clientNumber"/></th>
         <th><fmt:message bundle="${loc}" key="table.view"/></th>
     </tr>
@@ -33,7 +33,7 @@
             <td><fmt:formatDate value="${order.requestDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td><fmt:formatDate value="${order.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td><c:out value="${order.orderStatus}"/></td>
-            <td><c:out value="${order.clientFullName}"/> </td>
+            <td><c:out value="${order.contactDetails}"/> </td>
             <td><c:out value="${order.clientPhone}"/> </td>
             <td>
                 <a href="admin?command=GoToEditOrder&editId=${order.id}&flag=update">

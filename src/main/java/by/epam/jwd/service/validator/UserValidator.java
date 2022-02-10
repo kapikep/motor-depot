@@ -29,7 +29,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String loginValidate(String login) throws ValidateException, DAOException {
+    public static String loginValidate(String login) throws DAOException {
         List<User> users = null;
         String resMes = "All ok";
         if (login.isEmpty()) {
@@ -45,7 +45,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String passwordValidate(String password) throws ValidateException {
+    public static String passwordValidate(String password) {
         String resMes = "All ok";
         if (password.isEmpty()) {
             resMes = "passEmpty";
@@ -57,7 +57,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String phoneValidate(String phone) throws ValidateException {
+    public static String phoneValidate(String phone) {
         String resMes = "All ok";
         Pattern pattern = Pattern.compile("\\+?\\d{1,15}");
         Matcher matcher = pattern.matcher(phone);
@@ -70,7 +70,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String nameValidate(String name) throws ValidateException {
+    public static String nameValidate(String name) {
         String resMes = "All ok";
         Pattern pattern = Pattern.compile("([A-Z]|[А-Я])([a-z]|[а-я])+");
         Matcher matcher = pattern.matcher(name);
@@ -85,7 +85,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String surnameValidate(String surname) throws ValidateException {
+    public static String surnameValidate(String surname) {
         String resMes = "All ok";
         Pattern pattern = Pattern.compile("([A-Z]|[А-Я])([a-z]|[а-я])+");
         Matcher matcher = pattern.matcher(surname);
@@ -100,7 +100,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String statusValidate(String status) throws ValidateException {
+    public static String statusValidate(String status) {
         String resMes = "All ok";
 
         if (status.isEmpty()) {
@@ -134,7 +134,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String eMailValidate(String eMail) throws ValidateException {
+    public static String eMailValidate(String eMail) {
         String resMes = "All ok";
         Pattern pattern = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
         Matcher matcher = pattern.matcher(eMail);
@@ -147,7 +147,7 @@ public class UserValidator {
         return resMes;
     }
 
-    public static String additInfoValidate(String additInfo) throws ValidateException {
+    public static String additInfoValidate(String additInfo) {
         String resMes = "All ok";
 
         if (additInfo.length() > 150) {

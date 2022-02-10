@@ -16,7 +16,7 @@ public class Order {
     private int totalAmount;
     private String paymentStatus;
     private int clientId;
-    private String clientFullName;
+    private String contactDetails;
     private String clientPhone;
     private int carId;
     private String carLicensePlate;
@@ -38,7 +38,7 @@ public class Order {
 
     public Order(int id, String criteria, Date requestDate, String departPlace, String arrivalPlace, Date startDate,
                  Date endDate, String orderStatus, int distance, int totalAmount, String paymentStatus, int clientId,
-                 String clientFullName, String clientPhone, int carId, String carLicensePlate, int driverId, String driverName, String driverSurname,
+                 String contactDetails, String clientPhone, int carId, String carLicensePlate, int driverId, String driverName, String driverSurname,
                  int adminId, String adminName, String adminSurname) {
         this.id = id;
         this.criteria = criteria;
@@ -52,7 +52,7 @@ public class Order {
         this.totalAmount = totalAmount;
         this.paymentStatus = paymentStatus;
         this.clientId = clientId;
-        this.clientFullName = clientFullName;
+        this.contactDetails = contactDetails;
         this.clientPhone = clientPhone;
         this.carId = carId;
         this.carLicensePlate = carLicensePlate;
@@ -66,7 +66,7 @@ public class Order {
 
     public Order(int id, String criteria, Date requestDate, String departPlace, String arrivalPlace, Date startDate,
                  Date endDate, String orderStatus, int distance, int totalAmount, String paymentStatus, int clientId,
-                 String clientFullName, String clientPhone, int carId, int driverId, int adminId) {
+                 String contactDetails, String clientPhone, int carId, int driverId, int adminId) {
         this.id = id;
         this.criteria = criteria;
         this.requestDate = requestDate;
@@ -79,7 +79,7 @@ public class Order {
         this.totalAmount = totalAmount;
         this.paymentStatus = paymentStatus;
         this.clientId = clientId;
-        this.clientFullName = clientFullName;
+        this.contactDetails = contactDetails;
         this.clientPhone = clientPhone;
         this.carId = carId;
         this.driverId = driverId;
@@ -88,7 +88,7 @@ public class Order {
 
     public Order(String criteria, Date requestDate, String departPlace, String arrivalPlace, Date startDate,
                  Date endDate, String orderStatus, int distance, int totalAmount, String paymentStatus, int clientId,
-                 String clientFullName, String clientPhone, int carId, int driverId, int adminId) {
+                 String contactDetails, String clientPhone, int carId, int driverId, int adminId) {
         this.criteria = criteria;
         this.requestDate = requestDate;
         this.departPlace = departPlace;
@@ -100,7 +100,7 @@ public class Order {
         this.totalAmount = totalAmount;
         this.paymentStatus = paymentStatus;
         this.clientId = clientId;
-        this.clientFullName = clientFullName;
+        this.contactDetails = contactDetails;
         this.clientPhone = clientPhone;
         this.carId = carId;
         this.driverId = driverId;
@@ -203,12 +203,12 @@ public class Order {
         this.clientId = clientId;
     }
 
-    public String getClientFullName() {
-        return clientFullName;
+    public String getContactDetails() {
+        return contactDetails;
     }
 
-    public void setClientFullName(String clientFullName) {
-        this.clientFullName = clientFullName;
+    public void setContactDetails(String contactDetails) {
+        this.contactDetails = contactDetails;
     }
 
     public String getClientPhone() {
@@ -288,12 +288,12 @@ public class Order {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return id == order.id && distance == order.distance && totalAmount == order.totalAmount && clientId == order.clientId && carId == order.carId && driverId == order.driverId && adminId == order.adminId && Objects.equals(criteria, order.criteria) && Objects.equals(requestDate, order.requestDate) && Objects.equals(departPlace, order.departPlace) && Objects.equals(arrivalPlace, order.arrivalPlace) && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate) && Objects.equals(orderStatus, order.orderStatus) && Objects.equals(paymentStatus, order.paymentStatus) && Objects.equals(clientFullName, order.clientFullName) && Objects.equals(clientPhone, order.clientPhone) && Objects.equals(carLicensePlate, order.carLicensePlate) && Objects.equals(driverName, order.driverName) && Objects.equals(driverSurname, order.driverSurname) && Objects.equals(adminName, order.adminName) && Objects.equals(adminSurname, order.adminSurname);
+        return id == order.id && distance == order.distance && totalAmount == order.totalAmount && clientId == order.clientId && carId == order.carId && driverId == order.driverId && adminId == order.adminId && Objects.equals(criteria, order.criteria) && Objects.equals(requestDate, order.requestDate) && Objects.equals(departPlace, order.departPlace) && Objects.equals(arrivalPlace, order.arrivalPlace) && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate) && Objects.equals(orderStatus, order.orderStatus) && Objects.equals(paymentStatus, order.paymentStatus) && Objects.equals(contactDetails, order.contactDetails) && Objects.equals(clientPhone, order.clientPhone) && Objects.equals(carLicensePlate, order.carLicensePlate) && Objects.equals(driverName, order.driverName) && Objects.equals(driverSurname, order.driverSurname) && Objects.equals(adminName, order.adminName) && Objects.equals(adminSurname, order.adminSurname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, criteria, requestDate, departPlace, arrivalPlace, startDate, endDate, orderStatus, distance, totalAmount, paymentStatus, clientId, clientFullName, clientPhone, carId, carLicensePlate, driverId, driverName, driverSurname, adminId, adminName, adminSurname);
+        return Objects.hash(id, criteria, requestDate, departPlace, arrivalPlace, startDate, endDate, orderStatus, distance, totalAmount, paymentStatus, clientId, contactDetails, clientPhone, carId, carLicensePlate, driverId, driverName, driverSurname, adminId, adminName, adminSurname);
     }
 
     @Override
@@ -311,7 +311,7 @@ public class Order {
                 ", totalAmount='" + totalAmount + '\'' +
                 ", paymentStatus='" + paymentStatus + '\'' +
                 ", clientId=" + clientId +
-                ", clientFullName='" + clientFullName + '\'' +
+                ", contactDetails='" + contactDetails + '\'' +
                 ", clientPhone='" + clientPhone + '\'' +
                 ", carId=" + carId +
                 ", carLicensePlate='" + carLicensePlate + '\'' +

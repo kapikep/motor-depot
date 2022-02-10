@@ -5,13 +5,13 @@ import by.epam.jwd.dao.MotorDepotDAOFactory;
 import by.epam.jwd.dao.interf.DriverDAO;
 import by.epam.jwd.dao.interf.OrderDAO;
 import by.epam.jwd.dao.interf.UserDao;
-import by.epam.jwd.entity.Driver;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.entity.Status;
-import by.epam.jwd.entity.User;
+import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
 import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.ValidateException;
+import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.DriverService;
 import by.epam.jwd.service.interf.OrderService;
 import by.epam.jwd.service.validator.OrderValidator;
@@ -27,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDAO ORDER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getOrderDao();
     private final DriverDAO DRIVER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getDriverDao();
     private final UserDao USER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
+    private final CarService CAR_SERVICE = MDServiceFactory.getMDService().getCarService();
+    private DriverService DRIVER_SERVICE = MDServiceFactory.getMDService().getDriverService();
+
 
     @Override
     public void createOrder(Map<String, String> param) throws ServiceException, ValidateException {
@@ -35,8 +38,8 @@ public class OrderServiceImpl implements OrderService {
             param.put("clientId", "1");
         }
         try {
-            findDrivers(param);
-
+            System.out.println(DRIVER_SERVICE);
+            DRIVER_SERVICE.findDriversByCar(param);
             OrderValidator.orderFieldValueValidate(param);
             Order order = createOrderEntity(param);
             ORDER_DAO.createOrder(order);
@@ -50,30 +53,14 @@ public class OrderServiceImpl implements OrderService {
         String clientId = param.get("clientId");
         if (clientId == null || "".equals(clientId)) {
             param.put("clientId", "1");
-        }else {
-            //User user = USER_DAO.readUser();
-            param.put("clientPhone", param.get("clientPhone"));
         }
         try {
-            findDrivers(param);
+            DRIVER_SERVICE.findDriversByCar(param);
             OrderValidator.orderFieldValueValidate(param);
             Order order = createOrderEntity(param);
-            System.out.println(order);
             ORDER_DAO.updateOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
-        }
-    }
-
-    private void findDrivers(Map<String, String> param) throws ValidateException, DAOException {
-        List<Driver> drivers;
-        if("All ok".equals(OrderValidator.carIdValidate(param.get("carId")))){
-            drivers = DRIVER_DAO.findDrivers("attached_car_id", param.get("carId"));
-            if (drivers.isEmpty()) {
-                throw new ValidateException("There is no attached driver", "There is no attached driver");
-            } else {
-                param.put("driverId", Integer.toString(drivers.get(0).getUserId()));
-            }
         }
     }
 
@@ -312,7 +299,7 @@ public class OrderServiceImpl implements OrderService {
         if (adminId != null && !("".equals(adminId))) {
             order.setAdminId(Integer.parseInt(adminId));
         }
-        order.setClientFullName(param.get("clientFullName"));
+        order.setContactDetails(param.get("contactDetails"));
         order.setClientPhone(param.get("clientPhone"));
         order.setCarLicensePlate(param.get("carLicensePlate"));
         order.setDriverName(param.get("driverName"));
