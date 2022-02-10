@@ -208,7 +208,7 @@ public class MariaDbOrderDAO implements OrderDAO {
 
             for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
                 String str = entry.getKey();
-                if(str.matches("(.*)(\\>|\\<|(\\<=)|(\\>=))$")){
+                if(str.matches("(.*)(>|<|(<=)|(>=))$")){
                     s.append(entry.getKey());
                     s.append("'");
                     s.append(entry.getValue());
