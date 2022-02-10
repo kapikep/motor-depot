@@ -231,7 +231,7 @@ public class MariaDbCarDAO implements CarDAO {
 
             for (Map.Entry<String, String> entry : criteriaMap.entrySet()) {
                 String str = entry.getValue();
-                if (str.matches("(\\>|\\<|(\\<=)|(\\>=))\\d+")) {
+                if (str.matches("(>|<|(<=)|(>=))\\d+")) {
                     s.append(entry.getKey());
                     s.append(entry.getValue());
                     s.append(" AND ");
