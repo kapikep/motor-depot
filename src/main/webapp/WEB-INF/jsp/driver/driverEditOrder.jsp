@@ -14,6 +14,7 @@
 <br>
 
 <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.edit_id}"/>
+<b style="color: red"><c:out value="${param.message}"/></b>
 
 <form action="driver" method="get">
     <table border="1" cellpadding="5" cellspacing="1">
