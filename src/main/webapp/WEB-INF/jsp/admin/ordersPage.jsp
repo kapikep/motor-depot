@@ -8,9 +8,9 @@
 </head>
 <body>
 <br>
-<form action="" method="post">
+<form action="" method="get">
     <fmt:message bundle="${loc}" key="table.orders"/>
-    <input name="findId" placeholder="Order №" type="search" maxlength="9" minlength="1">
+    <input name="findId" placeholder="Order №" type="search" maxlength="9" minlength="1" pattern="\d+">
     <button type="submit" name="command" value=${param.command}>
         <fmt:message bundle="${loc}" key="table.search"/>
     </button>
