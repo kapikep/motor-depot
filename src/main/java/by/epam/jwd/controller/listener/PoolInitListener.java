@@ -35,4 +35,8 @@ public class PoolInitListener implements ServletContextListener, HttpSessionList
             log.error("Catching: ", e);
         }
     }
+
+    private void testUsers(){
+
+    }
 }

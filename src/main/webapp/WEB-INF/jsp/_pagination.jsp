@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form method="get">
+<form method="post">
     <select name="rowLimit">
         <c:forEach var="i" begin="10" end="90" step="10">
             <c:choose>

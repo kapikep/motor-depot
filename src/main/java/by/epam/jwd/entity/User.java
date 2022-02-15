@@ -144,7 +144,9 @@ public class User implements Serializable{
 		if (this == o) return true;
 		if (!(o instanceof User)) return false;
 		User user = (User) o;
-		return id == user.id && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(photo, user.photo) && status == user.status && Objects.equals(eMail, user.eMail) && Objects.equals(additionalInfo, user.additionalInfo) && role == user.role;
+		return id == user.id && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(login, user.login) && Objects.equals(password, user.password) &&
+				Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(photo, user.photo) && status == user.status && Objects.equals(eMail, user.eMail) &&
+				Objects.equals(additionalInfo, user.additionalInfo) && role == user.role;
 	}
 
 	@Override

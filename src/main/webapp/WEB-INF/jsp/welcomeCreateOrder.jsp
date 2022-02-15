@@ -12,11 +12,11 @@
 </head>
 <body>
 <link href="css/welcCreateOrder.css" rel="stylesheet" >
-<form class="form" action="welcome" method="get">
+<form class="form" action="welcome" method="post">
     <input type="hidden" name="command" value="CreateOrder">
     <h2><fmt:message bundle="${loc}" key="welcome.createOrder"/></h2>
-    <p type="Full name:"><input placeholder="Write your name here.." name="fullName"></input></p>
-    <p type="Phone"><input placeholder="Let us know how to contact you back.." name="phone"></input></p>
+    <p type="Full name:"><input placeholder="Write your name here.." name="contactDetails"></input></p>
+    <p type="Phone"><input placeholder="Let us know how to contact you back.." name="clientPhone"></input></p>
     <p type="Message:"><input placeholder="What kind of car do you need" name="criteria"></input></p>
     <button><fmt:message bundle="${loc}" key="table.send"/></button>
     <div>

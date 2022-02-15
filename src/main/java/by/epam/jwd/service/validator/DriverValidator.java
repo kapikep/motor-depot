@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DriverValidator {
-
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
     public static String categoryValidate(String category) {
@@ -38,23 +37,23 @@ public class DriverValidator {
         return resMes;
     }
 
-    public static String dateOfEmploymentValidate(String date){
+    public static String dateOfEmploymentValidate(String date) {
         String resMes = "All ok";
-        try{
+        try {
             sdf.parse(date);
-        }catch (ParseException  e){
+        } catch (ParseException e) {
             resMes = "incorrectDateOfEmployment";
         }
         return resMes;
     }
 
-    public static String dateOfDismissalValidate(String dismDateStr, String emplDateStr){
+    public static String dateOfDismissalValidate(String dismDateStr, String emplDateStr) {
         String resMes = "All ok";
         Date dismDate = null;
         Date emplDate = null;
 
-        if(dismDateStr != null && !"".equals(dismDateStr)
-        && emplDateStr != null && !"".equals(emplDateStr)) {
+        if (dismDateStr != null && !"".equals(dismDateStr)
+                && emplDateStr != null && !"".equals(emplDateStr)) {
             try {
                 try {
                     emplDate = sdf.parse(emplDateStr);
@@ -121,5 +120,4 @@ public class DriverValidator {
             throw new ValidateException(res, locRes);
         }
     }
-
 }

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Car extends CarModel  {
+
 	private static final long serialVersionUID = 1L;
+
 	private int id;
     private String licencePlate;
     private String color;
@@ -111,7 +113,8 @@ public class Car extends CarModel  {
         if (!(o instanceof Car)) return false;
         if (!super.equals(o)) return false;
         Car car = (Car) o;
-        return id == car.id && carModelId == car.carModelId && Objects.equals(licencePlate, car.licencePlate) && Objects.equals(color, car.color) && Objects.equals(odometr, car.odometr) && Objects.equals(status, car.status) && Objects.equals(photo, car.photo);
+        return id == car.id && carModelId == car.carModelId && Objects.equals(licencePlate, car.licencePlate) && Objects.equals(color, car.color) &&
+                Objects.equals(odometr, car.odometr) && Objects.equals(status, car.status) && Objects.equals(photo, car.photo);
     }
 
     @Override

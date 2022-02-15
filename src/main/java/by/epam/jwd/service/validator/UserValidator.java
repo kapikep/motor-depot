@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserValidator {
-
     private static final UserDao userDao = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
 
     public static String idValidate(String id) throws ValidateException {

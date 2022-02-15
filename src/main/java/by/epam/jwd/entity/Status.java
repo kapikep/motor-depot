@@ -1,8 +1,6 @@
 package by.epam.jwd.entity;
 
-import java.io.Serializable;
-
-public enum Status implements Serializable {
+public enum Status{
     ACTIVE,
     BLOCK,
     UNREGISTERED,

@@ -8,7 +8,7 @@
 </head>
 <body>
 <br>
-<form action="" method="get">
+<form action="" method="post">
     <fmt:message bundle="${loc}" key="table.orders"/>
     <input name="findId" placeholder="Order №" type="search" maxlength="9" minlength="1">
     <button type="submit" name="command" value=${param.command}>

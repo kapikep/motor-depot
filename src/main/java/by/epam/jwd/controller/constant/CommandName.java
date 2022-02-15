@@ -46,7 +46,4 @@ public final class CommandName {
     public static final String CUSTOMER_COMMAND = "customer?command=";
     public static final String GO_TO_CUSTOMER_MAIN_PAGE = "GoToCustomerMainPage";
     public static final String GO_TO_CUSTOMER_EDIT_ORDER = "GoToCustomerEditOrder";
-
-
-
 }

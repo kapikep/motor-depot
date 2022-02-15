@@ -25,9 +25,6 @@ import java.util.Map;
 
 public class OrderServiceImpl implements OrderService {
     private final OrderDAO ORDER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getOrderDao();
-    private final DriverDAO DRIVER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getDriverDao();
-    private final UserDao USER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getUserDao();
-    private final CarService CAR_SERVICE = MDServiceFactory.getMDService().getCarService();
     private DriverService DRIVER_SERVICE = MDServiceFactory.getMDService().getDriverService();
 
 
@@ -111,9 +108,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createNotApproveOrder(Map<String, String> param) throws ServiceException {
+    public void createNotApproveOrder(Map<String, String> param) throws ServiceException, ValidateException {
         Order order;
         try {
+            OrderValidator.orderFieldValueValidate(param);
             order = createOrderEntity(param);
             order.setOrderStatus(Status.NOT_APPROVE.toString());
             order.setRequestDate(new Date());

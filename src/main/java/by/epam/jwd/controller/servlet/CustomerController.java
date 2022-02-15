@@ -26,9 +26,6 @@ public class CustomerController extends HttpServlet {
 
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession(true);
-//        session.setAttribute("role", Role.CUSTOMER);
-//        session.setAttribute("userId", 7);
-//        session.setAttribute("userFullName", "Vasilij");
 
         if(session.getAttribute("role") == Role.CUSTOMER) {
             if (commandName != null) {

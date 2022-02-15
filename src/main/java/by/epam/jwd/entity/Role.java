@@ -1,8 +1,6 @@
 package by.epam.jwd.entity;
 
-import java.io.Serializable;
-
-public enum Role implements Serializable {
+public enum Role{
 
     ADMIN(1), CUSTOMER(2), DRIVER(3);
 

@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DriverServiceImpl implements DriverService {
-
     private final DriverDAO DRIVER_DAO = MotorDepotDAOFactory.getMotorDepotDAOFactory().getDriverDao();
     private final UserService USER_SERVICE = MDServiceFactory.getMDService().getUserService();
 

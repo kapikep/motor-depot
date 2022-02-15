@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2><fmt:message bundle="${loc}" key="welcome.signIn"/></h2>
-<form action="welcome" method="get">
+<form action="welcome" method="post">
     <input type="hidden" name="command" value="SignIn">
     Login: <input type="text" name="login"/> <br>
     Password: <input type="password" name="password" value="" size="16"/> <br>

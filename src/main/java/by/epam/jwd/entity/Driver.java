@@ -116,7 +116,8 @@ public class Driver extends User implements Serializable {
         if (!(o instanceof Driver)) return false;
         if (!super.equals(o)) return false;
         Driver driver = (Driver) o;
-        return id == driver.id && drivingExperience == driver.drivingExperience && attachedCarId == driver.attachedCarId && Objects.equals(category, driver.category) && Objects.equals(dateOfEmployment, driver.dateOfEmployment) && Objects.equals(dateOfDismissal, driver.dateOfDismissal) && Objects.equals(licensePlate, driver.licensePlate);
+        return id == driver.id && drivingExperience == driver.drivingExperience && attachedCarId == driver.attachedCarId && Objects.equals(category, driver.category) &&
+                Objects.equals(dateOfEmployment, driver.dateOfEmployment) && Objects.equals(dateOfDismissal, driver.dateOfDismissal) && Objects.equals(licensePlate, driver.licensePlate);
     }
 
     @Override
