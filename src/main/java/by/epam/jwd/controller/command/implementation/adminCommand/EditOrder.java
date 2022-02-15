@@ -60,8 +60,7 @@ public class EditOrder implements Command {
             log.error("Catching: ", e);
         } catch (ValidateException e) {
             exception = true;
-            //log.debug("Catching: ", e);
-            //System.out.println(e.getMessage());
+            log.debug("Catching: ", e);
             resMessage = e.getLocalizedMessage();
         }
         if (exception) {
@@ -72,7 +71,7 @@ public class EditOrder implements Command {
             }
             if(resMessage == null){
                 resMessage = bundle.getString("message.somethingWrong");
-            }//TODO add to other
+            }
             session.setAttribute("wrongEnteredOrder", order);
             response.sendRedirect(CommandName.ADMIN_COMMAND + CommandName.GO_TO_ADMIN_EDIT_ORDER + "&message=" +
                     URLEncoder.encode(resMessage, "UTF-8") + "&editId=" + request.getParameter("editId") + "&flag=" + flag);

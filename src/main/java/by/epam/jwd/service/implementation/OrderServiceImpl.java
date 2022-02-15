@@ -65,15 +65,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(String updateOrderId, Map<String, String> updParam) throws ServiceException, ValidateException {
+    public Order updateOrder(String updateOrderId, Map<String, String> updParam) throws ServiceException, ValidateException {
         Order order;
         try {
             order = ORDER_DAO.readOrder(ServiceUtil.parseInt(updateOrderId));
             OrderValidator.orderFieldValueValidate(updParam);
-
+            order = updateOrderEntity(order, updParam);
+            ORDER_DAO.updateOrder(order);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
+        return order;
     }
 
     @Override
@@ -258,15 +260,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrderEntity(Map<String, String> param) throws ServiceException {
+        Order order = new Order();
+        return getOrder(order, param);
+    }
+
+    @Override
+    public Order updateOrderEntity(Order order, Map<String, String> param) throws ServiceException {
+        return getOrder(order, param);
+    }
+
+    private Order getOrder(Order order, Map<String, String> param) throws ServiceException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         SimpleDateFormat sdfTimestamp = new SimpleDateFormat("yy-MM-dd HH:mm:ss.SSS");
-        Order order = new Order();
 
         String id = param.get("id");
         if (id != null && !("".equals(id))) {
             order.setId(Integer.parseInt(id));
         }
-        order.setCriteria(param.get("criteria"));
+        String criteria = param.get("criteria");
+        if(criteria != null && !("".equals(criteria))){
+            order.setCriteria(criteria);
+        }
         try {
             String requestDateStr = param.get("requestDate");
             if (requestDateStr != null && !("".equals(requestDateStr))) {
@@ -283,9 +297,18 @@ public class OrderServiceImpl implements OrderService {
         } catch (ParseException e) {
             throw new ServiceException(e);
         }
-        order.setDepartPlace(param.get("departPlace"));
-        order.setArrivalPlace(param.get("arrivalPlace"));
-        order.setOrderStatus(param.get("status"));
+        String departPlace = param.get("departPlace");
+        if(departPlace != null && !("".equals(departPlace))){
+            order.setDepartPlace(departPlace);
+        }
+        String arrivalPlace = param.get("arrivalPlace");
+        if(arrivalPlace != null && !("".equals(arrivalPlace))){
+            order.setArrivalPlace(arrivalPlace);
+        }
+        String status = param.get("status");
+        if(status != null && !("".equals(status))){
+            order.setOrderStatus(status);
+        }
         String distanceStr = param.get("distance");
         if (distanceStr != null && !("".equals(distanceStr))) {
             order.setDistance(Integer.parseInt(distanceStr));
@@ -311,14 +334,34 @@ public class OrderServiceImpl implements OrderService {
         if (adminId != null && !("".equals(adminId))) {
             order.setAdminId(Integer.parseInt(adminId));
         }
-        order.setContactDetails(param.get("contactDetails"));
-        order.setClientPhone(param.get("clientPhone"));
-        order.setCarLicensePlate(param.get("carLicensePlate"));
-        order.setDriverName(param.get("driverName"));
-        order.setDriverSurname(param.get("driverSurname"));
-        order.setAdminName(param.get("adminName"));
-        order.setAdminSurname(param.get("adminSurname"));
-
+        String contactDetails = param.get("contactDetails");
+        if(contactDetails != null && !("".equals(contactDetails))){
+            order.setContactDetails(contactDetails);
+        }
+        String clientPhone = param.get("clientPhone");
+        if(clientPhone != null && !("".equals(clientPhone))){
+            order.setClientPhone(clientPhone);
+        }
+        String carLicensePlate = param.get("carLicensePlate");
+        if(carLicensePlate != null && !("".equals(carLicensePlate))){
+            order.setCarLicensePlate(carLicensePlate);
+        }
+        String driverName = param.get("driverName");
+        if(driverName != null && !("".equals(driverName))){
+            order.setDriverName(driverName);
+        }
+        String driverSurname = param.get("driverSurname");
+        if(driverSurname != null && !("".equals(driverSurname))){
+            order.setDriverSurname(driverSurname);
+        }
+        String adminName = param.get("adminName");
+        if(adminName != null && !("".equals(adminName))){
+            order.setAdminName(adminName);
+        }
+        String adminSurname = param.get("adminSurname");
+        if(adminSurname != null && !("".equals(adminSurname))){
+            order.setAdminSurname(adminSurname);
+        }
         return order;
     }
 }

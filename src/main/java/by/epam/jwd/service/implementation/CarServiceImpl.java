@@ -200,7 +200,6 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void updateCar(Car car) throws ServiceException {
-
         try {
             //TODO validate
             CAR_DAO.updateCar(car);

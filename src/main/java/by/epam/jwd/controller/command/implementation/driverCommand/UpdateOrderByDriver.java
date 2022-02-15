@@ -35,12 +35,10 @@ public class UpdateOrderByDriver implements Command {
         CarService carService = MDServiceFactory.getMDService().getCarService();
         String resMessage = null;
         boolean exception = false;
-
+        String editId = request.getParameter("edit_id");
         Map<String, String> param = new HashMap<>();
         Order order = null;
         Car car = null;
-
-        String editId = request.getParameter("edit_id");
 
         param.put("editId", editId);
         param.put("criteria", request.getParameter("criteria"));
@@ -52,12 +50,12 @@ public class UpdateOrderByDriver implements Command {
         param.put("status", request.getParameter("orderStatus"));
 
         try {
-            order = orderService.readOrder(editId);
+            order = orderService.updateOrder(editId, param);
             car = carService.readCar(order.getCarId());
             car.setStatus(request.getParameter("carStatus"));
             car.setOdometr(ServiceUtil.parseInt(request.getParameter("odometr")));
             carService.updateCar(car);
-            orderService.updateOrder(param);
+            session.setAttribute("wrongInputOrder", null);
             resMessage = bundle.getString("message.updateDone");
         } catch (ServiceException e) {
             exception = true;
@@ -69,18 +67,11 @@ public class UpdateOrderByDriver implements Command {
         }
 
         if (exception) {
-            try {
-                order = orderService.createOrderEntity(param);
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
-
-            session.setAttribute("wrongInputOrder", order);
-
             response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_EDIT_ORDER + "&message=" +
                     URLEncoder.encode(resMessage, "UTF-8") + "&edit_id=" + editId);
         } else {
-            response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_ORDERS_PAGE + "&message=" + URLEncoder.encode(resMessage, "UTF-8"));
+            response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_ORDERS_PAGE + "&message=" +
+                    URLEncoder.encode(resMessage, "UTF-8"));
         }
     }
 }

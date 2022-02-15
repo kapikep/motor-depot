@@ -35,11 +35,9 @@ public class GoToDriverOrdersPage  implements Command {
         } else {
             rowLimit = (String) request.getSession().getAttribute("rowLimit");
         }
-
         if (page == null || "".equals(page)) {
             page = "1";
         }
-
         try {
             if (id == null) {
                 orders = orderService.readOrders(page, rowLimit, "driver_id", Integer.toString(userId));

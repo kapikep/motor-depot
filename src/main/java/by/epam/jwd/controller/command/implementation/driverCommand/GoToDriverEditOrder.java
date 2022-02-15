@@ -28,7 +28,7 @@ public class GoToDriverEditOrder implements Command {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
         Car car = null;
-        Order order = null;
+        Order order = (Order) request.getSession().getAttribute("wrongEnteredOrder");
         String editId = request.getParameter("edit_id");
         try {
             if(editId != null && !("".equals(editId))) {

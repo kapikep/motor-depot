@@ -13,7 +13,7 @@ public interface OrderService {
 
     void updateOrder(Map<String, String> param) throws ServiceException, ValidateException;
 
-    void updateOrder(String updateOrderId, Map<String, String> updParam) throws ServiceException, ValidateException;
+    Order updateOrder(String updateOrderId, Map<String, String> updParam) throws ServiceException, ValidateException;
 
     List<Order> readOrders(Map<String, String> param) throws ServiceException;
 
@@ -46,4 +46,6 @@ public interface OrderService {
     List<Order> readOrders(String page, String limit, String whereParam, String whereValue) throws ServiceException;
 
     Order createOrderEntity(Map<String, String> param) throws ServiceException;
+
+    Order updateOrderEntity(Order order, Map<String, String> param) throws ServiceException;
 }
