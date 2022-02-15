@@ -71,7 +71,7 @@
             <th><fmt:message bundle="${loc}" key="table.car.weelDr"/></th>
         </tr>
         <tr>
-            <td><input type="text" name="modelName" value="${car.modelName}" placeholder="Nissan Murano" size="7" maxlength="13"/></td>
+            <td><input type="text" name="modelName" value="${car.modelName}" placeholder="Mercedes-Benz Sprinter" size="7" maxlength="30"/></td>
             <td><input type="text" name="type" value="${car.type}" placeholder="Van" size="5" maxlength="9"/></td>
             <td><input type="text" name="loadCapacity" value="${car.loadCapacity}" placeholder="1000" size="5" maxlength="9" pattern="^[ 0-9]+$"/></td>
             <td><input type="number" name="passengerCapacity" value="${car.passengerCapacity}" placeholder="8" size="4" maxlength="4"></td>

@@ -26,9 +26,9 @@ public class DriverController extends HttpServlet {
 
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession(true);
-//        session.setAttribute("role", Role.DRIVER);
-//        session.setAttribute("userId", 5);
-//        session.setAttribute("userFullName", "Boris");
+        session.setAttribute("role", Role.DRIVER);
+        session.setAttribute("userId", 5);
+        session.setAttribute("userFullName", "Boris");
 
         if(session.getAttribute("role") == Role.DRIVER) {
             if (commandName != null) {

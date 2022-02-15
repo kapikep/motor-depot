@@ -20,7 +20,7 @@
 
 <jsp:include page="/WEB-INF/jsp/driver/_pagination.jsp"/>
 
-<c:out value="${param.message}"/>
+<b style="color: red"><c:out value="${param.message}"/></b>
 
 <table border="1" cellpadding="5" cellspacing="1">
     <tr>

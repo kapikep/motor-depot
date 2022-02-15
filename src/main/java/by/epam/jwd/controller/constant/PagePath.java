@@ -12,7 +12,7 @@ public final class PagePath {
     //Driver zone
     public static final String MAIN_DRIVER_PAGE = DEFAULT_PATH + "driver/mainDriverPage.jsp";
     public static final String ORDERS_DRIVER_PAGE = DEFAULT_PATH + "driver/ordersForDriver.jsp";
-    public static final String SIMPLE_EDIT_ORDER = DEFAULT_PATH + "driver/driverEditOrder.jsp";
+    public static final String DRIVER_EDIT_ORDER = DEFAULT_PATH + "driver/driverEditOrder.jsp";
     //Customer zone
     public static final String MAIN_CUSTOMER_PAGE = DEFAULT_PATH + "customer/mainCustomerPage.jsp";
     public static final String CUSTOMER_EDIT_ORDER_PAGE = DEFAULT_PATH + "customer/customerEditOrder.jsp";
@@ -27,15 +27,4 @@ public final class PagePath {
     public static final String ADMIN_EDIT_ORDER_PAGE = DEFAULT_PATH + "admin/editOrderPage.jsp";
     public static final String ADMIN_EDIT_DRIVER_PAGE = DEFAULT_PATH + "admin/editDriverPage.jsp";
     public static final String ADMIN_EDIT_USER_PAGE = DEFAULT_PATH + "admin/editUserPage.jsp";
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
-//    public static final String
 }

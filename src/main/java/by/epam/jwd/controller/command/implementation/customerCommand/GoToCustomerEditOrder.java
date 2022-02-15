@@ -49,6 +49,6 @@ public class GoToCustomerEditOrder implements Command {
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }
-        request.getRequestDispatcher(PagePath.SIMPLE_EDIT_ORDER).forward(request, response);
+        request.getRequestDispatcher(PagePath.DRIVER_EDIT_ORDER).forward(request, response);
     }
 }

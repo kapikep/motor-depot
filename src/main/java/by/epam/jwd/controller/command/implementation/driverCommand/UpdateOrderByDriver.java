@@ -6,6 +6,7 @@ import by.epam.jwd.entity.Car;
 import by.epam.jwd.entity.Order;
 import by.epam.jwd.service.MDServiceFactory;
 import by.epam.jwd.service.ServiceException;
+import by.epam.jwd.service.ServiceUtil;
 import by.epam.jwd.service.ValidateException;
 import by.epam.jwd.service.interf.CarService;
 import by.epam.jwd.service.interf.OrderService;
@@ -15,9 +16,12 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class UpdateOrderByDriver implements Command {
 
@@ -25,52 +29,59 @@ public class UpdateOrderByDriver implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        ResourceBundle bundle = (ResourceBundle) session.getAttribute("bundle");
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
-        String message = "Update done";
+        String resMessage = null;
+        boolean exception = false;
 
         Map<String, String> param = new HashMap<>();
         Order order = null;
         Car car = null;
 
-        String edit_id = request.getParameter("edit_id");
-        try {
-            order = orderService.readOrder(edit_id);
-            car = carService.readCar(order.getCarId());
-            car.setStatus(request.getParameter("carStatus"));
-            carService.updateCar(car);
-        } catch (ServiceException e) {
-            log.error("Catching: ", e);
-        }
+        String editId = request.getParameter("edit_id");
 
-        param.put("editId", request.getParameter("edit_id"));
+        param.put("editId", editId);
         param.put("criteria", request.getParameter("criteria"));
         param.put("departPlace", request.getParameter("departPlace"));
         param.put("arrivalPlace", request.getParameter("arrivalPlace"));
         param.put("startDate", request.getParameter("startDate"));
         param.put("endDate", request.getParameter("endDate"));
         param.put("distance", request.getParameter("distance"));
-        param.put("totalAmount", Integer.toString(order.getTotalAmount()));
-        param.put("paymentStatus", order.getPaymentStatus());
-        param.put("status", request.getParameter("status"));
-        param.put("contactDetails", order.getContactDetails());
-        param.put("clientPhone", order.getClientPhone());
-        param.put("adminName", order.getAdminName());
-        param.put("carId", Integer.toString(order.getCarId()));
-        param.put("clientId", Integer.toString(order.getClientId()));
-        param.put("adminId", Integer.toString(order.getAdminId()));
-        param.put("driverId", request.getSession().getAttribute("userId").toString());
+        param.put("status", request.getParameter("orderStatus"));
 
+        try {
+            order = orderService.readOrder(editId);
+            car = carService.readCar(order.getCarId());
+            car.setStatus(request.getParameter("carStatus"));
+            car.setOdometr(ServiceUtil.parseInt(request.getParameter("odometr")));
+            carService.updateCar(car);
+            orderService.updateOrder(param);
+            resMessage = bundle.getString("message.updateDone");
+        } catch (ServiceException e) {
+            exception = true;
+            resMessage = bundle.getString("message.somethingWrong");
+            log.error("Catching: ", e);
+        } catch (ValidateException e) {
+            exception = true;
+            resMessage = e.getLocalizedMessage();
+        }
+
+        if (exception) {
             try {
-                orderService.updateOrder(param);
+                order = orderService.createOrderEntity(param);
             } catch (ServiceException e) {
-                message = "Something wrong";
-                log.error("Catching: ", e);
-            } catch (ValidateException e) {
                 e.printStackTrace();
             }
-        response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_ORDERS_PAGE + "&message=" + message);
+
+            session.setAttribute("wrongInputOrder", order);
+
+            response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_EDIT_ORDER + "&message=" +
+                    URLEncoder.encode(resMessage, "UTF-8") + "&edit_id=" + editId);
+        } else {
+            response.sendRedirect(CommandName.DRIVER_COMMAND + CommandName.GO_TO_DRIVER_ORDERS_PAGE + "&message=" + URLEncoder.encode(resMessage, "UTF-8"));
+        }
     }
 }
 

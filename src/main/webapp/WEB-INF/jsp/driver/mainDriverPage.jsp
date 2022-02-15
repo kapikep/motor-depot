@@ -13,7 +13,7 @@
 <fmt:message bundle="${loc}" key="table.orders"/>
 <br>
 <br>
-<c:out value="${param.message}"/>
+<b style="color: red"><c:out value="${param.message}"/></b>
 
 <table border="1" cellpadding="5" cellspacing="1">
     <tr>

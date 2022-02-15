@@ -65,6 +65,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void updateOrder(String updateOrderId, Map<String, String> updParam) throws ServiceException, ValidateException {
+        Order order;
+        try {
+            order = ORDER_DAO.readOrder(ServiceUtil.parseInt(updateOrderId));
+            OrderValidator.orderFieldValueValidate(updParam);
+
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Order> readOrders(Map<String, String> param) throws ServiceException {
         List<Order> orders = null;
         try {

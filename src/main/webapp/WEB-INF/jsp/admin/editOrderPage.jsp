@@ -14,14 +14,12 @@
 <form action="admin" method="get">
     <c:if test="${param.flag == 'create'}">
         <fmt:message bundle="${loc}" key="table.order.createNewOrder"/>
-        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}"
-                                                                            key="table.create"/></button>
+        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}" key="table.create"/></button>
     </c:if>
 
     <c:if test="${param.flag == 'update'}">
         <fmt:message bundle="${loc}" key="table.order.orderNumber"/><c:out value="${param.editId}"/>
-        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}"
-                                                                            key="table.update"/></button>
+        <button type="submit" name="command" value="EditOrder"><fmt:message bundle="${loc}" key="table.update"/></button>
         <input type="hidden" name="editId" value="${order.id}">
     </c:if>
     <input type="hidden" name="flag" value="${param.flag}">

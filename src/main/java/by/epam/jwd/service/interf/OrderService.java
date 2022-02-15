@@ -13,6 +13,8 @@ public interface OrderService {
 
     void updateOrder(Map<String, String> param) throws ServiceException, ValidateException;
 
+    void updateOrder(String updateOrderId, Map<String, String> updParam) throws ServiceException, ValidateException;
+
     List<Order> readOrders(Map<String, String> param) throws ServiceException;
 
     void updateOrder(Order order) throws ServiceException;

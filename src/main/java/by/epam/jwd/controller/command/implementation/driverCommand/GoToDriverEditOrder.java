@@ -17,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 public class GoToDriverEditOrder implements Command {
@@ -28,26 +27,21 @@ public class GoToDriverEditOrder implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OrderService orderService = MDServiceFactory.getMDService().getOrderService();
         CarService carService = MDServiceFactory.getMDService().getCarService();
-        List<Order> orders = null;
-        List<CarModel> carModels = null;
-        List<String> carTypes = null;
         Car car = null;
         Order order = null;
-        String driverName = (String) request.getSession().getAttribute("userFullName");
-        String edit_id = request.getParameter("edit_id");
+        String editId = request.getParameter("edit_id");
         try {
-            if(edit_id != null && !("".equals(edit_id))) {
-                order = orderService.readOrder(edit_id);
+            if(editId != null && !("".equals(editId))) {
+                order = orderService.readOrder(editId);
                 car = carService.readCar(Integer.toString(order.getCarId()));
             }else {
                 request.getRequestDispatcher(PagePath.ORDERS_DRIVER_PAGE).forward(request, response);
             }
-
             request.setAttribute("order", order);
             request.setAttribute("car", car);
         } catch (ServiceException e) {
             log.error("Catching: ", e);
         }
-        request.getRequestDispatcher(PagePath.SIMPLE_EDIT_ORDER).forward(request, response);
+        request.getRequestDispatcher(PagePath.DRIVER_EDIT_ORDER).forward(request, response);
     }
 }

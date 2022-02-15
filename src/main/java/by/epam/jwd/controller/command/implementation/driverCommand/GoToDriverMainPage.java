@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
 
 public class GoToDriverMainPage implements Command {
@@ -28,8 +29,9 @@ public class GoToDriverMainPage implements Command {
         int userId = (int) request.getSession().getAttribute("userId");
 
         try {
+            Date date = new Timestamp(new Date().getTime());
             map.put("driver_id", Integer.toString(userId));
-            map.put("start_date>", new Date().toString());
+            map.put("start_date>", date.toString());
             orders = orderService.readOrders(map);
         } catch (ServiceException e) {
             log.error("Catching: ", e);
