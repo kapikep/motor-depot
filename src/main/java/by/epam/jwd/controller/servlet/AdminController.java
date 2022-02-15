@@ -23,7 +23,6 @@ public class AdminController extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String commandName = request.getParameter("command");
         HttpSession session = request.getSession();
 
