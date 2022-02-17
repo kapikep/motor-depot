@@ -37,6 +37,7 @@ public class EditOrder implements Command {
         Order order = null;
 
         fillingOrderParamMap(request, param);
+        param.put("locale", (String) request.getSession().getAttribute("locale"));
 
         try {
             if ("create".equals(flag)) {
