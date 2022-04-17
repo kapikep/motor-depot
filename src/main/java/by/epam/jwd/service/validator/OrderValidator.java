@@ -237,7 +237,6 @@ public class OrderValidator {
             }
 
             if (!"All ok".equals(methodRes)) {
-                System.out.println(locale);
                 ResourceBundle resourceBundle = ResourceBundle.getBundle("localization.validatorMessages", locale);
                 if (resourceBundle.containsKey(methodRes)) {
                     locResMes.append(resourceBundle.getString(methodRes));
